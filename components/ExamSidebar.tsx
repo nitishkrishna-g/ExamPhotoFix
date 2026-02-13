@@ -71,10 +71,10 @@ export function ExamSidebar({ className, ...props }: SidebarProps) {
                 <Button
                     variant="default"
                     size="icon"
-                    className="rounded-l-none rounded-r-full h-14 w-12 shadow-xl border-l-0 bg-primary text-primary-foreground hover:bg-primary/90 transition-all active:scale-95"
+                    className="rounded-l-none rounded-r-md h-24 w-8 shadow-xl border-l-0 bg-primary text-primary-foreground hover:bg-primary/90 transition-all active:scale-95 flex items-center justify-center p-0"
                     onClick={() => setIsOpen(true)}
                 >
-                    <Menu className="h-6 w-6" />
+                    <Menu className="h-6 w-6 rotate-90" />
                     <span className="sr-only">Open Sidebar</span>
                 </Button>
             </div>
