@@ -144,27 +144,73 @@ export const compressToTargetSize = compressToTargetKB;
  * Adds a date strip to the bottom of the photo.
  * Modifies the canvas in place.
  */
-export function addDateToPhoto(canvas: HTMLCanvasElement, dateString: string) {
+/**
+ * Adds a text strip to the bottom of the photo.
+ * Supports single line (Date) or double line (Name + Date).
+ * Modifies the canvas in place.
+ */
+export function addDateToPhoto(canvas: HTMLCanvasElement, dateString: string, nameString?: string) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     const width = canvas.width;
     const height = canvas.height;
 
-    const stripHeight = height * 0.15;
-    const yStart = height - stripHeight;
+    // Helper to scale text to fit width
+    const drawScaledText = (text: string, x: number, y: number, maxWidth: number, maxFontSize: number) => {
+        let fontSize = maxFontSize;
+        ctx.font = `bold ${fontSize}px Arial, sans-serif`;
 
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, yStart, width, stripHeight);
+        // Reduce font size until it fits
+        while (ctx.measureText(text).width > maxWidth && fontSize > 10) {
+            fontSize -= 2;
+            ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+        }
 
-    ctx.fillStyle = 'black';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+        ctx.fillText(text, x, y);
+    };
 
-    const fontSize = Math.floor(stripHeight * 0.6);
-    ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+    if (nameString) {
+        // Two lines: Name on top, Date on bottom
+        // Increased strip height to 22% (was 20%) for more breathing room
+        const stripHeight = height * 0.22;
+        const yStart = height - stripHeight;
 
-    ctx.fillText(dateString, width / 2, yStart + (stripHeight / 2));
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, yStart, width, stripHeight);
+
+        ctx.fillStyle = 'black';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // Reduced base font size to 32% (was 35%)
+        const maxFontSize = Math.floor(stripHeight * 0.32);
+        const maxWidth = width * 0.90; // Leave 5% margin on each side
+
+        // Name at 30% of strip height
+        drawScaledText(nameString.toUpperCase(), width / 2, yStart + (stripHeight * 0.3), maxWidth, maxFontSize);
+
+        // Date at 75% of strip height
+        drawScaledText(dateString, width / 2, yStart + (stripHeight * 0.75), maxWidth, maxFontSize);
+
+    } else {
+        // Single line: Date only
+        const stripHeight = height * 0.15;
+        const yStart = height - stripHeight;
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, yStart, width, stripHeight);
+
+        ctx.fillStyle = 'black';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // Reduced to 55% (was 60%)
+        const maxFontSize = Math.floor(stripHeight * 0.55);
+        const maxWidth = width * 0.90;
+
+        drawScaledText(dateString, width / 2, yStart + (stripHeight / 2), maxWidth, maxFontSize);
+    }
 }
 
 /* Alias for Prompt Requirement */

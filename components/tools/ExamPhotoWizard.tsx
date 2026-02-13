@@ -25,6 +25,7 @@ interface WizardProps {
         maxKB?: number;
         features?: {
             dateOnPhoto?: boolean;
+            nameAndDateOnPhoto?: boolean;
             forceSquare?: boolean;
             isSignature?: boolean;
             isDeclaration?: boolean;
@@ -41,9 +42,10 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
     // State for Target KB input (default to maxKB)
     const [targetKB, setTargetKB] = useState(config.maxKB || 50);
 
-    // State for Date
-    const [addDate, setAddDate] = useState(config.features?.dateOnPhoto || false);
+    // State for Date & Name
+    const [addDate, setAddDate] = useState(config.features?.dateOnPhoto || config.features?.nameAndDateOnPhoto || false);
     const [dateValue, setDateValue] = useState(new Date().toISOString().split('T')[0]); // YYYY-MM-DD
+    const [nameValue, setNameValue] = useState("");
 
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
     const [finalImage, setFinalImage] = useState<string | null>(null);
@@ -54,7 +56,7 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
     // Update defaults if config changes
     useEffect(() => {
         setTargetKB(config.maxKB || 50);
-        setAddDate(config.features?.dateOnPhoto || false);
+        setAddDate(config.features?.dateOnPhoto || config.features?.nameAndDateOnPhoto || false);
     }, [config]);
 
     const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
@@ -90,11 +92,19 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
             const targetHeight = config.height || 400;
             canvas = resizeCanvas(canvas, targetWidth, targetHeight);
 
-            // 3. Draw Date (if enabled)
-            if (config.features?.dateOnPhoto && addDate) {
+            // 3. Draw Date / Name (if enabled)
+            if ((config.features?.dateOnPhoto || config.features?.nameAndDateOnPhoto) && addDate) {
                 const [yyyy, mm, dd] = dateValue.split('-');
                 const formattedDate = `${dd}-${mm}-${yyyy}`;
-                addDateToPhoto(canvas, `DOP: ${formattedDate}`);
+
+                let dateText = `DOP: ${formattedDate}`;
+                // For UPSC/NEET, they might just want the date without "DOP:" prefix or specific format. 
+                // Using standard format for now.
+
+                // If name is required
+                const nameText = config.features?.nameAndDateOnPhoto ? nameValue : undefined;
+
+                addDateToPhoto(canvas, dateText, nameText);
             }
 
             // 4. Compress to Target KB
@@ -194,7 +204,7 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
                                         min={1}
                                         max={3}
                                         step={0.1}
-                                        onValueChange={(v) => setZoom(v[0])}
+                                        onValueChange={(v: number[]) => setZoom(v[0])}
                                         className="flex-1"
                                     />
                                 </div>
@@ -227,10 +237,10 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
                                             <Checkbox
                                                 id="date"
                                                 checked={addDate}
-                                                onCheckedChange={(c) => setAddDate(c as boolean)}
+                                                onCheckedChange={(c: boolean) => setAddDate(c)}
                                             />
                                             <Label htmlFor="date" className="cursor-pointer font-bold text-yellow-900">
-                                                Add Date of Photo (Required)
+                                                Add Date of Photo
                                             </Label>
                                         </div>
                                         {addDate && (
@@ -239,6 +249,42 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
                                                 value={dateValue}
                                                 onChange={(e) => setDateValue(e.target.value)}
                                             />
+                                        )}
+                                    </div>
+                                )}
+
+                                {config.features?.nameAndDateOnPhoto && (
+                                    <div className="space-y-3 border p-3 rounded-lg bg-blue-50 border-blue-100">
+                                        <div className="flex items-center space-x-2">
+                                            <Checkbox
+                                                id="namedate"
+                                                checked={addDate}
+                                                onCheckedChange={(c: boolean) => setAddDate(c)}
+                                            />
+                                            <Label htmlFor="namedate" className="cursor-pointer font-bold text-blue-900">
+                                                Add Name & Date (Required)
+                                            </Label>
+                                        </div>
+                                        {addDate && (
+                                            <div className="space-y-2">
+                                                <div className="space-y-1">
+                                                    <Label className="text-xs font-semibold text-blue-800">Candidate Name</Label>
+                                                    <Input
+                                                        type="text"
+                                                        placeholder="ENTER YOUR NAME"
+                                                        value={nameValue}
+                                                        onChange={(e) => setNameValue(e.target.value.toUpperCase())}
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <Label className="text-xs font-semibold text-blue-800">Date of Photo</Label>
+                                                    <Input
+                                                        type="date"
+                                                        value={dateValue}
+                                                        onChange={(e) => setDateValue(e.target.value)}
+                                                    />
+                                                </div>
+                                            </div>
                                         )}
                                     </div>
                                 )}
