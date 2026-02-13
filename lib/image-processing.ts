@@ -40,6 +40,10 @@ export async function getCroppedCanvas(
     canvas.width = pixelCrop.width;
     canvas.height = pixelCrop.height;
 
+    // Fill with White Background (for free movement empty space)
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     ctx.drawImage(
         image,
         pixelCrop.x,
@@ -310,4 +314,88 @@ export async function createPostcard(imageSrc: string): Promise<string> {
 
     // Convert to high quality JPG
     return canvas.toDataURL('image/jpeg', 0.95);
+}
+
+/**
+ * Applies a "Black Ink" filter to simulate a photocopy/scan.
+ * Grayscale -> High Contrast (+40%) -> Threshold (128) -> Force dark to Black.
+ */
+export function applyBlackInkFilter(canvas: HTMLCanvasElement): void {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const w = canvas.width;
+    const h = canvas.height;
+    const imgData = ctx.getImageData(0, 0, w, h);
+    const data = imgData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        // Grayscale
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        let gray = 0.299 * r + 0.587 * g + 0.114 * b;
+
+        // High Contrast (+40%)
+        // Formula: factor = (259 * (contrast + 255)) / (255 * (259 - contrast))
+        const contrast = 40;
+        const factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+        gray = factor * (gray - 128) + 128;
+
+        // Threshold and Force Black
+        const threshold = 128;
+        if (gray < threshold) {
+            data[i] = 0;
+            data[i + 1] = 0;
+            data[i + 2] = 0;
+        } else {
+            data[i] = 255;
+            data[i + 1] = 255;
+            data[i + 2] = 255;
+        }
+    }
+
+    ctx.putImageData(imgData, 0, 0);
+}
+
+/**
+ * Enhances legibility for handwritten declarations.
+ * Sharpen + Contrast (+20%) + Brightness (+5%).
+ */
+export function enhanceLegibility(canvas: HTMLCanvasElement): void {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const w = canvas.width;
+    const h = canvas.height;
+    const imgData = ctx.getImageData(0, 0, w, h);
+    const data = imgData.data;
+
+    const contrast = 20; // +20%
+    const brightness = 5; // +5%
+
+    const factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+
+    for (let i = 0; i < data.length; i += 4) {
+        let r = data[i];
+        let g = data[i + 1];
+        let b = data[i + 2];
+
+        // Apply Contrast
+        r = factor * (r - 128) + 128;
+        g = factor * (g - 128) + 128;
+        b = factor * (b - 128) + 128;
+
+        // Apply Brightness
+        r += brightness;
+        g += brightness;
+        b += brightness;
+
+        // Clamp values
+        data[i] = Math.min(255, Math.max(0, r));
+        data[i + 1] = Math.min(255, Math.max(0, g));
+        data[i + 2] = Math.min(255, Math.max(0, b));
+    }
+
+    ctx.putImageData(imgData, 0, 0);
 }

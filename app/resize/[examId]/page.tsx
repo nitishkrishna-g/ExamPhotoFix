@@ -4,6 +4,9 @@ import { ExamPhotoWizard } from "@/components/tools/ExamPhotoWizard";
 import { SignatureJoiner } from "@/components/tools/SignatureJoiner";
 import { PostcardMaker } from "@/components/tools/PostcardMaker";
 import { HandwrittenDeclaration } from "@/components/tools/HandwrittenDeclaration";
+import { ImageToPDF } from "@/components/tools/ImageToPDF";
+import { ExamSidebar } from "@/components/ExamSidebar";
+import { FAQSection } from "@/components/FAQSection";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdPlaceholder } from "@/components/AdPlaceholder";
@@ -43,44 +46,59 @@ export default async function ResizePage({ params }: Props) {
 
     return (
         <main className="container mx-auto py-8 px-4 lg:px-8">
-            <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-8 relative items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] xl:grid-cols-[250px_1fr_300px] gap-8 relative">
 
-                {/* Main Content Column */}
-                <div className="space-y-8 min-w-0">
+                {/* Left Column: Sidebar (Sticky) */}
+                {/* Left Column: Sidebar (Sticky) */}
+                <ExamSidebar className="hidden lg:block sticky top-24 h-[calc(100vh-8rem)] overflow-y-auto" />
+
+                {/* Center Column: Content & Tools */}
+                <div className="space-y-12 min-w-0">
+
+                    {/* Top Horizontal Ad */}
+                    <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2">
+                        <AdPlaceholder slot="top-horizontal" />
+                    </div>
+
                     {/* Header Section */}
-                    <section className="text-center space-y-4 mb-8">
-                        <h1 className="text-3xl md:text-5xl font-extrabold text-foreground tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+                    <section className="text-center space-y-6 mb-12">
+                        <h1 className="text-4xl md:text-6xl font-black text-foreground tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400">
                             {config.title}
                         </h1>
-                        <div className="bg-card border border-border p-6 rounded-2xl text-left shadow-sm">
-                            <h2 className="font-semibold text-lg text-primary mb-2 flex items-center gap-2">
-                                <span className="bg-primary/10 p-1 rounded-md">ℹ️</span>
+                        <div className="bg-card/50 backdrop-blur border border-border/50 p-8 rounded-3xl text-left shadow-lg">
+                            <h2 className="font-bold text-xl text-primary mb-4 flex items-center gap-3">
+                                <span className="bg-primary/10 p-2 rounded-lg text-2xl">ℹ️</span>
                                 {config.content.heading}
                             </h2>
                             <div
-                                className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground"
+                                className="prose prose-sm md:prose-base dark:prose-invert max-w-none text-muted-foreground leading-relaxed"
                                 dangerouslySetInnerHTML={{ __html: config.content.descriptionHtml }}
                             />
                         </div>
                     </section>
 
                     {/* Tools Section */}
-                    <section className="space-y-16">
+                    <section className="space-y-24">
                         {config.tools.map((tool, index) => {
                             return (
-                                <div key={index} id={`tool-${index}`} className="scroll-mt-24 space-y-4">
+                                <div key={index} id={`tool-${index}`} className="scroll-mt-32 space-y-8">
 
                                     {/* Tool Label & Instructions */}
-                                    <div className="space-y-3">
-                                        <h3 className="text-2xl font-bold text-foreground px-2 border-l-4 border-primary flex items-center">
-                                            {tool.title}
-                                        </h3>
+                                    <div className="space-y-4">
+                                        <div className="flex items-center gap-4">
+                                            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary font-bold text-xl">
+                                                {index + 1}
+                                            </div>
+                                            <h3 className="text-2xl md:text-3xl font-bold text-foreground">
+                                                {tool.title}
+                                            </h3>
+                                        </div>
 
                                         {/* Render Tool Instructions immediately above the tool */}
                                         {tool.instructions && (
-                                            <div className="bg-amber-50 dark:bg-amber-950/30 border-l-4 border-amber-500 p-4 rounded-r-lg shadow-sm">
+                                            <div className="ml-0 md:ml-16 bg-blue-50 dark:bg-blue-950/20 border-l-4 border-blue-500 p-6 rounded-r-xl shadow-sm">
                                                 <div
-                                                    className="prose prose-sm dark:prose-invert max-w-none text-amber-900 dark:text-amber-100"
+                                                    className="prose prose-sm dark:prose-invert max-w-none text-blue-900 dark:text-blue-100"
                                                     dangerouslySetInnerHTML={{ __html: tool.instructions }}
                                                 />
                                             </div>
@@ -88,7 +106,7 @@ export default async function ResizePage({ params }: Props) {
                                     </div>
 
                                     {/* Tool Component */}
-                                    <div className="rounded-2xl overflow-hidden border border-border/50 shadow-xl bg-card">
+                                    <div className="md:ml-16 rounded-3xl overflow-hidden border border-border shadow-2xl bg-card ring-1 ring-border/50">
                                         {tool.type === "PHOTO_WIZARD" && (
                                             <ExamPhotoWizard config={tool.config || {}} title={tool.title} />
                                         )}
@@ -104,12 +122,16 @@ export default async function ResizePage({ params }: Props) {
                                         {tool.type === "DECLARATION_GENERATOR" && (
                                             <HandwrittenDeclaration config={tool.config || {}} />
                                         )}
+
+                                        {tool.type === "IMAGE_TO_PDF" && (
+                                            <ImageToPDF config={tool.config} />
+                                        )}
                                     </div>
 
                                     {/* Ad between tools */}
                                     {index < config.tools.length - 1 && (
-                                        <div className="py-8 flex justify-center">
-                                            <div className="w-full max-w-[728px] bg-muted/30 rounded-lg overflow-hidden border border-border/50">
+                                        <div className="py-12 flex justify-center">
+                                            <div className="w-full max-w-[728px] h-[90px] bg-muted/30 rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
                                                 <AdPlaceholder slot="inter-tool" />
                                             </div>
                                         </div>
@@ -118,14 +140,32 @@ export default async function ResizePage({ params }: Props) {
                             );
                         })}
                     </section>
+
+                    {/* Bottom Horizontal Ad (Before FAQ) */}
+                    <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2 my-12">
+                        <AdPlaceholder slot="bottom-horizontal" />
+                    </div>
+
+                    {/* FAQ Section */}
+                    {config.faqs && config.faqs.length > 0 && (
+                        <section className="mt-24 pt-12 border-t">
+                            <div className="mb-8">
+                                <h2 className="text-3xl font-bold tracking-tight mb-2">Frequently Asked Questions</h2>
+                                <p className="text-muted-foreground">Common queries about {config.title}</p>
+                            </div>
+                            <FAQSection items={config.faqs} />
+                        </section>
+                    )}
                 </div>
 
-                {/* Right Ad Column (Sticky) - Hidden on mobile/tablet, visible on XL */}
-                <div className="hidden xl:block sticky top-8 space-y-8">
-                    <div className="bg-muted/50 border border-border rounded-xl p-4 min-h-[600px] flex items-center justify-center text-muted-foreground text-sm font-medium">
-                        <AdPlaceholder slot="sidebar-right-skyscraper" />
+                {/* Right Column: Ad Slot (Sticky) */}
+                <aside className="hidden xl:block h-[calc(100vh-8rem)] sticky top-24">
+                    <div className="h-full flex flex-col justify-center items-center space-y-8">
+                        <div className="bg-muted/50 border border-border rounded-xl w-[300px] h-[600px] flex items-center justify-center text-muted-foreground text-sm font-medium shadow-sm">
+                            <AdPlaceholder slot="sidebar-right-skyscraper" />
+                        </div>
                     </div>
-                </div>
+                </aside>
 
             </div>
         </main>

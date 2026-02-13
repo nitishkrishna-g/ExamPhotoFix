@@ -70,7 +70,7 @@ export function SignatureJoiner({ config }: SignatureJoinerProps) {
     };
 
     return (
-        <Card className="w-full border-2 border-primary/10 bg-white">
+        <Card className="w-full border-2 border-primary/10 bg-card">
             <CardHeader>
                 <CardTitle className="text-lg">Triple Signature Uploader (Vertical)</CardTitle>
                 <CardDescription>Upload top, middle, and bottom signatures.</CardDescription>

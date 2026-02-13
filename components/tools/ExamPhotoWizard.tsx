@@ -9,8 +9,8 @@ import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { getCroppedCanvas, resizeCanvas, addDateToPhoto, compressToTargetSize } from "@/lib/image-processing";
-import { Upload, Download, RefreshCw, AlertCircle, Calendar } from "lucide-react";
+import { getCroppedCanvas, resizeCanvas, addDateToPhoto, compressToTargetSize, applyBlackInkFilter, enhanceLegibility } from "@/lib/image-processing";
+import { Upload, Download, RefreshCw, AlertCircle, Calendar, Wand2, Droplets } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PrivacyBadge } from "@/components/PrivacyBadge";
 
@@ -30,6 +30,7 @@ interface WizardProps {
             isSignature?: boolean;
             isDeclaration?: boolean;
             blackInkOnly?: boolean;
+            enhanceLegibility?: boolean;
         };
     };
 }
@@ -47,6 +48,10 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
     const [dateValue, setDateValue] = useState(new Date().toISOString().split('T')[0]); // YYYY-MM-DD
     const [nameValue, setNameValue] = useState("");
 
+    // State for Filters
+    const [applyBlackInk, setApplyBlackInk] = useState(false);
+    const [applyLegibility, setApplyLegibility] = useState(config.features?.enhanceLegibility || false);
+
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
     const [finalImage, setFinalImage] = useState<string | null>(null);
     const [fileSize, setFileSize] = useState<string | null>(null);
@@ -57,6 +62,8 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
     useEffect(() => {
         setTargetKB(config.maxKB || 50);
         setAddDate(config.features?.dateOnPhoto || config.features?.nameAndDateOnPhoto || false);
+        setApplyLegibility(config.features?.enhanceLegibility || false);
+        setApplyBlackInk(false); // Default off unless user interacts, or maybe logic demands it? Prompt says "show switch"
     }, [config]);
 
     const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
@@ -92,22 +99,26 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
             const targetHeight = config.height || 400;
             canvas = resizeCanvas(canvas, targetWidth, targetHeight);
 
-            // 3. Draw Date / Name (if enabled)
+            // 3. Apply Filters
+            if (applyBlackInk) {
+                applyBlackInkFilter(canvas);
+            }
+            if (applyLegibility) {
+                enhanceLegibility(canvas);
+            }
+
+            // 4. Draw Date / Name (if enabled)
             if ((config.features?.dateOnPhoto || config.features?.nameAndDateOnPhoto) && addDate) {
                 const [yyyy, mm, dd] = dateValue.split('-');
                 const formattedDate = `${dd}-${mm}-${yyyy}`;
 
                 let dateText = `DOP: ${formattedDate}`;
-                // For UPSC/NEET, they might just want the date without "DOP:" prefix or specific format. 
-                // Using standard format for now.
-
-                // If name is required
                 const nameText = config.features?.nameAndDateOnPhoto ? nameValue : undefined;
 
                 addDateToPhoto(canvas, dateText, nameText);
             }
 
-            // 4. Compress to Target KB
+            // 5. Compress to Target KB
             // Use user input targetKB, constrained by config.minKB ??
             const effectiveMaxKB = targetKB;
 
@@ -134,7 +145,12 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
         if (finalImage) {
             const link = document.createElement("a");
             link.href = finalImage;
-            link.download = `sarkari-photo-${Date.now()}.jpg`;
+
+            // Smart filename: SarkariPhoto_Exam_Title_Date.jpg
+            const safeTitle = title.replace(/[^a-z0-9]/gi, '_').replace(/_+/g, '_').toLowerCase();
+            const dateStr = new Date().toISOString().split('T')[0];
+            link.download = `SarkariPhoto_${safeTitle}_${dateStr}.jpg`;
+
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -182,10 +198,10 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
                     </div>
                 ) : !finalImage ? (
                     <div className="space-y-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            {/* Editor */}
-                            <div className="lg:col-span-2 space-y-4">
-                                <div className="relative h-[400px] w-full bg-slate-900 rounded-xl overflow-hidden shadow-inner">
+                        <div className="space-y-8">
+                            {/* 1. Editor Section (Full Width) */}
+                            <div className="space-y-6 max-w-2xl mx-auto w-full">
+                                <div className="relative h-[450px] w-full bg-slate-900 rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-800">
                                     <Cropper
                                         image={imageSrc}
                                         crop={crop}
@@ -195,115 +211,173 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
                                         onCropComplete={onCropComplete}
                                         onZoomChange={setZoom}
                                         showGrid={true}
+                                        restrictPosition={false}
                                     />
+                                    {/* Face Guide Overlay - Only for Photos */}
+                                    {!config.features?.isSignature && !config.features?.isDeclaration && (
+                                        <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                                            <div className="w-[180px] h-[240px] border-2 border-white/50 rounded-[50%] shadow-[0_0_0_9999px_rgba(0,0,0,0.5)]"></div>
+                                            <p className="absolute top-4 text-white/70 text-xs font-medium bg-black/50 px-3 py-1 rounded-full backdrop-blur-sm">
+                                                Fit Face Here
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="flex items-center gap-4 bg-muted/30 p-4 rounded-lg">
-                                    <Label className="w-16">Zoom</Label>
+                                <div className="flex items-center gap-6 bg-muted/30 p-6 rounded-xl border border-border/50">
+                                    <Label className="w-16 font-medium text-base">Zoom</Label>
                                     <Slider
                                         value={[zoom]}
                                         min={1}
                                         max={3}
                                         step={0.1}
                                         onValueChange={(v: number[]) => setZoom(v[0])}
-                                        className="flex-1"
+                                        className="flex-1 cursor-pointer"
                                     />
                                 </div>
                             </div>
 
-                            {/* Controls */}
-                            <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <Label>Max File Size (KB)</Label>
-                                    <div className="flex gap-2">
-                                        <Input
-                                            type="number"
-                                            value={targetKB}
-                                            onChange={(e) => setTargetKB(Number(e.target.value))}
-                                            min={config.minKB || 10}
-                                            max={config.maxKB || 500}
-                                        />
-                                        <div className="flex items-center text-sm text-muted-foreground whitespace-nowrap">
-                                            Limit: {config.minKB}-{config.maxKB} KB
-                                        </div>
-                                    </div>
-                                    <p className="text-xs text-muted-foreground">
-                                        We will compress quality until it fits this size.
-                                    </p>
-                                </div>
-
-                                {config.features?.dateOnPhoto && (
-                                    <div className="space-y-3 border p-3 rounded-lg bg-yellow-50 border-yellow-100">
-                                        <div className="flex items-center space-x-2">
-                                            <Checkbox
-                                                id="date"
-                                                checked={addDate}
-                                                onCheckedChange={(c: boolean) => setAddDate(c)}
-                                            />
-                                            <Label htmlFor="date" className="cursor-pointer font-bold text-yellow-900">
-                                                Add Date of Photo
-                                            </Label>
-                                        </div>
-                                        {addDate && (
-                                            <Input
-                                                type="date"
-                                                value={dateValue}
-                                                onChange={(e) => setDateValue(e.target.value)}
-                                            />
-                                        )}
-                                    </div>
-                                )}
-
-                                {config.features?.nameAndDateOnPhoto && (
-                                    <div className="space-y-3 border p-3 rounded-lg bg-blue-50 border-blue-100">
-                                        <div className="flex items-center space-x-2">
-                                            <Checkbox
-                                                id="namedate"
-                                                checked={addDate}
-                                                onCheckedChange={(c: boolean) => setAddDate(c)}
-                                            />
-                                            <Label htmlFor="namedate" className="cursor-pointer font-bold text-blue-900">
-                                                Add Name & Date (Required)
-                                            </Label>
-                                        </div>
-                                        {addDate && (
-                                            <div className="space-y-2">
-                                                <div className="space-y-1">
-                                                    <Label className="text-xs font-semibold text-blue-800">Candidate Name</Label>
-                                                    <Input
-                                                        type="text"
-                                                        placeholder="ENTER YOUR NAME"
-                                                        value={nameValue}
-                                                        onChange={(e) => setNameValue(e.target.value.toUpperCase())}
-                                                    />
+                            {/* 2. Controls Section (2-Column Grid) */}
+                            <div className="bg-card border rounded-xl p-6 shadow-sm">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {/* Left Column: Settings & Filters */}
+                                    <div className="space-y-6">
+                                        <div className="space-y-3">
+                                            <Label className="text-base font-semibold">Max File Size (KB)</Label>
+                                            <div className="flex flex-col gap-2">
+                                                <Input
+                                                    type="number"
+                                                    value={targetKB}
+                                                    onChange={(e) => setTargetKB(Number(e.target.value))}
+                                                    min={config.minKB || 10}
+                                                    max={config.maxKB || 500}
+                                                    className="h-12 text-lg w-full"
+                                                />
+                                                <div className="flex items-center text-sm text-muted-foreground bg-muted px-3 py-2 rounded-md border w-fit">
+                                                    Limit: {config.minKB}-{config.maxKB} KB
                                                 </div>
-                                                <div className="space-y-1">
-                                                    <Label className="text-xs font-semibold text-blue-800">Date of Photo</Label>
+                                            </div>
+                                        </div>
+
+                                        {/* Filters */}
+                                        <div className="space-y-3">
+                                            {(config.features?.blackInkOnly || config.features?.enhanceLegibility) && (
+                                                <Label className="text-base font-semibold">Filters</Label>
+                                            )}
+
+                                            {config.features?.blackInkOnly && (
+                                                <div className="flex items-center space-x-3 border p-3 rounded-lg bg-slate-50 border-slate-200 dark:bg-slate-900 dark:border-slate-800">
+                                                    <Checkbox
+                                                        id="blackInk"
+                                                        checked={applyBlackInk}
+                                                        onCheckedChange={(c: boolean) => setApplyBlackInk(c)}
+                                                    />
+                                                    <Label htmlFor="blackInk" className="cursor-pointer flex items-center gap-2 font-medium">
+                                                        <Droplets className="w-4 h-4 text-slate-700 dark:text-slate-400" />
+                                                        Convert to Black Ink
+                                                    </Label>
+                                                </div>
+                                            )}
+
+                                            {config.features?.enhanceLegibility && (
+                                                <div className="flex items-center space-x-3 border p-3 rounded-lg bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800">
+                                                    <Checkbox
+                                                        id="legibility"
+                                                        checked={applyLegibility}
+                                                        onCheckedChange={(c: boolean) => setApplyLegibility(c)}
+                                                    />
+                                                    <Label htmlFor="legibility" className="cursor-pointer flex items-center gap-2 font-medium">
+                                                        <Wand2 className="w-4 h-4 text-green-700 dark:text-green-500" />
+                                                        Enhance Legibility
+                                                    </Label>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Right Column: Date & Name */}
+                                    <div className="space-y-6">
+                                        {config.features?.dateOnPhoto && (
+                                            <div className="space-y-4 border p-4 rounded-xl bg-yellow-50/50 border-yellow-100 dark:bg-yellow-900/10 dark:border-yellow-800/50">
+                                                <div className="flex items-center space-x-2">
+                                                    <Checkbox
+                                                        id="date"
+                                                        checked={addDate}
+                                                        onCheckedChange={(c: boolean) => setAddDate(c)}
+                                                    />
+                                                    <Label htmlFor="date" className="cursor-pointer font-bold text-yellow-900 dark:text-yellow-500">
+                                                        Add Date of Photo
+                                                    </Label>
+                                                </div>
+                                                {addDate && (
                                                     <Input
                                                         type="date"
                                                         value={dateValue}
                                                         onChange={(e) => setDateValue(e.target.value)}
+                                                        className="bg-white dark:bg-black"
                                                     />
+                                                )}
+                                            </div>
+                                        )}
+
+                                        {config.features?.nameAndDateOnPhoto && (
+                                            <div className="space-y-4 border p-4 rounded-xl bg-blue-50/50 border-blue-100 dark:bg-blue-900/10 dark:border-blue-800/50">
+                                                <div className="flex items-center space-x-2">
+                                                    <Checkbox
+                                                        id="namedate"
+                                                        checked={addDate}
+                                                        onCheckedChange={(c: boolean) => setAddDate(c)}
+                                                    />
+                                                    <Label htmlFor="namedate" className="cursor-pointer font-bold text-blue-900 dark:text-blue-500">
+                                                        Add Name & Date (Required)
+                                                    </Label>
                                                 </div>
+                                                {addDate && (
+                                                    <div className="space-y-4">
+                                                        <div className="space-y-1">
+                                                            <Label className="text-xs font-semibold text-blue-800 dark:text-blue-400">Candidate Name</Label>
+                                                            <input
+                                                                type="text"
+                                                                placeholder="ENTER YOUR NAME"
+                                                                value={nameValue}
+                                                                onChange={(e) => setNameValue(e.target.value.toUpperCase())}
+                                                                className="w-full p-3 font-bold text-center border-2 border-input rounded-xl bg-background text-foreground uppercase placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                                                            />
+                                                        </div>
+                                                        <div className="space-y-1">
+                                                            <Label className="text-xs font-semibold text-blue-800 dark:text-blue-400">Date of Photo</Label>
+                                                            <div className="relative">
+                                                                <input
+                                                                    type="date"
+                                                                    value={dateValue}
+                                                                    onChange={(e) => setDateValue(e.target.value)}
+                                                                    className="w-full p-3 font-bold text-center border-2 border-input rounded-xl bg-background text-foreground focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                         )}
                                     </div>
-                                )}
+                                </div>
 
-                                {config.features?.blackInkOnly && (
-                                    <Alert className="bg-slate-100 border-slate-300">
+                                {/* Warnings */}
+                                {config.features?.blackInkOnly && !applyBlackInk && (
+                                    <Alert className="mt-6 bg-slate-100 border-slate-300 dark:bg-slate-900 dark:border-slate-700">
                                         <AlertTitle>Requirement</AlertTitle>
                                         <AlertDescription>Please use <strong>Black Ink</strong> on white paper.</AlertDescription>
                                     </Alert>
                                 )}
 
+                                {/* Generate Button */}
                                 <Button
                                     size="lg"
-                                    className="w-full font-semibold shadow-lg"
+                                    className="w-full mt-8 font-bold text-lg h-14 shadow-xl"
                                     onClick={handleGenerate}
                                     disabled={processing}
                                 >
                                     {processing ? (
-                                        <><RefreshCw className="w-4 h-4 mr-2 animate-spin" /> Processing...</>
+                                        <><RefreshCw className="w-5 h-5 mr-2 animate-spin" /> Processing...</>
                                     ) : (
                                         "Generate & Compress"
                                     )}
