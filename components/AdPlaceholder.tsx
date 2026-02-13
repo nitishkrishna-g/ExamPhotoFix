@@ -5,9 +5,10 @@ interface AdPlaceholderProps {
     width?: number | string;
     height?: number | string;
     label?: string;
+    slot?: string;
 }
 
-export function AdPlaceholder({ className, width, height, label = "Ad Space" }: AdPlaceholderProps) {
+export function AdPlaceholder({ className, width, height, label = "Ad Space", slot }: AdPlaceholderProps) {
     return (
         <div
             className={cn(

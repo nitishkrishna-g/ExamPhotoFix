@@ -1,38 +1,61 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Cropper from "react-easy-crop";
 import { Area } from "react-easy-crop";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { getCroppedImg } from "@/lib/image-processing";
-import { Upload, Download, RefreshCw, AlertCircle } from "lucide-react";
+import { getCroppedCanvas, resizeCanvas, addDateToPhoto, compressToTargetSize } from "@/lib/image-processing";
+import { Upload, Download, RefreshCw, AlertCircle, Calendar } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PrivacyBadge } from "@/components/PrivacyBadge";
-import { AffiliateSection } from "@/components/AffiliateSection";
 
-// Presets configuration
-const PRESETS = {
-    UPSC: { width: 350, height: 350, aspect: 1, label: "UPSC (350x350px)", minKB: 20, maxKB: 300 },
-    SSC: { width: 413, height: 531, aspect: 3.5 / 4.5, label: "SSC (3.5x4.5cm)", minKB: 20, maxKB: 50 },
-    IBPS: { width: 413, height: 531, aspect: 4.5 / 3.5, label: "IBPS PO (4.5x3.5cm)", minKB: 20, maxKB: 50 }, // IBPS is usually 3.5x4.5 photo, signature differs
-    CUSTOM: { width: 400, height: 400, aspect: 1, label: "Custom (Free Crop)", minKB: 10, maxKB: 500 }
-};
+// config from lib/exam-config
+interface WizardProps {
+    title: string;
+    config: {
+        width?: number;
+        height?: number;
+        aspect?: number;
+        minKB?: number;
+        maxKB?: number;
+        features?: {
+            dateOnPhoto?: boolean;
+            forceSquare?: boolean;
+            isSignature?: boolean;
+            isDeclaration?: boolean;
+            blackInkOnly?: boolean;
+        };
+    };
+}
 
-export function ExamPhotoWizard() {
+export function ExamPhotoWizard({ title, config }: WizardProps) {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
-    const [quality, setQuality] = useState(0.9);
+
+    // State for Target KB input (default to maxKB)
+    const [targetKB, setTargetKB] = useState(config.maxKB || 50);
+
+    // State for Date
+    const [addDate, setAddDate] = useState(config.features?.dateOnPhoto || false);
+    const [dateValue, setDateValue] = useState(new Date().toISOString().split('T')[0]); // YYYY-MM-DD
+
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
-    const [examType, setExamType] = useState<keyof typeof PRESETS>("UPSC");
-    const [addDate, setAddDate] = useState(false);
     const [finalImage, setFinalImage] = useState<string | null>(null);
     const [fileSize, setFileSize] = useState<string | null>(null);
+    const [processing, setProcessing] = useState(false);
+    const [warningMsg, setWarningMsg] = useState<string | null>(null);
+
+    // Update defaults if config changes
+    useEffect(() => {
+        setTargetKB(config.maxKB || 50);
+        setAddDate(config.features?.dateOnPhoto || false);
+    }, [config]);
 
     const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
         setCroppedAreaPixels(croppedAreaPixels);
@@ -41,49 +64,59 @@ export function ExamPhotoWizard() {
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
-            const imageDataUrl = await readFile(file);
-            setImageSrc(imageDataUrl);
-            setFinalImage(null);
-            setZoom(1);
-        }
-    };
-
-    const readFile = (file: File): Promise<string> => {
-        return new Promise((resolve) => {
             const reader = new FileReader();
-            reader.addEventListener("load", () => resolve(reader.result as string));
+            reader.onload = (ev) => {
+                setImageSrc(ev.target?.result as string);
+                setFinalImage(null);
+                setZoom(1);
+                setWarningMsg(null);
+            };
             reader.readAsDataURL(file);
-        });
+        }
     };
 
     const handleGenerate = async () => {
         if (!imageSrc || !croppedAreaPixels) return;
 
+        setProcessing(true);
+        setWarningMsg(null);
+
         try {
-            const preset = PRESETS[examType];
-            const dateStr = addDate ? new Date().toLocaleDateString('en-GB').split('/').join('-') : undefined; // DD-MM-YYYY
+            // 1. Crop
+            let canvas = await getCroppedCanvas(imageSrc, croppedAreaPixels);
 
-            const croppedImage = await getCroppedImg(
-                imageSrc,
-                croppedAreaPixels,
-                0, // rotation
-                { horizontal: false, vertical: false }, // flip
-                preset.width,
-                preset.height,
-                dateStr,
-                quality
-            );
+            // 2. Resize
+            const targetWidth = config.width || 400;
+            const targetHeight = config.height || 400;
+            canvas = resizeCanvas(canvas, targetWidth, targetHeight);
 
-            setFinalImage(croppedImage);
+            // 3. Draw Date (if enabled)
+            if (config.features?.dateOnPhoto && addDate) {
+                const [yyyy, mm, dd] = dateValue.split('-');
+                const formattedDate = `${dd}-${mm}-${yyyy}`;
+                addDateToPhoto(canvas, `DOP: ${formattedDate}`);
+            }
 
-            // Calculate approximate size (Base64 length * 0.75)
-            const sizeInBytes = (croppedImage.length * 3) / 4;
-            const sizeKB = sizeInBytes / 1024;
-            setFileSize(sizeKB.toFixed(1) + " KB");
+            // 4. Compress to Target KB
+            // Use user input targetKB, constrained by config.minKB ??
+            const effectiveMaxKB = targetKB;
+
+            const result = await compressToTargetSize(canvas, effectiveMaxKB);
+
+            // Create URL
+            const url = URL.createObjectURL(result.blob);
+            setFinalImage(url);
+            setFileSize(result.sizeKB.toFixed(1) + " KB");
+
+            if (result.warning) {
+                setWarningMsg(result.warning);
+            }
 
         } catch (e) {
             console.error(e);
             alert("Failed to generate image.");
+        } finally {
+            setProcessing(false);
         }
     };
 
@@ -91,7 +124,7 @@ export function ExamPhotoWizard() {
         if (finalImage) {
             const link = document.createElement("a");
             link.href = finalImage;
-            link.download = `sarkari-photo-${examType}-${Date.now()}.jpg`;
+            link.download = `sarkari-photo-${Date.now()}.jpg`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -104,195 +137,158 @@ export function ExamPhotoWizard() {
         setZoom(1);
     };
 
+    const aspect = config.aspect || (config.features?.forceSquare ? 1 : (config.width && config.height ? config.width / config.height : 1));
+
     return (
-        <Card className="w-full border-2 border-blue-100 shadow-sm bg-white">
-            <CardHeader className="bg-blue-50/50 border-b border-blue-100">
-                <CardTitle className="text-xl text-blue-900 flex items-center justify-between">
-                    Exam Photo Wizard
-                    {imageSrc && <Button variant="ghost" size="sm" onClick={reset}><RefreshCw className="w-4 h-4 mr-1" /> Reset</Button>}
+        <Card className="w-full border-2 border-primary/10 shadow-lg bg-card text-card-foreground">
+            <CardHeader className="bg-muted/50 border-b">
+                <CardTitle className="text-xl flex items-center justify-between">
+                    {title}
+                    {imageSrc && (
+                        <Button variant="ghost" size="sm" onClick={reset}>
+                            <RefreshCw className="w-4 h-4 mr-1" /> Reset
+                        </Button>
+                    )}
                 </CardTitle>
-                <CardDescription>Resize & crop photos for UPSC, SSC & more.</CardDescription>
             </CardHeader>
 
             <CardContent className="p-6">
                 {!imageSrc ? (
-                    <div className="border-2 border-dashed border-slate-300 rounded-xl p-12 flex flex-col items-center justify-center text-center space-y-4 hover:bg-slate-50 transition-colors cursor-pointer relative">
+                    <div className="border-2 border-dashed border-muted-foreground/25 rounded-xl p-12 flex flex-col items-center justify-center text-center space-y-4 hover:bg-muted/50 transition-colors cursor-pointer relative group">
                         <input
                             type="file"
-                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                             accept="image/*"
                             onChange={handleFileChange}
                         />
-                        <div className="bg-blue-100 p-4 rounded-full text-blue-600">
+                        <div className="bg-primary/10 p-4 rounded-full text-primary group-hover:scale-110 transition-transform">
                             <Upload className="w-8 h-8" />
                         </div>
                         <div>
-                            <p className="font-semibold text-slate-700">Click to Upload Photo</p>
-                            <p className="text-sm text-slate-500">Supports JPG, PNG up to 5MB</p>
+                            <p className="font-semibold text-lg">Click to Upload Photo</p>
+                            <p className="text-sm text-muted-foreground">Supports JPG, PNG</p>
                         </div>
                         <PrivacyBadge />
                     </div>
                 ) : !finalImage ? (
-                    <div className="space-y-6">
-                        <div className="relative h-[400px] w-full bg-slate-900 rounded-lg overflow-hidden">
-                            <Cropper
-                                image={imageSrc}
-                                crop={crop}
-                                zoom={zoom}
-                                aspect={PRESETS[examType].aspect}
-                                onCropChange={setCrop}
-                                onCropComplete={onCropComplete}
-                                onZoomChange={setZoom}
-                                showGrid={true}
-                            />
-                            {/* Overlay Guide for Face (Generic) */}
-                            <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                                <div className="border-2 border-white/50 rounded-[50%] w-[40%] h-[60%] shadow-[0_0_0_9999px_rgba(0,0,0,0.5)]"></div>
-                            </div>
-                            <div className="absolute top-4 left-0 right-0 text-center pointer-events-none">
-                                <span className="bg-black/60 text-white text-xs px-3 py-1 rounded-full">
-                                    Fit face inside the oval (75% Coverage)
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-4">
-                                <div className="space-y-2">
-                                    <Label>Zoom</Label>
+                    <div className="space-y-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            {/* Editor */}
+                            <div className="lg:col-span-2 space-y-4">
+                                <div className="relative h-[400px] w-full bg-slate-900 rounded-xl overflow-hidden shadow-inner">
+                                    <Cropper
+                                        image={imageSrc}
+                                        crop={crop}
+                                        zoom={zoom}
+                                        aspect={aspect}
+                                        onCropChange={setCrop}
+                                        onCropComplete={onCropComplete}
+                                        onZoomChange={setZoom}
+                                        showGrid={true}
+                                    />
+                                </div>
+                                <div className="flex items-center gap-4 bg-muted/30 p-4 rounded-lg">
+                                    <Label className="w-16">Zoom</Label>
                                     <Slider
                                         value={[zoom]}
                                         min={1}
                                         max={3}
                                         step={0.1}
                                         onValueChange={(v) => setZoom(v[0])}
+                                        className="flex-1"
                                     />
-                                </div>
-
-                                <div className="space-y-2">
-                                    <Label>Quality: {Math.round(quality * 100)}%</Label>
-                                    <Slider
-                                        value={[quality]}
-                                        min={0.1}
-                                        max={1.0}
-                                        step={0.05}
-                                        onValueChange={(v) => setQuality(v[0])}
-                                    />
-                                </div>
-
-                                <div className="flex items-center space-x-2">
-                                    <Checkbox
-                                        id="date"
-                                        checked={addDate}
-                                        onCheckedChange={(c) => setAddDate(c as boolean)}
-                                    />
-                                    <Label htmlFor="date" className="cursor-pointer">Add Date of Photo (Current Date)</Label>
                                 </div>
                             </div>
 
-                            <div className="space-y-4">
+                            {/* Controls */}
+                            <div className="space-y-6">
                                 <div className="space-y-2">
-                                    <Label>Select Exam</Label>
-                                    <Select value={examType} onValueChange={(v: any) => setExamType(v)}>
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Select Exam" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {Object.entries(PRESETS).map(([key, p]) => (
-                                                <SelectItem key={key} value={key}>{p.label}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
+                                    <Label>Max File Size (KB)</Label>
+                                    <div className="flex gap-2">
+                                        <Input
+                                            type="number"
+                                            value={targetKB}
+                                            onChange={(e) => setTargetKB(Number(e.target.value))}
+                                            min={config.minKB || 10}
+                                            max={config.maxKB || 500}
+                                        />
+                                        <div className="flex items-center text-sm text-muted-foreground whitespace-nowrap">
+                                            Limit: {config.minKB}-{config.maxKB} KB
+                                        </div>
+                                    </div>
+                                    <p className="text-xs text-muted-foreground">
+                                        We will compress quality until it fits this size.
+                                    </p>
                                 </div>
-                                <Button className="w-full bg-blue-600 hover:bg-blue-700" onClick={handleGenerate}>
-                                    Generate Photo
+
+                                {config.features?.dateOnPhoto && (
+                                    <div className="space-y-3 border p-3 rounded-lg bg-yellow-50 border-yellow-100">
+                                        <div className="flex items-center space-x-2">
+                                            <Checkbox
+                                                id="date"
+                                                checked={addDate}
+                                                onCheckedChange={(c) => setAddDate(c as boolean)}
+                                            />
+                                            <Label htmlFor="date" className="cursor-pointer font-bold text-yellow-900">
+                                                Add Date of Photo (Required)
+                                            </Label>
+                                        </div>
+                                        {addDate && (
+                                            <Input
+                                                type="date"
+                                                value={dateValue}
+                                                onChange={(e) => setDateValue(e.target.value)}
+                                            />
+                                        )}
+                                    </div>
+                                )}
+
+                                {config.features?.blackInkOnly && (
+                                    <Alert className="bg-slate-100 border-slate-300">
+                                        <AlertTitle>Requirement</AlertTitle>
+                                        <AlertDescription>Please use <strong>Black Ink</strong> on white paper.</AlertDescription>
+                                    </Alert>
+                                )}
+
+                                <Button
+                                    size="lg"
+                                    className="w-full font-semibold shadow-lg"
+                                    onClick={handleGenerate}
+                                    disabled={processing}
+                                >
+                                    {processing ? (
+                                        <><RefreshCw className="w-4 h-4 mr-2 animate-spin" /> Processing...</>
+                                    ) : (
+                                        "Generate & Compress"
+                                    )}
                                 </Button>
                             </div>
                         </div>
                     </div>
                 ) : (
                     <div className="flex flex-col items-center space-y-6">
-                        <div className="border p-2 rounded-lg shadow-sm bg-white">
-                            <img src={finalImage} alt="Final" className="max-w-full max-h-[400px]" />
+                        <div className="border-4 border-white shadow-xl rounded-lg overflow-hidden bg-white">
+                            <img src={finalImage} alt="Final" className="max-w-full max-h-[500px]" />
                         </div>
-
-                        <div className="text-center space-y-1">
-                            <p className="font-semibold text-green-600 flex items-center justify-center gap-2">
-                                <CheckCircle className="w-5 h-5" /> Image Ready!
-                            </p>
-                            <p className="text-sm text-slate-500">
-                                Approx Size: <span className="font-mono font-medium text-slate-900">{fileSize}</span>
-                            </p>
-                            {PRESETS[examType].maxKB && (
-                                <p className="text-xs text-slate-400">
-                                    Limit: {PRESETS[examType].minKB}-{PRESETS[examType].maxKB}KB
-                                </p>
-                            )}
-
-                            {fileSize && examType !== 'CUSTOM' && (
-                                <div className="mt-2 text-center">
-                                    {(() => {
-                                        const kb = parseFloat(fileSize.replace(" KB", ""));
-                                        const min = PRESETS[examType].minKB;
-                                        const max = PRESETS[examType].maxKB;
-                                        const isCompliant = kb >= min && kb <= max;
-
-                                        return (
-                                            <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border ${isCompliant ? 'bg-green-100 text-green-700 border-green-200' : 'bg-red-100 text-red-700 border-red-200'}`}>
-                                                {isCompliant ? (
-                                                    <>✅ Compliance Check: Passed</>
-                                                ) : (
-                                                    <>❌ Compliance Check: Failed ({min}-{max}KB required)</>
-                                                )}
-                                            </div>
-                                        );
-                                    })()}
-                                </div>
-                            )}
+                        <div className="text-center">
+                            <h3 className="text-2xl font-bold text-green-600 flex justify-center gap-2 items-center">
+                                Image Ready!
+                            </h3>
+                            <p className="text-lg">Size: <strong>{fileSize}</strong></p>
+                            {warningMsg && <p className="text-red-500 text-sm mt-2">{warningMsg}</p>}
                         </div>
 
                         <div className="flex gap-4 w-full md:w-auto">
-                            <Button variant="outline" onClick={() => setFinalImage(null)} className="flex-1 md:flex-none">
+                            <Button variant="outline" size="lg" onClick={() => setFinalImage(null)} className="flex-1">
                                 Edit Again
                             </Button>
-                            <Button onClick={downloadImage} className="flex-1 md:flex-none bg-green-600 hover:bg-green-700">
+                            <Button size="lg" onClick={downloadImage} className="flex-1 bg-green-600 hover:bg-green-700 shadow-md">
                                 <Download className="w-4 h-4 mr-2" /> Download JPG
                             </Button>
                         </div>
-
-                        <Alert className="bg-blue-50 border-blue-200">
-                            <AlertCircle className="h-4 w-4 text-blue-600" />
-                            <AlertTitle>Privacy Note</AlertTitle>
-                            <AlertDescription className="text-blue-800">
-                                Your photo was processed entirely in your browser. It was not uploaded to any server.
-                            </AlertDescription>
-                        </Alert>
                     </div>
                 )}
-                <div className="mt-8">
-                    <AffiliateSection examType={examType} />
-                </div>
             </CardContent>
         </Card>
     );
-}
-
-function CheckCircle(props: any) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-            <polyline points="22 4 12 14.01 9 11.01" />
-        </svg>
-    )
 }

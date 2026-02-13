@@ -1,55 +1,90 @@
-import { ExternalLink } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { ExternalLink, BookOpen } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 interface AffiliateSectionProps {
-    examType?: string; // UPSC, SSC, IBPS, etc.
+    examId?: string; // upsc, ssc, etc.
 }
 
-export function AffiliateSection({ examType = "General" }: AffiliateSectionProps) {
-    // Mock data - replace with real Amazon Affiliate links
-    const resources = [
-        {
-            title: `${examType === 'General' ? 'UPSC' : examType} Previous Year Papers`,
-            description: "Solved papers from last 10 years. Essential for preparation.",
-            link: "https://www.amazon.in/s?k=upsc+previous+year+papers&tag=YOUR_TAG_HERE",
-            image: "https://placehold.co/100x140/e2e8f0/475569?text=Book",
-        },
-        {
-            title: "Best Selling Guide 2026",
-            description: "Complete study material and strategy guide.",
-            link: "https://www.amazon.in/s?k=upsc+books&tag=YOUR_TAG_HERE",
-            image: "https://placehold.co/100x140/e2e8f0/475569?text=Guide",
+export function AffiliateSection({ examId }: AffiliateSectionProps) {
+    // Map examId to Amazon Search Query
+    const getQuery = (id?: string) => {
+        switch (id?.toLowerCase()) {
+            case "upsc":
+                return "UPSC Civil Services General Studies Solved Papers";
+            case "ssc":
+                return "SSC CGL CHSL Exam Books";
+            case "ibps":
+                return "IBPS PO Clerk Banking Exam Books";
+            case "rrb":
+                return "RRB NTPC Group D Exam Books";
+            case "neet":
+                return "NEET UG Physics Chemistry Biology Books";
+            default:
+                return "Government Exam Competitve Books";
         }
-    ];
+    };
+
+    const query = getQuery(examId);
+    const tag = "sarkari-photo-21"; // Placeholder or User's tag
+
+    // Generate generic links
+    const booksLink = `https://www.amazon.in/s?k=${encodeURIComponent(query)}&tag=${tag}`;
+    const gadgetsLink = `https://www.amazon.in/s?k=student+study+accessories&tag=${tag}`;
 
     return (
-        <Card className="mt-8 border-dashed border-2 border-slate-200 bg-slate-50/50">
-            <CardHeader>
-                <CardTitle className="text-lg text-slate-800 flex items-center gap-2">
-                    Recommended Resources for {examType}
+        <Card className="border-2 border-dashed border-amber-200 bg-amber-50/40">
+            <CardHeader className="pb-3">
+                <CardTitle className="text-lg flex items-center gap-2 text-amber-900">
+                    <BookOpen className="w-5 h-5 text-amber-600" />
+                    Recommended Study Materials
                 </CardTitle>
+                <CardDescription>
+                    Top rated books and resources for {examId ? examId.toUpperCase() : "Exams"}
+                </CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {resources.map((res, idx) => (
-                        <div key={idx} className="flex gap-4 p-3 bg-white rounded-lg border hover:shadow-md transition-shadow">
-                            <div className="w-16 h-24 bg-slate-200 rounded flex-shrink-0 overflow-hidden">
-                                <img src={res.image} alt={res.title} className="w-full h-full object-cover" />
-                            </div>
-                            <div className="flex flex-col justify-between flex-1">
-                                <div>
-                                    <h4 className="font-semibold text-sm text-slate-900 line-clamp-2">{res.title}</h4>
-                                    <p className="text-xs text-slate-500 mt-1 line-clamp-2">{res.description}</p>
-                                </div>
-                                <Button variant="link" size="sm" className="p-0 h-auto self-start text-blue-600" asChild>
-                                    <a href={res.link} target="_blank" rel="noopener noreferrer">
-                                        View on Amazon <ExternalLink className="w-3 h-3 ml-1" />
-                                    </a>
-                                </Button>
-                            </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <a
+                        href={booksLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-4 p-4 bg-white rounded-lg border hover:border-amber-400 hover:shadow-md transition-all group"
+                    >
+                        <div className="w-12 h-16 bg-gray-100 rounded flex-shrink-0 flex items-center justify-center text-xs text-gray-400">
+                            IMG
                         </div>
-                    ))}
+                        <div className="flex-1">
+                            <h4 className="font-semibold text-gray-900 group-hover:text-amber-700">
+                                Best Books for {examId?.toUpperCase() || "Exams"}
+                            </h4>
+                            <p className="text-xs text-gray-500 mt-1">
+                                Latest editions, solved papers & guides
+                            </p>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-amber-600" />
+                    </a>
+
+                    <a
+                        href={gadgetsLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-4 p-4 bg-white rounded-lg border hover:border-amber-400 hover:shadow-md transition-all group"
+                    >
+                        <div className="w-12 h-16 bg-gray-100 rounded flex-shrink-0 flex items-center justify-center text-xs text-gray-400">
+                            IMG
+                        </div>
+                        <div className="flex-1">
+                            <h4 className="font-semibold text-gray-900 group-hover:text-amber-700">
+                                Study Accessories
+                            </h4>
+                            <p className="text-xs text-gray-500 mt-1">
+                                Table lamps, notebooks & stationery
+                            </p>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-amber-600" />
+                    </a>
                 </div>
             </CardContent>
         </Card>

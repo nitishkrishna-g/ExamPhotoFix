@@ -1,149 +1,267 @@
-export const createImage = (url: string): Promise<HTMLImageElement> =>
-    new Promise((resolve, reject) => {
-        const image = new Image()
-        image.addEventListener('load', () => resolve(image))
-        image.addEventListener('error', (error) => reject(error))
-        image.setAttribute('crossOrigin', 'anonymous') // needed to avoid cross-origin issues on CodeSandbox
-        image.src = url
-    })
 
-export function getRadianAngle(degreeValue: number) {
-    return (degreeValue * Math.PI) / 180
+/**
+ * Image Processing Library for SarkariPhoto.in
+ * Handles compression, date stamping, and signature merging.
+ */
+
+// Helper to load an image
+export const loadImage = (src: string): Promise<HTMLImageElement> => {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+    });
+};
+
+export interface CompressionResult {
+    blob: Blob;
+    quality: number;
+    sizeKB: number;
+    warning?: string;
 }
 
 /**
- * Returns the new bounding area of a rotated rectangle.
+ * Creates a canvas from the cropped area of an image.
  */
-export function rotateSize(width: number, height: number, rotation: number) {
-    const rotRad = getRadianAngle(rotation)
-
-    return {
-        width:
-            Math.abs(Math.cos(rotRad) * width) + Math.abs(Math.sin(rotRad) * height),
-        height:
-            Math.abs(Math.sin(rotRad) * width) + Math.abs(Math.cos(rotRad) * height),
-    }
-}
-
-/**
- * This function was adapted from the one in the ReadMe of https://github.com/DominicTobias/react-image-crop
- */
-export async function getCroppedImg(
+export async function getCroppedCanvas(
     imageSrc: string,
-    pixelCrop: { x: number; y: number; width: number; height: number },
-    rotation = 0,
-    flip = { horizontal: false, vertical: false },
-    outputWidth?: number,
-    outputHeight?: number,
-    addDateStr?: string,
-    quality = 0.9
-): Promise<string> {
-    const image = await createImage(imageSrc)
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
+    pixelCrop: { x: number; y: number; width: number; height: number }
+): Promise<HTMLCanvasElement> {
+    const image = await loadImage(imageSrc);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
     if (!ctx) {
-        return ''
+        throw new Error('No 2d context');
     }
 
-    const rotRad = getRadianAngle(rotation)
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
 
-    // calculate bounding box of the rotated image
-    const { width: bBoxWidth, height: bBoxHeight } = rotateSize(
-        image.width,
-        image.height,
-        rotation
-    )
-
-    // set canvas size to match the bounding box
-    canvas.width = bBoxWidth
-    canvas.height = bBoxHeight
-
-    // translate canvas context to a central location to allow rotating and flipping around the center
-    ctx.translate(bBoxWidth / 2, bBoxHeight / 2)
-    ctx.rotate(rotRad)
-    ctx.scale(flip.horizontal ? -1 : 1, flip.vertical ? -1 : 1)
-    ctx.translate(-image.width / 2, -image.height / 2)
-
-    // draw rotated image
-    ctx.drawImage(image, 0, 0)
-
-    // croppedAreaPixels values are bounding box relative
-    // extract the cropped image using these values
-    const data = ctx.getImageData(
+    ctx.drawImage(
+        image,
         pixelCrop.x,
         pixelCrop.y,
         pixelCrop.width,
+        pixelCrop.height,
+        0,
+        0,
+        pixelCrop.width,
         pixelCrop.height
-    )
+    );
 
-    // set canvas width to final desired crop size - this will clear existing context
-    canvas.width = pixelCrop.width
-    canvas.height = pixelCrop.height
+    return canvas;
+}
 
-    // paste generated rotate image creating the top left corner at 0, 0
-    ctx.putImageData(data, 0, 0)
+/**
+ * Resizes a canvas to specific dimensions.
+ */
+export function resizeCanvas(
+    canvas: HTMLCanvasElement,
+    targetWidth: number,
+    targetHeight: number
+): HTMLCanvasElement {
+    const newCanvas = document.createElement('canvas');
+    newCanvas.width = targetWidth;
+    newCanvas.height = targetHeight;
+    const ctx = newCanvas.getContext('2d');
 
-    // If resize is requested
-    if (outputWidth && outputHeight) {
-        const resizeCanvas = document.createElement('canvas')
-        resizeCanvas.width = outputWidth
-        resizeCanvas.height = outputHeight
-        const resizeCtx = resizeCanvas.getContext('2d')
-        if (resizeCtx) {
-            // high quality resize
-            resizeCtx.imageSmoothingEnabled = true;
-            resizeCtx.imageSmoothingQuality = 'high';
-            resizeCtx.drawImage(canvas, 0, 0, outputWidth, outputHeight)
+    if (!ctx) throw new Error('No 2d context');
 
-            // Add Date if requested
-            if (addDateStr) {
-                const stripHeight = outputHeight * 0.15; // 15% height for date strip
-                // Draw white strip
-                resizeCtx.fillStyle = 'white';
-                resizeCtx.fillRect(0, outputHeight - stripHeight, outputWidth, stripHeight);
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(canvas, 0, 0, targetWidth, targetHeight);
 
-                // Draw text
-                resizeCtx.fillStyle = 'black';
-                resizeCtx.textAlign = 'center';
-                resizeCtx.textBaseline = 'middle';
-                // Font size based on strip height
-                const fontSize = stripHeight * 0.6;
-                resizeCtx.font = `bold ${fontSize}px Arial`;
-                resizeCtx.fillText(addDateStr, outputWidth / 2, outputHeight - (stripHeight / 2));
-            }
+    return newCanvas;
+}
 
-            return resizeCanvas.toDataURL('image/jpeg', quality)
+/**
+ * Compresses a canvas to a target KB size using binary search.
+ * @param canvas The source canvas
+ * @param maxKB Target maximum size in KB
+ * @returns Promise resolving to the best blob and metadata
+ */
+export async function compressToTargetKB(
+    canvas: HTMLCanvasElement,
+    maxKB: number
+): Promise<CompressionResult> {
+    let minQ = 0.01;
+    let maxQ = 1.0;
+    let bestBlob: Blob | null = null;
+    let bestQuality = 1.0;
+
+    const iterations = 8;
+
+    for (let i = 0; i < iterations; i++) {
+        const midQ = (minQ + maxQ) / 2;
+        const blob = await new Promise<Blob | null>((resolve) =>
+            canvas.toBlob(resolve, 'image/jpeg', midQ)
+        );
+
+        if (!blob) throw new Error("Canvas toBlob failed");
+
+        const sizeKB = blob.size / 1024;
+
+        if (sizeKB <= maxKB) {
+            bestBlob = blob;
+            bestQuality = midQ;
+            minQ = midQ;
+        } else {
+            maxQ = midQ;
         }
     }
 
-    // As Base64 string
-    return canvas.toDataURL('image/jpeg', quality)
+    if (!bestBlob) {
+        const blob = await new Promise<Blob | null>((resolve) =>
+            canvas.toBlob(resolve, 'image/jpeg', 0.01)
+        );
+        if (blob) {
+            return {
+                blob: blob,
+                quality: 0.01,
+                sizeKB: blob.size / 1024,
+                warning: "Could not compress below target size even at lowest quality. Try cropping tighter."
+            };
+        }
+    }
+
+    if (bestBlob) {
+        return {
+            blob: bestBlob,
+            quality: bestQuality,
+            sizeKB: bestBlob.size / 1024
+        };
+    }
+
+    throw new Error("Compression failed unexpectedly");
 }
 
-export async function joinSignatures(imageSrc: string): Promise<string> {
-    const image = await createImage(imageSrc);
+/* Alias for Prompt Requirement */
+export const compressToTargetSize = compressToTargetKB;
+
+/**
+ * Adds a date strip to the bottom of the photo.
+ * Modifies the canvas in place.
+ */
+export function addDateToPhoto(canvas: HTMLCanvasElement, dateString: string) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const width = canvas.width;
+    const height = canvas.height;
+
+    const stripHeight = height * 0.15;
+    const yStart = height - stripHeight;
+
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, yStart, width, stripHeight);
+
+    ctx.fillStyle = 'black';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    const fontSize = Math.floor(stripHeight * 0.6);
+    ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+
+    ctx.fillText(dateString, width / 2, yStart + (stripHeight / 2));
+}
+
+/* Alias for Prompt Requirement */
+export const addDateStamp = (ctx: CanvasRenderingContext2D, width: number, height: number, dateText: string) => {
+    // Determine canvas from context if possible, or just reimplement logic for context
+    const stripHeight = height * 0.15;
+    const yStart = height - stripHeight;
+
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, yStart, width, stripHeight);
+
+    ctx.fillStyle = 'black';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    const fontSize = Math.floor(stripHeight * 0.6);
+    ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+
+    ctx.fillText(dateText, width / 2, yStart + (stripHeight / 2));
+};
+
+/**
+ * Joins three signature images vertically.
+ */
+export async function joinSignatures(signatures: string[]): Promise<string> {
+    const images = await Promise.all(signatures.map(loadImage));
+
+    const canvasWidth = 350;
+    const canvasHeight = 500;
 
     const canvas = document.createElement('canvas');
-    const width = 350;
-    const height = 500;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) throw new Error("Could not get canvas context");
+
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+    const padding = 20;
+    const availableHeight = canvasHeight - (padding * 4);
+    const slotHeight = availableHeight / 3;
+
+    images.forEach((img, index) => {
+        const scale = Math.min(
+            (canvasWidth - 40) / img.width,
+            slotHeight / img.height
+        );
+
+        const w = img.width * scale;
+        const h = img.height * scale;
+
+        const x = (canvasWidth - w) / 2;
+        const y = padding + (index * (slotHeight + padding)) + (slotHeight - h) / 2;
+
+        ctx.drawImage(img, x, y, w, h);
+    });
+
+    return canvas.toDataURL('image/jpeg', 0.9);
+}
+
+/**
+ * Creates a Postcard (4x6 inch) from an image.
+ */
+export async function createPostcard(imageSrc: string): Promise<string> {
+    const img = await loadImage(imageSrc);
+
+    // 4x6 inch @ 300 DPI = 1200 x 1800 px
+    const width = 1200;
+    const height = 1800;
+
+    const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
-
     const ctx = canvas.getContext('2d');
-    if (!ctx) return '';
 
-    // Fill white background
+    if (!ctx) throw new Error("No context");
+
+    // Fill White
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, width, height);
 
-    const padding = 20;
-    const sigHeight = (height - (2 * padding)) / 3;
+    // Margin logic (e.g. 50px)
+    const margin = 50;
+    const drawW = width - (margin * 2);
+    const drawH = height - (margin * 2);
 
-    // Draw 3 times
-    ctx.drawImage(image, 0, 0, width, sigHeight);
-    ctx.drawImage(image, 0, sigHeight + padding, width, sigHeight);
-    ctx.drawImage(image, 0, (sigHeight + padding) * 2, width, sigHeight);
+    const scale = Math.min(drawW / img.width, drawH / img.height);
+    const w = img.width * scale;
+    const h = img.height * scale;
 
-    return canvas.toDataURL('image/jpeg', 0.9);
+    const x = (width - w) / 2;
+    const y = (height - h) / 2;
+
+    ctx.drawImage(img, x, y, w, h);
+
+    // Convert to high quality JPG
+    return canvas.toDataURL('image/jpeg', 0.95);
 }
