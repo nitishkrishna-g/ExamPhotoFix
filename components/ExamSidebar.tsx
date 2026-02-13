@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -36,7 +35,6 @@ export function ExamSidebar({ className, ...props }: SidebarProps) {
                     <h2 className="text-lg font-semibold tracking-tight">
                         Exam Tools
                     </h2>
-                    <ThemeToggle />
                 </div>
                 <p className="mb-4 px-4 text-sm text-muted-foreground">
                     Select an exam to resize

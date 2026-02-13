@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import Image from "next/image";
 import Cropper from "react-easy-crop";
 import { Area } from "react-easy-crop";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -10,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { getCroppedCanvas, resizeCanvas, addDateToPhoto, compressToTargetSize, applyBlackInkFilter, enhanceLegibility } from "@/lib/image-processing";
-import { Upload, Download, RefreshCw, AlertCircle, Calendar, Wand2, Droplets } from "lucide-react";
+import { Upload, Download, RefreshCw, Wand2, Droplets } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PrivacyBadge } from "@/components/PrivacyBadge";
 
@@ -388,7 +389,14 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
                 ) : (
                     <div className="flex flex-col items-center space-y-6">
                         <div className="border-4 border-white shadow-xl rounded-lg overflow-hidden bg-white">
-                            <img src={finalImage} alt="Final" className="max-w-full max-h-[500px]" />
+                            <Image
+                                src={finalImage}
+                                alt="Final"
+                                width={config.width || 400}
+                                height={config.height || 400}
+                                className="max-w-full max-h-[500px] w-auto h-auto"
+                                unoptimized
+                            />
                         </div>
                         <div className="text-center">
                             <h3 className="text-2xl font-bold text-green-600 flex justify-center gap-2 items-center">

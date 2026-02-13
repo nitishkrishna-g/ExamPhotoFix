@@ -2,15 +2,30 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload, Download, Loader2 } from "lucide-react";
 import { createPostcard } from "@/lib/image-processing";
 
-import { ToolConfig } from "@/lib/exam-config";
-
 interface PostcardMakerProps {
-    config?: ToolConfig['config'];
+    config?: {
+        width?: number;
+        height?: number;
+        minKB?: number;
+        maxKB?: number;
+        aspect?: number;
+        label?: string;
+        features?: {
+            dateOnPhoto?: boolean;
+            nameAndDateOnPhoto?: boolean;
+            forceSquare?: boolean;
+            isSignature?: boolean;
+            isDeclaration?: boolean;
+            blackInkOnly?: boolean;
+            enhanceLegibility?: boolean;
+        };
+    };
 }
 
 export function PostcardMaker({ config }: PostcardMakerProps) {
@@ -67,8 +82,15 @@ export function PostcardMaker({ config }: PostcardMakerProps) {
                     </div>
                 ) : (
                     <div className="flex flex-col items-center space-y-4">
-                        <div className="bg-slate-100 p-2 rounded">
-                            <img src={imageSrc} alt="Source" className="h-32 object-contain" />
+                        <div className="bg-slate-100 p-2 rounded relative w-full h-32 flex justify-center">
+                            <Image
+                                src={imageSrc}
+                                alt="Source"
+                                width={200}
+                                height={200}
+                                className="h-full w-auto object-contain"
+                                unoptimized
+                            />
                         </div>
                         <Button onClick={generatePostcard} disabled={processing} className="w-full">
                             {processing ? <Loader2 className="animate-spin mr-2" /> : null}
@@ -81,14 +103,21 @@ export function PostcardMaker({ config }: PostcardMakerProps) {
                     <div className="space-y-4 animate-in slide-in-from-bottom-4 pt-4 border-t w-full flex flex-col items-center">
                         <p className="text-center font-semibold text-green-600">Postcard Ready!</p>
                         <div className="border p-2 bg-white shadow-sm flex justify-center">
-                            <img src={result} alt="Postcard" className="max-h-[400px]" />
+                            <Image
+                                src={result}
+                                alt="Postcard"
+                                width={300}
+                                height={450}
+                                className="max-h-[400px] w-auto"
+                                unoptimized
+                            />
                         </div>
                         <div className="flex gap-4 w-full">
                             <Button variant="outline" onClick={() => { setImageSrc(null); setResult(null); }} className="flex-1">
                                 Start Over
                             </Button>
                             <Button onClick={download} className="flex-1 bg-green-600 hover:bg-green-700">
-                                <Download className="mr-2" /> Download 4x6" JPG
+                                <Download className="mr-2" /> Download 4x6 inch JPG
                             </Button>
                         </div>
                     </div>

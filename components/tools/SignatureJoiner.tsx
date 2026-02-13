@@ -2,17 +2,31 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload, Download, Loader2 } from "lucide-react";
 import { joinSignatures } from "@/lib/image-processing";
-import { AdPlaceholder } from "@/components/AdPlaceholder";
-
-import { ToolConfig } from "@/lib/exam-config";
 
 interface SignatureJoinerProps {
-    config?: ToolConfig['config'];
+    config?: {
+        width?: number;
+        height?: number;
+        minKB?: number;
+        maxKB?: number;
+        aspect?: number;
+        label?: string;
+        features?: {
+            dateOnPhoto?: boolean;
+            nameAndDateOnPhoto?: boolean;
+            forceSquare?: boolean;
+            isSignature?: boolean;
+            isDeclaration?: boolean;
+            blackInkOnly?: boolean;
+            enhanceLegibility?: boolean;
+        };
+    };
 }
 
 export function SignatureJoiner({ config }: SignatureJoinerProps) {
@@ -83,7 +97,15 @@ export function SignatureJoiner({ config }: SignatureJoinerProps) {
                             <div className="border-2 border-dashed rounded-lg p-4 h-32 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-muted/50 relative bg-slate-50 transition-colors">
                                 <input type="file" accept="image/*" className="absolute inset-0 opacity-0 cursor-pointer" onChange={handleFileChange(idx)} />
                                 {files[idx] ? (
-                                    <img src={files[idx]!} alt={`Sig ${idx + 1}`} className="max-h-full object-contain" />
+                                    <div className="relative w-full h-full">
+                                        <Image
+                                            src={files[idx]!}
+                                            alt={`Sig ${idx + 1}`}
+                                            fill
+                                            className="object-contain"
+                                            unoptimized
+                                        />
+                                    </div>
                                 ) : (
                                     <div className="text-muted-foreground">
                                         <Upload className="w-6 h-6 mx-auto mb-2 opacity-50" />
@@ -108,8 +130,15 @@ export function SignatureJoiner({ config }: SignatureJoinerProps) {
                 {result && (
                     <div className="flex flex-col items-center space-y-4 animate-in fade-in pt-4 border-t">
                         <Label className="text-green-600 font-bold">Preview Result</Label>
-                        <div className="border p-2 bg-white shadow-sm">
-                            <img src={result} alt="Merged" className="max-h-[300px]" />
+                        <div className="border p-2 bg-white shadow-sm flex justify-center">
+                            <Image
+                                src={result}
+                                alt="Merged"
+                                width={350}
+                                height={500}
+                                className="max-h-[300px] w-auto"
+                                unoptimized
+                            />
                         </div>
 
                         <div className="flex gap-4 w-full justify-center">
