@@ -65,7 +65,7 @@ export default async function ResizePage({ params }: Props) {
                         <h1 className="text-4xl md:text-6xl font-black text-foreground tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400">
                             {config.title}
                         </h1>
-                        <div className="bg-card/50 backdrop-blur border border-border/50 p-8 rounded-3xl text-left shadow-lg">
+                        <div className="glass p-8 rounded-3xl text-left">
                             <h2 className="font-bold text-xl text-primary mb-4 flex items-center gap-3">
                                 <span className="bg-primary/10 p-2 rounded-lg text-2xl">ℹ️</span>
                                 {config.content.heading}
@@ -106,7 +106,7 @@ export default async function ResizePage({ params }: Props) {
                                     </div>
 
                                     {/* Tool Component */}
-                                    <div className="md:ml-16 rounded-3xl overflow-hidden border border-border shadow-2xl bg-card ring-1 ring-border/50">
+                                    <div className="md:ml-16 rounded-3xl overflow-hidden glass">
                                         {tool.type === "PHOTO_WIZARD" && (
                                             <ExamPhotoWizard config={tool.config || {}} title={tool.title} />
                                         )}

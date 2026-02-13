@@ -145,4 +145,21 @@
   body {
     @apply bg-background text-foreground selection:bg-primary/30 selection:text-foreground;
   }
+  /* Ambient Background Glow for Dark Mode */
+  .dark body {
+    background-image: 
+      radial-gradient(circle at 15% 50%, oklch(0.25 0.1 260 / 0.15), transparent 25%),
+      radial-gradient(circle at 85% 30%, oklch(0.25 0.1 300 / 0.15), transparent 25%);
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/50 dark:bg-slate-900/40 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl;
+  }
+  
+  .glass-card {
+    @apply bg-white/70 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:shadow-md;
+  }
 }
