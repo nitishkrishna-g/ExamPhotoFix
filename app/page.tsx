@@ -6,7 +6,7 @@ import { AdPlaceholder } from "@/components/AdPlaceholder";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen max-w-7xl mx-auto w-full">
 
       {/* Hero Section */}
       <section className="relative pt-6 pb-20 md:pt-10 md:pb-32 overflow-hidden">

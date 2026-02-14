@@ -68,7 +68,7 @@ export function PostcardMaker({ config }: PostcardMakerProps) {
     };
 
     return (
-        <Card className="w-full border-2 border-primary/10 bg-white">
+        <Card className="w-full border-2 border-primary/10 bg-card">
             <CardHeader>
                 <CardTitle className="text-lg">Step 2: Postcard Size Generator (4x6 inch)</CardTitle>
                 <CardDescription>Convert your passport photo to a 4x6 inch Postcard size with margins.</CardDescription>

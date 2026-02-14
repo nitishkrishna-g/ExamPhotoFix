@@ -44,8 +44,27 @@ export default async function ResizePage({ params }: Props) {
         notFound();
     }
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": `${config.title} Resizer`,
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "INR"
+        },
+        "description": config.metaDescription,
+        "featureList": "Resize photo, Signature joiner, Date on photo",
+    };
+
     return (
-        <main className="container mx-auto py-8 px-4 lg:px-8">
+        <main className="container mx-auto py-8 px-4 lg:px-8 max-w-7xl">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] xl:grid-cols-[250px_1fr_300px] gap-8 relative">
 
                 {/* Left Column: Sidebar (Sticky) */}
@@ -57,7 +76,7 @@ export default async function ResizePage({ params }: Props) {
 
                     {/* Top Horizontal Ad */}
                     <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2">
-                        <AdPlaceholder slot="top-horizontal" />
+                        <AdPlaceholder slot="top-horizontal" width="100%" height={90} className="max-w-[728px]" label="Ad Space (Top Leaderboard)" />
                     </div>
 
                     {/* Header Section */}
@@ -83,7 +102,7 @@ export default async function ResizePage({ params }: Props) {
                             return (
                                 <div key={index} id={`tool-${index}`} className="scroll-mt-32 space-y-8">
 
-                                    {/* Tool Label & Instructions */}
+                                    {/* Tool label & Instructions */}
                                     <div className="space-y-4">
                                         <div className="flex items-center gap-4">
                                             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary font-bold text-xl">
@@ -132,7 +151,7 @@ export default async function ResizePage({ params }: Props) {
                                     {index < config.tools.length - 1 && (
                                         <div className="py-12 flex justify-center">
                                             <div className="w-full max-w-[728px] h-[90px] bg-muted/30 rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                                <AdPlaceholder slot="inter-tool" />
+                                                <AdPlaceholder slot="inter-tool" width="100%" height={90} label="Ad Space (Between Tools)" />
                                             </div>
                                         </div>
                                     )}
@@ -143,7 +162,7 @@ export default async function ResizePage({ params }: Props) {
 
                     {/* Bottom Horizontal Ad (Before FAQ) */}
                     <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2 my-12">
-                        <AdPlaceholder slot="bottom-horizontal" />
+                        <AdPlaceholder slot="bottom-horizontal" width="100%" height={90} className="max-w-[728px]" label="Ad Space (Bottom Leaderboard)" />
                     </div>
 
                     {/* FAQ Section */}
@@ -159,10 +178,13 @@ export default async function ResizePage({ params }: Props) {
                 </div>
 
                 {/* Right Column: Ad Slot (Sticky) */}
-                <aside className="hidden xl:block h-[calc(100vh-8rem)] sticky top-24">
-                    <div className="h-full flex flex-col justify-center items-center space-y-8">
-                        <div className="bg-muted/50 border border-border rounded-xl w-[300px] h-[600px] flex items-center justify-center text-muted-foreground text-sm font-medium shadow-sm">
-                            <AdPlaceholder slot="sidebar-right-skyscraper" />
+                <aside className="hidden xl:block h-[calc(100vh-6rem)] sticky top-24">
+                    <div className="h-full flex flex-col space-y-4">
+                        <div className="bg-muted/50 border border-border rounded-xl w-full max-w-[300px] flex-1 flex items-center justify-center text-muted-foreground text-sm font-medium shadow-sm overflow-hidden">
+                            <AdPlaceholder slot="sidebar-right-skyscraper" width="100%" height="100%" label="Ad Space (Fluid Skyscraper)" />
+                        </div>
+                        <div className="text-center text-xs text-muted-foreground p-2 bg-muted/20 rounded-lg">
+                            <p>Advertisement</p>
                         </div>
                     </div>
                 </aside>

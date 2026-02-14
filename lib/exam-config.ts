@@ -296,5 +296,293 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "Can I use my mobile phone selfie?", a: "No. Selfies are rejected. Use the rear camera with a friend's help or a webcam." },
       { q: "What file format is accepted?", a: "Only JPEG / JPG. PNG and PDF are not accepted for photos/signatures." }
     ]
+  },
+  "tnpsc": {
+    id: "tnpsc",
+    title: "TNPSC (Tamil Nadu)",
+    metaTitle: "TNPSC Photo & Signature Resizer - Date on Photo Tool",
+    metaDescription: "Resize photo and signature for TNPSC Group 1, 2, 4. Add Name and Date on photo automatically.",
+    content: {
+      heading: "TNPSC Group 1/2/4 Requirements",
+      descriptionHtml: `<p class="text-slate-700 dark:text-slate-300">TNPSC strictly requires the candidate's Name and Date of Photo to be printed on the bottom of the image.</p>`
+    },
+    tools: [
+      {
+        type: "PHOTO_WIZARD",
+        title: "Photo with Name & Date",
+        instructions: `<p class="text-sm">Dimensions: 3.5cm x 4.5cm. Size: 20-50 KB. <strong>Name & Date Required.</strong></p>`,
+        config: { width: 413, height: 531, aspect: 3.5 / 4.5, minKB: 20, maxKB: 50, features: { nameAndDateOnPhoto: true } }
+      },
+      {
+        type: "PHOTO_WIZARD",
+        title: "Signature",
+        instructions: `<p class="text-sm">Dimensions: 6.0cm x 2.0cm. Size: 10-20 KB.</p>`,
+        config: { width: 600, height: 200, aspect: 3, minKB: 10, maxKB: 20, features: { isSignature: true } }
+      }
+    ],
+    faqs: [
+      { q: "Is Name and Date mandatory for TNPSC photo?", a: "Yes. The candidate's name and date of photo (DOP) must be printed at the bottom. Photos without this are liable to be rejected." },
+      { q: "What is the photo size limit?", a: "The file size must be between 20 KB and 50 KB." },
+      { q: "What is the signature file size?", a: "The signature must be between 10 KB and 20 KB. This is a very targeted range." },
+      { q: "What background color should I use?", a: "A white or light-colored background is required for better clarity." },
+      { q: "Can I wear glasses?", a: "Yes, provided there is no glare on the lenses. Dark glasses are strictly prohibited." },
+      { q: "Is a selfie allowed?", a: "No. Selfies are not accepted. Use a formal passport-size photograph." },
+      { q: "How recent should the photo be?", a: "The photo should have been taken within the last 6 months." },
+      { q: "Can I edit the photo after submission?", a: "TNPSC provides a correction window, but it is risky to rely on it. Upload the correct photo first." },
+      { q: "Do I need to sign in Blue or Black ink?", a: "Black ink is preferred for better scanning, but Blue is accepted if dark enough." },
+      { q: "Are the rules same for Group 4?", a: "Yes, the photo and signature requirements are standard across Group 1, 2, and 4." }
+    ]
+  },
+  "uppsc": {
+    id: "uppsc",
+    title: "UPPSC (Uttar Pradesh)",
+    metaTitle: "UPPSC / RO / ARO Photo Resizer",
+    metaDescription: "Resize photo and signature for UPPSC exams. 3.5cm x 4.5cm format support.",
+    content: {
+      heading: "UPPSC PCS / RO / ARO Requirements",
+      descriptionHtml: `<p class="text-slate-700 dark:text-slate-300">UPPSC generally follows standard dimensions but ensure the signature is clear.</p>`
+    },
+    tools: [
+      {
+        type: "PHOTO_WIZARD",
+        title: "Photo",
+        instructions: `<p class="text-sm">Dimensions: 3.5cm x 4.5cm. Size: max 50 KB.</p>`,
+        config: { width: 413, height: 531, aspect: 3.5 / 4.5, maxKB: 50 }
+      },
+      {
+        type: "PHOTO_WIZARD",
+        title: "Signature",
+        instructions: `<p class="text-sm">Signature should be 3.5cm x 1.5cm. Size: max 30 KB.</p>`,
+        config: { width: 350, height: 150, aspect: 3.5 / 1.5, maxKB: 30, features: { isSignature: true } }
+      }
+    ],
+    faqs: [
+      { q: "What are the dimensions for UPPSC photo?", a: "The standard dimension is 3.5cm (width) x 4.5cm (height)." },
+      { q: "What is the maximum file size?", a: "The enhanced file size limit is usually 50 KB, but check specific notifications as it varies." },
+      { q: "Can I use a dark background?", a: "No. A plain white or off-white background is mandatory." },
+      { q: "Is the signature size different?", a: "Yes, the signature box is usually 3.5cm x 1.5cm. Keep it small and clear." },
+      { q: "Can I wear religious headgear?", a: "Yes, but it should not cover the face from chin to forehead." },
+      { q: "Is a border required?", a: "No, a border is not required and should be avoided." },
+      { q: "Can I use a scanned copy of an old photo?", a: "It is recommended to use a recent photo (not older than 3 months)." },
+      { q: "What format is accepted?", a: "Only JPEG/JPG format is accepted." },
+      { q: "Why was my photo rejected?", a: "Common reasons include blurry faces, too small dimensions, or wearing sunglasses." },
+      { q: "Does UPPSC require a live photo?", a: "Some recent exams may integrate live capture, but you still need a valid uploaded file." }
+    ]
+  },
+  "mpsc": {
+    id: "mpsc",
+    title: "MPSC (Maharashtra)",
+    metaTitle: "MPSC Photo & Signature Resizer",
+    metaDescription: "MPSC online application photo resizer. Crop to 3.5x4.5cm and compress below 50KB.",
+    content: {
+      heading: "MPSC Rajya Seva / Subordinate",
+      descriptionHtml: `<p class="text-slate-700 dark:text-slate-300">Upload recent passort size photo.</p>`
+    },
+    tools: [
+      {
+        type: "PHOTO_WIZARD",
+        title: "Photo",
+        instructions: `<p class="text-sm">Dimensions: 3.5cm x 4.5cm. Size: 50KB max.</p>`,
+        config: { width: 413, height: 531, aspect: 3.5 / 4.5, maxKB: 50 }
+      },
+      {
+        type: "PHOTO_WIZARD",
+        title: "Signature",
+        instructions: `<p class="text-sm">Size: 50KB max. Black ink preferred.</p>`,
+        config: { width: 413, height: 200, aspect: 2, maxKB: 50, features: { isSignature: true } }
+      }
+    ],
+    faqs: [
+      { q: "What is the aspect ratio for MPSC photo?", a: "The aspect ratio should be 3.5 (width) : 4.5 (height)." },
+      { q: "Is a white background mandatory?", a: "Yes, a light or white background ensures the face is clearly visible." },
+      { q: "What ink should I use for signature?", a: "Black ink on white paper is the standard requirement." },
+      { q: "What is the file size limit?", a: "Keep the file size below 50 KB to avoid upload errors." },
+      { q: "Can I wear heavy jewelry?", a: "Avoid heavy jewelry as it can cause reflection or cover facial features." },
+      { q: "Should I look straight at the camera?", a: "Yes, look straight into the camera with a neutral expression." },
+      { q: "What dpi should I scan at?", a: "200 dpi is the recommended scanning resolution." },
+      { q: "Is a side profile photo allowed?", a: "No, both ears must be visible." },
+      { q: "Can I use a mask?", a: "No, the face must be fully uncovered." },
+      { q: "Can I wear thick frames?", a: "If they cover your eyes, remove them. Eyes must be clearly visible." }
+    ]
+  },
+  "kpsc": {
+    id: "kpsc",
+    title: "KPSC (Karnataka)",
+    metaTitle: "KPSC Thulasi Photo Resizer",
+    metaDescription: "Resize photo for KPSC Thulasi login. White background required.",
+    content: {
+      heading: "KPSC Photo Rules",
+      descriptionHtml: `<p class="text-slate-700 dark:text-slate-300">KPSC often requires a white background and strict file size adherence.</p>`
+    },
+    tools: [
+      {
+        type: "PHOTO_WIZARD",
+        title: "Photo",
+        instructions: `<p class="text-sm">Passport photo. Size: Max 50KB.</p>`,
+        config: { width: 413, height: 531, aspect: 3.5 / 4.5, maxKB: 50 }
+      }
+    ],
+    faqs: [
+      { q: "Is registration on Thulasi mandatory?", a: "Yes, KPSC Thulasi is the one-time registration portal where you upload these docs." },
+      { q: "What is the KPSC photo size?", a: "The file size should not exceed 50 KB." },
+      { q: "Background color requirement?", a: "Plain white background is strictly recommended." },
+      { q: "What format for signature?", a: "JPG format with Black ink on white paper." },
+      { q: "Do I need a thumb impression?", a: "Some KPSC posts require a Left Thumb Impression (LTI). Check the notification." },
+      { q: "Should there be a border?", a: "No. Do not add borders to the photo." },
+      { q: "Does the date need to be on the photo?", a: "KPSC usually demands a recent photo but printing the date is a safe practice." },
+      { q: "Is a selfie valid?", a: "No. Selfies are rejected." },
+      { q: "How clear should the photo be?", a: "The photo must be studio-quality clear. Pixelated photos are rejected." },
+      { q: "Can I change the photo later?", a: "It is difficult to change verification details after final submission." }
+    ]
+  },
+  "afcat": {
+    id: "afcat",
+    title: "AFCAT (Air Force)",
+    metaTitle: "AFCAT Photo & Thumb Impression Resizer",
+    metaDescription: "Resize photo and thumb impression for AFCAT exam. Blue background suggested for Air Force sometimes.",
+    content: {
+      heading: "AFCAT Document Requirements",
+      descriptionHtml: `<p class="text-slate-700 dark:text-slate-300">AFCAT requires Photo, Signature, and Thumb Impression.</p>`
+    },
+    tools: [
+      {
+        type: "PHOTO_WIZARD",
+        title: "Photo",
+        instructions: `<p class="text-sm">Passport size. Size: 10-50 KB.</p>`,
+        config: { width: 413, height: 531, aspect: 3.5 / 4.5, minKB: 10, maxKB: 50 }
+      },
+      {
+        type: "PHOTO_WIZARD",
+        title: "Signature",
+        instructions: `<p class="text-sm">Size: 10-50 KB.</p>`,
+        config: { width: 300, height: 100, aspect: 3, minKB: 10, maxKB: 50, features: { isSignature: true } }
+      },
+      {
+        type: "PHOTO_WIZARD",
+        title: "Thumb Impression",
+        instructions: `<p class="text-sm">Male: Left Thumb / Female: Right Thumb. Size: 10-50 KB.</p>`,
+        config: { width: 200, height: 200, aspect: 1, minKB: 10, maxKB: 50 }
+      }
+    ],
+    faqs: [
+      { q: "Which thumb impression is required?", a: "Male candidates: Left Thumb. Female candidates: Right Thumb." },
+      { q: "What background is needed for AFCAT?", a: "A blue background is often suggested for Defence exams, but white is also standard. Check the specific cycle notification." },
+      { q: "What is the size limit?", a: "Photos and signatures must be between 10 KB and 50 KB." },
+      { q: "Is a slate required?", a: "Some entries require holding a slate. Our tool supports standard crop; ensure your original has the slate if needed." },
+      { q: "Can I wear glasses?", a: "It is best to remove glasses to avoid any chance of rejection due to glare." },
+      { q: "Is a cap allowed?", a: "No caps or headgear unless for religious reasons." },
+      { q: "Do I need to be in uniform?", a: "No, civilians should wear formal/casual clothes, not uniform." },
+      { q: "How recent should the photo be?", a: "Taken within the last 3 months." },
+      { q: "What is the signature file size?", a: "10 KB to 50 KB. Use black ink." },
+      { q: "Can I align the thumb impression vertically?", a: "Yes, but ensure the whorls and ridges are clearly visible." }
+    ]
+  },
+  "icg": {
+    id: "icg",
+    title: "Indian Coast Guard",
+    metaTitle: "Indian Coast Guard Photo Utility",
+    metaDescription: "Resize photo for Coast Guard Navik/Yantrik. Slate with Name & Date often required.",
+    content: {
+      heading: "ICG Photo with Slate",
+      descriptionHtml: `<p class="text-slate-700 dark:text-slate-300">Coast Guard requires the candidate to hold a black slate with Name and Date of Photo written on it.</p>`
+    },
+    tools: [
+      {
+        type: "PHOTO_WIZARD",
+        title: "Photo with Slate Effect",
+        instructions: `<p class="text-sm">Upload a normal photo, and we will try to format it or simply ensure you have the slate in the original. Size: 10-100 KB.</p>`,
+        config: { width: 413, height: 531, aspect: 3.5 / 4.5, minKB: 10, maxKB: 100 }
+      },
+      {
+        type: "PHOTO_WIZARD",
+        title: "Signature",
+        instructions: `<p class="text-sm">Size: 10-30 KB.</p>`,
+        config: { width: 300, height: 100, aspect: 3, minKB: 10, maxKB: 30, features: { isSignature: true } }
+      }
+    ],
+    faqs: [
+      { q: "Is a slate mandatory for Coast Guard?", a: "YES. You must hold a black slate in front of your chest with your Name and Date of Photo written in chalk." },
+      { q: "Where should the slate be?", a: "Held against the chest, clearly visible." },
+      { q: "What background is required?", a: "Light background, preferably white." },
+      { q: "Can I have a beard?", a: "Only candidates belonging to the Sikh community are allowed beards." },
+      { q: "What is the signature size?", a: "10 KB to 30 KB. Note strict lower limit." },
+      { q: "Which thumb impression?", a: "Left Hand Thumb Impression (LTI) is mandatory." },
+      { q: "How old can the photo be?", a: "Not older than 3 months from the date of advertisement." },
+      { q: "Can I sign in capital letters?", a: "No. Signatures in ALL CAPS are rejected." },
+      { q: "Can I wear glasses?", a: "No. Glasses are not allowed." },
+      { q: "Should ears be visible?", a: "Yes, both ears must be clearly visible." }
+    ]
+  },
+  "ctet": {
+    id: "ctet",
+    title: "CTET / TET",
+    metaTitle: "CTET Photo & Signature Resizer",
+    metaDescription: "Resize for Central Teacher Eligibility Test (CTET).",
+    content: {
+      heading: "CTET Documents",
+      descriptionHtml: `<p class="text-slate-700 dark:text-slate-300">Standard teacher eligibility test requirements.</p>`
+    },
+    tools: [
+      {
+        type: "PHOTO_WIZARD",
+        title: "Photo",
+        instructions: `<p class="text-sm">3.5cm x 4.5cm. Size: 10-100 KB.</p>`,
+        config: { width: 413, height: 531, aspect: 3.5 / 4.5, minKB: 10, maxKB: 100 }
+      },
+      {
+        type: "PHOTO_WIZARD",
+        title: "Signature",
+        instructions: `<p class="text-sm">3.5cm x 1.5cm. Size: 3-30 KB.</p>`,
+        config: { width: 350, height: 150, aspect: 3.5 / 1.5, minKB: 3, maxKB: 30, features: { isSignature: true } }
+      }
+    ],
+    faqs: [
+      { q: "What are the dimensions for CTET photo?", a: "3.5 cm (width) x 4.5 cm (height)." },
+      { q: "What is the file size limit?", a: "10 KB to 100 KB for photos." },
+      { q: "What is the signature size?", a: "3 KB to 30 KB. Note the small minimum size." },
+      { q: "Do I need a date on the photo?", a: "It is not strictly mandated, but using a recent photo is required." },
+      { q: "What background is accepted?", a: "White or very light background." },
+      { q: "Can I wear glasses?", a: "Yes, if they are clear and have no flash reflection." },
+      { q: "Is Black and White photo allowed?", a: "No, colored photographs are required." },
+      { q: "Can I correct images later?", a: "CTET usually opens an image correction window." },
+      { q: "How recent should it be?", a: "Taken within the last 6 months." },
+      { q: "Why is my signature rejected?", a: "Usually because it is too small (under 3 KB) or blurry." }
+    ]
+  },
+  "ugcnet": {
+    id: "ugcnet",
+    title: "UGC NET",
+    metaTitle: "UGC NET Photo Resizer - NTA Specifications",
+    metaDescription: "Resize photo for UGC NET (National Testing Agency).",
+    content: {
+      heading: "UGC NET (NTA) Rules",
+      descriptionHtml: `<p class="text-slate-700 dark:text-slate-300">Approximates standard NTA guidelines.</p>`
+    },
+    tools: [
+      {
+        type: "PHOTO_WIZARD",
+        title: "Photo",
+        instructions: `<p class="text-sm">10KB to 200KB.</p>`,
+        config: { width: 413, height: 531, aspect: 3.5 / 4.5, minKB: 10, maxKB: 200 }
+      },
+      {
+        type: "PHOTO_WIZARD",
+        title: "Signature",
+        instructions: `<p class="text-sm">4KB to 30KB.</p>`,
+        config: { width: 350, height: 150, aspect: 3.5 / 1.5, minKB: 4, maxKB: 30, features: { isSignature: true } }
+      }
+    ],
+    faqs: [
+      { q: "What file size does NTA require?", a: "10 KB to 200 KB for photos." },
+      { q: "What is the signature size?", a: "4 KB to 30 KB." },
+      { q: "Is Black and White photo accepted?", a: "Yes, NTA accepts both Color and B&W photos, provided there is clear contrast." },
+      { q: "How much face coverage?", a: "80% of the photo should be the face (without mask)." },
+      { q: "Are ears visible?", a: "Yes, both ears must be visible." },
+      { q: "Can I wear glasses?", a: "Yes, if used regularly, but no reflections allowed." },
+      { q: "Can I wear a cap?", a: "No caps or hats are allowed." },
+      { q: "Is a polaroid photo allowed?", a: "No. Computer-generated or polaroid photos are rejected." },
+      { q: "Can I retouch the photo?", a: "No, avoid digital makeup or filters." },
+      { q: "Is Name and Date required?", a: "NTA has varied this rule. Check the latest bulletin. Adding it is usually safe." }
+    ]
   }
 };

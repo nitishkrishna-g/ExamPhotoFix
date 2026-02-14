@@ -8,14 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const EXAM_LINKS = [
-    { title: "UPSC", id: "upsc" },
-    { title: "SSC", id: "ssc" },
-    { title: "IBPS", id: "ibps" },
-    { title: "Railway", id: "rrb" }, // Fixed ID to match config 'rrb' rather than 'railway' if that was intended, assuming 'rrb' from config. Using 'rrb' based on config file.
-    { title: "NEET", id: "neet" },
-    { title: "GATE", id: "gate" },
-];
+import { EXAMS } from "@/lib/exam-config";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -40,7 +33,7 @@ export function ExamSidebar({ className, ...props }: SidebarProps) {
                     Select an exam to resize
                 </p>
                 <div className="space-y-1">
-                    {EXAM_LINKS.map((exam) => {
+                    {Object.values(EXAMS).map((exam) => {
                         const href = `/resize/${exam.id}`;
                         const isActive = pathname === href;
                         return (
@@ -49,8 +42,8 @@ export function ExamSidebar({ className, ...props }: SidebarProps) {
                                 href={href}
                                 className={cn(
                                     buttonVariants({ variant: isActive ? "secondary" : "ghost" }),
-                                    "w-full justify-start",
-                                    isActive && "bg-secondary"
+                                    "w-full justify-start whitespace-normal h-auto py-3 text-sm leading-tight hover:bg-muted/50",
+                                    isActive && "bg-secondary hover:bg-secondary font-medium"
                                 )}
                             >
                                 {exam.title}
@@ -99,7 +92,7 @@ export function ExamSidebar({ className, ...props }: SidebarProps) {
             </div>
 
             {/* Desktop Sidebar */}
-            <div className={cn("hidden lg:block pb-12 border-r bg-background/50 backdrop-blur-sm", className)} {...props}>
+            <div className={cn("hidden lg:block pb-12 border-r bg-background/50 backdrop-blur-sm no-scrollbar overflow-y-auto", className)} {...props}>
                 <SidebarContent />
             </div>
         </>

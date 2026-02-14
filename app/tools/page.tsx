@@ -78,14 +78,14 @@ export default function ToolsPage() {
                             {/* Mobile Ad: Between every card */}
                             {index < array.length - 1 && (
                                 <div className="md:hidden col-span-1 py-4">
-                                    <AdPlaceholder className="w-full h-[90px]" label="Ad Space (Mobile Feed)" />
+                                    <AdPlaceholder className="w-full h-[90px]" label={`Ad Space (Mobile ${index + 1})`} />
                                 </div>
                             )}
 
-                            {/* Desktop Ad: After 3rd card (Row Break) */}
-                            {index === 2 && (
+                            {/* Desktop Ad: After every 3rd card (Row Break) */}
+                            {(index + 1) % 3 === 0 && index < array.length - 1 && (
                                 <div className="hidden lg:block col-span-3 py-8">
-                                    <AdPlaceholder className="w-full h-[90px]" label="Ad Space (Desktop Mid)" />
+                                    <AdPlaceholder className="w-full h-[90px]" label={`Ad Space (Desktop Row ${(index + 1) / 3})`} />
                                 </div>
                             )}
                         </Fragment>
