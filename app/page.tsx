@@ -254,14 +254,6 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="py-12 text-center text-slate-400 text-sm border-t">
-        <div className="container">
-          <p className="mb-4">© 2026 SarkariPhoto.in. Enhancing the application experience for Indian aspirants.</p>
-          <p className="text-xs text-muted-foreground/60">
-            Not affiliated with UPSC, SSC, or any government body. All image processing is performed locally.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
