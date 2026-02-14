@@ -4,9 +4,9 @@ export function SiteFooter() {
     return (
         <footer className="border-t bg-muted/40">
             <div className="container px-4 md:px-6 py-8 md:py-12">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-                    <div className="col-span-2 md:col-span-1">
-                        <Link href="/" className="font-bold text-lg flex items-center gap-2 mb-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8 text-center">
+                    <div className="col-span-2 md:col-span-1 flex flex-col items-center">
+                        <Link href="/" className="font-bold text-lg flex items-center justify-center gap-2 mb-4">
                             <span>SarkariPhoto.in</span>
                         </Link>
                         <p className="text-sm text-muted-foreground leading-relaxed">
@@ -43,7 +43,7 @@ export function SiteFooter() {
                     </div>
                 </div>
 
-                <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <div className="border-t pt-8 flex justify-center items-center text-center">
                     <p className="text-xs text-muted-foreground">
                         © 2026 SarkariPhoto.in. All rights reserved. Not affiliated with any government organization.
                     </p>

@@ -70,7 +70,7 @@ export function TripleSignature() {
                     {[0, 1, 2].map((idx) => (
                         <div key={idx} className="space-y-2">
                             <Label>Signature {idx + 1}</Label>
-                            <div className="border-2 border-dashed rounded-lg p-4 h-32 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-muted/50 relative">
+                            <div className="border-2 border-dashed rounded-lg p-4 h-32 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-muted/50 relative dark:bg-slate-900 dark:border-slate-800">
                                 <input type="file" accept="image/*" className="absolute inset-0 opacity-0 cursor-pointer" onChange={handleFileChange(idx)} />
                                 {files[idx] ? (
                                     <div className="relative w-full h-full">
