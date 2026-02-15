@@ -58,7 +58,7 @@ export function ExamSidebar({ className, ...props }: SidebarProps) {
     return (
         <>
             {/* Mobile Floating Bubble Trigger */}
-            <div className="lg:hidden fixed left-0 top-1/2 -translate-y-1/2 z-50">
+            <div className="lg:hidden fixed left-0 top-1/2 -translate-y-1/2 z-[100]">
                 <Button
                     variant="default"
                     size="icon"
@@ -79,7 +79,7 @@ export function ExamSidebar({ className, ...props }: SidebarProps) {
             )}
             <div
                 className={cn(
-                    "fixed inset-y-0 left-0 z-50 w-64 bg-background border-r transition-transform duration-300 ease-in-out lg:hidden",
+                    "fixed inset-y-0 left-0 z-[60] w-64 bg-background border-r transition-transform duration-300 ease-in-out lg:hidden overflow-y-auto overscroll-contain",
                     isOpen ? "translate-x-0" : "-translate-x-full"
                 )}
             >

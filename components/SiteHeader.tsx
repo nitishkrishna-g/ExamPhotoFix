@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { Camera, Menu } from "lucide-react"
@@ -10,7 +12,10 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 
+import { useState } from "react"
+
 export function SiteHeader() {
+    const [isOpen, setIsOpen] = useState(false)
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto px-4 md:px-6 flex h-14 items-center justify-between relative">
@@ -44,8 +49,8 @@ export function SiteHeader() {
                 </nav>
 
                 {/* Mobile Nav */}
-                <div className="flex md:hidden items-center">
-                    <Sheet>
+                <div className="flex md:hidden items-center -ml-4">
+                    <Sheet open={isOpen} onOpenChange={setIsOpen}>
                         <SheetTrigger asChild>
                             <Button variant="ghost" size="icon" className="md:hidden h-14 w-14 rounded-none bg-blue-600 text-white hover:bg-blue-700 hover:text-white dark:bg-purple-600 dark:hover:bg-purple-700">
                                 <Menu className="h-6 w-6" />
@@ -55,18 +60,18 @@ export function SiteHeader() {
                         <SheetContent side="left" className="w-[300px] p-0">
                             <SheetHeader className="p-4 text-left">
                                 <SheetTitle>
-                                    <Link href="/" className="flex items-center space-x-2">
+                                    <Link href="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
                                         <Camera className="h-6 w-6" />
                                         <span className="font-bold">SarkariPhoto.in</span>
                                     </Link>
                                 </SheetTitle>
                             </SheetHeader>
                             <nav className="flex flex-col gap-2 p-4 pl-12">
-                                <Link href="/" className="block py-2 text-lg font-medium hover:text-primary">Home</Link>
-                                <Link href="/tools" className="block py-2 text-lg font-medium hover:text-primary">Tools</Link>
-                                <Link href="/about" className="block py-2 text-lg font-medium hover:text-primary">About Us</Link>
-                                <Link href="/contact" className="block py-2 text-lg font-medium hover:text-primary">Contact</Link>
-                                <Link href="/privacy-policy" className="block py-2 text-lg font-medium hover:text-primary">Privacy Policy</Link>
+                                <Link href="/" className="block py-2 text-lg font-medium hover:text-primary" onClick={() => setIsOpen(false)}>Home</Link>
+                                <Link href="/tools" className="block py-2 text-lg font-medium hover:text-primary" onClick={() => setIsOpen(false)}>Tools</Link>
+                                <Link href="/about" className="block py-2 text-lg font-medium hover:text-primary" onClick={() => setIsOpen(false)}>About Us</Link>
+                                <Link href="/contact" className="block py-2 text-lg font-medium hover:text-primary" onClick={() => setIsOpen(false)}>Contact</Link>
+                                <Link href="/privacy-policy" className="block py-2 text-lg font-medium hover:text-primary" onClick={() => setIsOpen(false)}>Privacy Policy</Link>
                             </nav>
                         </SheetContent>
                     </Sheet>
