@@ -58,7 +58,7 @@ export function ExamSidebar({ className, ...props }: SidebarProps) {
     return (
         <>
             {/* Mobile Floating Bubble Trigger */}
-            <div className="lg:hidden fixed left-0 top-1/2 -translate-y-1/2 z-[100]">
+            <div className="lg:hidden fixed left-0 top-1/2 -translate-y-1/2 z-[40]">
                 <Button
                     variant="default"
                     size="icon"

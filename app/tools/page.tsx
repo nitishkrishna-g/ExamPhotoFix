@@ -33,8 +33,8 @@ export default function ToolsPage() {
 
             {/* Hero Section */}
             <section className="text-center mb-12 space-y-6">
-                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-blue-700 to-indigo-700 bg-clip-text text-transparent">
-                    Govt Exam Photo Tools
+                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 dark:from-white dark:via-blue-200 dark:to-white">
+                    Govt Exam Photo <span className="text-primary">Tools</span>
                 </h1>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                     Select your exam below to access specialized resizers, croppers, and date-stamp tools.

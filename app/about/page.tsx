@@ -6,24 +6,24 @@ export default function AboutPage() {
     return (
         <div className="flex flex-col min-h-screen">
             {/* Hero Section */}
-            <section className="relative py-20 md:py-32 overflow-hidden bg-slate-50 dark:bg-slate-950">
+            <section className="relative py-16 md:py-32 overflow-hidden bg-slate-50 dark:bg-slate-950">
                 <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
                 <div className="container mx-auto px-4 md:px-6 text-center">
                     <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary/10 text-primary hover:bg-primary/20 backdrop-blur-sm mb-6">
                         Our Mission
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 dark:from-white dark:via-blue-200 dark:to-white max-w-4xl mx-auto mb-6">
+                    <h1 className="text-3xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 dark:from-white dark:via-blue-200 dark:to-white max-w-4xl mx-auto mb-6 leading-tight">
                         Simplifying Exam Applications for <span className="text-primary">Every Indian Student</span>
                     </h1>
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-10">
+                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-10 px-2">
                         SarkariPhoto.in is a free, privacy-first tool designed to ensure your government exam applications are never rejected due to incorrect photo formatting.
                     </p>
                 </div>
             </section>
 
             {/* The Problem & Solution */}
-            <section className="py-20">
-                <div className="container mx-auto px-6 md:px-6">
+            <section className="py-16 md:py-20">
+                <div className="container mx-auto px-4 md:px-6">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div className="space-y-6">
                             <h2 className="text-3xl font-bold tracking-tight">Why We Built This?</h2>
@@ -42,7 +42,7 @@ export default function AboutPage() {
                                 <span className="text-sm font-medium text-muted-foreground">Trusted by thousands of aspirants</span>
                             </div>
                         </div>
-                        <div className="bg-slate-100 dark:bg-slate-900/50 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 relative mt-8 md:mt-0">
+                        <div className="bg-slate-100 dark:bg-slate-900/50 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 relative mt-8 md:mt-0">
                             <div className="md:absolute md:top-0 md:right-0 md:-mr-4 md:-mt-4 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 mb-6 md:mb-0 inline-block">
                                 <span className="text-2xl font-bold text-green-600">0%</span> Rejections
                             </div>
@@ -81,16 +81,16 @@ export default function AboutPage() {
             </section>
 
             {/* Core Values */}
-            <section className="py-20 bg-slate-50 dark:bg-slate-900/30">
+            <section className="py-16 md:py-20 bg-slate-50 dark:bg-slate-900/30">
                 <div className="container mx-auto px-4 md:px-6">
-                    <div className="text-center mb-16">
+                    <div className="text-center mb-12 md:mb-16">
                         <h2 className="text-3xl font-bold tracking-tight mb-4">Our Core Values</h2>
                         <p className="text-muted-foreground max-w-2xl mx-auto">
                             Built by developers who faced the same struggles.
                         </p>
                     </div>
                     <div className="grid md:grid-cols-3 gap-8">
-                        <div className="bg-white dark:bg-slate-950 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="bg-white dark:bg-slate-950 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <div className="w-14 h-14 rounded-xl bg-red-100 dark:bg-red-900/20 text-red-600 flex items-center justify-center mb-6">
                                 <Heart className="w-7 h-7" />
                             </div>
@@ -99,7 +99,7 @@ export default function AboutPage() {
                                 Education resources should be accessible. We promise to keep core features free for students forever.
                             </p>
                         </div>
-                        <div className="bg-white dark:bg-slate-950 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="bg-white dark:bg-slate-950 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <div className="w-14 h-14 rounded-xl bg-orange-100 dark:bg-orange-900/20 text-orange-600 flex items-center justify-center mb-6">
                                 <Users className="w-7 h-7" />
                             </div>
@@ -108,7 +108,7 @@ export default function AboutPage() {
                                 We listen to feedback. If a new exam rule drops, we update our presets within 24 hours.
                             </p>
                         </div>
-                        <div className="bg-white dark:bg-slate-950 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <div className="bg-white dark:bg-slate-950 p-6 md:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
                             <div className="w-14 h-14 rounded-xl bg-blue-100 dark:bg-blue-900/20 text-blue-600 flex items-center justify-center mb-6">
                                 <ShieldCheck className="w-7 h-7" />
                             </div>
@@ -122,9 +122,9 @@ export default function AboutPage() {
             </section>
 
             {/* CTA */}
-            <section className="py-24">
+            <section className="py-20 md:py-24">
                 <div className="container mx-auto px-4 md:px-6 text-center">
-                    <div className="bg-primary/5 dark:bg-primary/10 rounded-3xl p-12 max-w-4xl mx-auto border border-primary/10">
+                    <div className="bg-primary/5 dark:bg-primary/10 rounded-3xl p-8 md:p-12 max-w-4xl mx-auto border border-primary/10">
                         <h2 className="text-3xl font-bold mb-6">Ready to resize your photo?</h2>
                         <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
                             Join thousands of students who cleared their application process smoothly.
