@@ -65,14 +65,14 @@ export const EXAMS: Record<string, ExamPageConfig> = {
             <li><strong>Size:</strong> 20-300 KB.</li>
             <li><strong>Feature:</strong> Name & Date on photo is highly recommended.</li>
           </ul>`,
-        config: { width: 350, height: 350, aspect: 1, minKB: 20, maxKB: 300, features: { forceSquare: true, nameAndDateOnPhoto: true } }
+        config: { width: 350, height: 350, aspect: 1, minKB: 20, maxKB: 200, features: { forceSquare: true, nameAndDateOnPhoto: true } }
       },
       {
         type: "SIGNATURE_JOINER",
         title: "Step 2: Triple Signature Joiner (New Rule)",
         instructions: `
           <p class="text-sm">The 2026 Rule requires <strong>Three Signatures</strong> stacked vertically to ensure better verification.</p>`,
-        config: { minKB: 20, maxKB: 100 }
+        config: { width: 350, height: 1000, aspect: 0.35, minKB: 20, maxKB: 100 }
       },
       {
         type: "IMAGE_TO_PDF",
@@ -124,7 +124,7 @@ export const EXAMS: Record<string, ExamPageConfig> = {
         type: "PHOTO_WIZARD",
         title: "Step 2: Signature Resizer",
         instructions: `<p class="text-sm">Signature must be 4.0cm x 2.0cm, between 10-20 KB.</p>`,
-        config: { width: 472, height: 236, aspect: 4 / 2, minKB: 10, maxKB: 20, features: { isSignature: true } }
+        config: { width: 280, height: 94, aspect: 280 / 94, minKB: 10, maxKB: 20, features: { isSignature: true } }
       }
     ],
     faqs: [
@@ -203,7 +203,13 @@ export const EXAMS: Record<string, ExamPageConfig> = {
         type: "PHOTO_WIZARD",
         title: "RRB Photo (35x45mm)",
         instructions: `<p class="text-sm">Standard rectangular photo: <strong>35mm x 45mm</strong>. File size: 20-70 KB.</p>`,
-        config: { width: 413, height: 531, aspect: 35 / 45, minKB: 20, maxKB: 70 }
+        config: { width: 413, height: 531, aspect: 35 / 45, minKB: 30, maxKB: 70 }
+      },
+      {
+        type: "PHOTO_WIZARD",
+        title: "Signature Resizer",
+        instructions: `<p class="text-sm">Size: 30-70 KB. 500x200 px.</p>`,
+        config: { width: 500, height: 200, aspect: 2.5, minKB: 30, maxKB: 70, features: { isSignature: true } }
       },
       {
         type: "IMAGE_TO_PDF",
@@ -279,9 +285,15 @@ export const EXAMS: Record<string, ExamPageConfig> = {
     tools: [
       {
         type: "PHOTO_WIZARD",
+        title: "Photo Resizer",
+        instructions: `<p class="text-sm">Size: 5-600 KB. 3.5x4.5cm.</p>`,
+        config: { width: 413, height: 531, aspect: 413 / 531, minKB: 5, maxKB: 600 }
+      },
+      {
+        type: "PHOTO_WIZARD",
         title: "Signature Resizer",
-        instructions: `<p class="text-sm">Strict aspect ratio required: <strong>2cm height x 7cm width</strong> (1:3.5). Size: 5-200 KB.</p>`,
-        config: { width: 560, height: 160, aspect: 3.5, minKB: 5, maxKB: 200, features: { isSignature: true, blackInkOnly: true } }
+        instructions: `<p class="text-sm">Strict aspect ratio required: <strong>2cm height x 7cm width</strong> (1:3.5). Size: 3-300 KB.</p>`,
+        config: { width: 500, height: 200, aspect: 2.5, minKB: 3, maxKB: 300, features: { isSignature: true, blackInkOnly: true } }
       }
     ],
     faqs: [
@@ -311,13 +323,13 @@ export const EXAMS: Record<string, ExamPageConfig> = {
         type: "PHOTO_WIZARD",
         title: "Photo with Name & Date",
         instructions: `<p class="text-sm">Dimensions: 3.5cm x 4.5cm. Size: 20-50 KB. <strong>Name & Date Required.</strong></p>`,
-        config: { width: 413, height: 531, aspect: 3.5 / 4.5, minKB: 20, maxKB: 50, features: { nameAndDateOnPhoto: true } }
+        config: { width: 165, height: 125, aspect: 1.32, minKB: 30, maxKB: 40, features: { nameAndDateOnPhoto: true } }
       },
       {
         type: "PHOTO_WIZARD",
         title: "Signature",
         instructions: `<p class="text-sm">Dimensions: 6.0cm x 2.0cm. Size: 10-20 KB.</p>`,
-        config: { width: 600, height: 200, aspect: 3, minKB: 10, maxKB: 20, features: { isSignature: true } }
+        config: { width: 80, height: 125, aspect: 0.64, minKB: 20, maxKB: 30, features: { isSignature: true } }
       }
     ],
     faqs: [
@@ -418,8 +430,14 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       {
         type: "PHOTO_WIZARD",
         title: "Photo",
-        instructions: `<p class="text-sm">Passport photo. Size: Max 50KB.</p>`,
-        config: { width: 413, height: 531, aspect: 3.5 / 4.5, maxKB: 50 }
+        instructions: `<p class="text-sm">Passport photo. Size: 4-30 KB. 150x200px.</p>`,
+        config: { width: 150, height: 200, aspect: 0.75, minKB: 4, maxKB: 30, features: { nameAndDateOnPhoto: true } }
+      },
+      {
+        type: "PHOTO_WIZARD",
+        title: "Signature",
+        instructions: `<p class="text-sm">Size: 4-30 KB. 150x100px.</p>`,
+        config: { width: 150, height: 100, aspect: 1.5, minKB: 4, maxKB: 30, features: { isSignature: true } }
       }
     ],
     faqs: [
@@ -563,13 +581,13 @@ export const EXAMS: Record<string, ExamPageConfig> = {
         type: "PHOTO_WIZARD",
         title: "Photo",
         instructions: `<p class="text-sm">10KB to 200KB.</p>`,
-        config: { width: 413, height: 531, aspect: 3.5 / 4.5, minKB: 10, maxKB: 200 }
+        config: { width: 350, height: 450, aspect: 0.77, minKB: 10, maxKB: 200 }
       },
       {
         type: "PHOTO_WIZARD",
         title: "Signature",
         instructions: `<p class="text-sm">4KB to 30KB.</p>`,
-        config: { width: 350, height: 150, aspect: 3.5 / 1.5, minKB: 4, maxKB: 30, features: { isSignature: true } }
+        config: { width: 280, height: 120, aspect: 2.33, minKB: 10, maxKB: 50, features: { isSignature: true } }
       }
     ],
     faqs: [

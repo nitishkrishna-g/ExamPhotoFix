@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Cropper from "react-easy-crop";
-import heic2any from "heic2any";
+// heic2any imported dynamically
 import { Area } from "react-easy-crop";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -81,6 +81,9 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
             if (file.type === "image/heic" || file.name.toLowerCase().endsWith(".heic")) {
                 setWarningMsg("Converting HEIC image... please wait.");
                 try {
+                    // Dynamically import heic2any to save bandwidth for non-HEIC users
+                    const heic2any = (await import("heic2any")).default;
+
                     const convertedBlob = await heic2any({
                         blob: file,
                         toType: "image/jpeg",
@@ -90,7 +93,7 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
                     setWarningMsg(null);
                 } catch (err) {
                     console.error("HEIC conversion failed", err);
-                    alert("HEIC conversion failed. Please upload a JPG/PNG.");
+                    setWarningMsg("Error: Could not convert HEIC image. Please try a JPG.");
                     return;
                 }
             }
@@ -157,7 +160,7 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
 
         } catch (e) {
             console.error(e);
-            alert("Failed to generate image.");
+            setWarningMsg("Error: Failed to generate image.");
         } finally {
             setProcessing(false);
         }
