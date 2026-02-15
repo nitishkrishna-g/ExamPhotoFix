@@ -75,7 +75,7 @@ export default async function ResizePage({ params }: Props) {
                 <div className="space-y-12 min-w-0">
 
                     {/* Top Horizontal Ad */}
-                    <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2">
+                    <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2 min-h-[100px]">
                         <AdPlaceholder slot="top-horizontal" width="100%" height={90} className="max-w-[728px]" label="Ad Space (Top Leaderboard)" />
                     </div>
 
@@ -161,7 +161,7 @@ export default async function ResizePage({ params }: Props) {
                     </section>
 
                     {/* Bottom Horizontal Ad (Before FAQ) */}
-                    <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2 my-12">
+                    <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2 my-12 min-h-[100px]">
                         <AdPlaceholder slot="bottom-horizontal" width="100%" height={90} className="max-w-[728px]" label="Ad Space (Bottom Leaderboard)" />
                     </div>
 

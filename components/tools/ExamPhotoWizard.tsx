@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Cropper from "react-easy-crop";
+import heic2any from "heic2any";
 import { Area } from "react-easy-crop";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -46,7 +47,8 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
 
     // State for Date & Name
     const [addDate, setAddDate] = useState(config.features?.dateOnPhoto || config.features?.nameAndDateOnPhoto || false);
-    const [dateValue, setDateValue] = useState(new Date().toISOString().split('T')[0]); // YYYY-MM-DD
+    const [dateValue, setDateValue] = useState(new Date().toLocaleDateString('en-CA')); // YYYY-MM-DD
+
     const [nameValue, setNameValue] = useState("");
 
     // State for Filters
@@ -73,7 +75,26 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
-            const file = e.target.files[0];
+            let file = e.target.files[0];
+
+            // HEIC/HEIF Support
+            if (file.type === "image/heic" || file.name.toLowerCase().endsWith(".heic")) {
+                setWarningMsg("Converting HEIC image... please wait.");
+                try {
+                    const convertedBlob = await heic2any({
+                        blob: file,
+                        toType: "image/jpeg",
+                    });
+                    const blob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+                    file = new File([blob], file.name.replace(/\.heic$/i, ".jpg"), { type: "image/jpeg" });
+                    setWarningMsg(null);
+                } catch (err) {
+                    console.error("HEIC conversion failed", err);
+                    alert("HEIC conversion failed. Please upload a JPG/PNG.");
+                    return;
+                }
+            }
+
             const reader = new FileReader();
             reader.onload = (ev) => {
                 setImageSrc(ev.target?.result as string);
@@ -159,9 +180,12 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
     };
 
     const reset = () => {
-        setImageSrc(null);
+        // setImageSrc(null); // Keep image to allow re-edit
+        // Reset everything else to default state
         setFinalImage(null);
         setZoom(1);
+        setCrop({ x: 0, y: 0 }); // Reset position to center
+        setWarningMsg(null);
     };
 
     const aspect = config.aspect || (config.features?.forceSquare ? 1 : (config.width && config.height ? config.width / config.height : 1));
@@ -172,9 +196,19 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
                 <CardTitle className="text-xl flex items-center justify-between">
                     {title}
                     {imageSrc && (
-                        <Button variant="ghost" size="sm" onClick={reset}>
-                            <RefreshCw className="w-4 h-4 mr-1" /> Reset
-                        </Button>
+                        <div className="flex gap-2">
+                            <Button variant="ghost" size="sm" onClick={() => {
+                                setImageSrc(null);
+                                setFinalImage(null);
+                                setZoom(1);
+                                setWarningMsg(null);
+                            }}>
+                                <Upload className="w-4 h-4 mr-1" /> New Photo
+                            </Button>
+                            <Button variant="ghost" size="sm" onClick={reset}>
+                                <RefreshCw className="w-4 h-4 mr-1" /> Reset Crop
+                            </Button>
+                        </div>
                     )}
                 </CardTitle>
             </CardHeader>
@@ -217,7 +251,7 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
                                     {/* Face Guide Overlay - Only for Photos */}
                                     {!config.features?.isSignature && !config.features?.isDeclaration && (
                                         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                                            <div className="w-[180px] h-[240px] border-2 border-white/50 rounded-[50%] shadow-[0_0_0_9999px_rgba(0,0,0,0.5)]"></div>
+                                            <div className="w-[180px] h-[240px] border-2 border-white/50 rounded-[50%] shadow-[0_0_0_9999px_rgba(0,0,0,0.5)] -translate-y-12"></div>
                                             <p className="absolute top-4 text-white/70 text-xs font-medium bg-black/50 px-3 py-1 rounded-full backdrop-blur-sm">
                                                 Fit Face Here
                                             </p>
