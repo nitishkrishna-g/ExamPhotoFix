@@ -42,7 +42,8 @@ export interface ExamPageConfig {
   faqs?: FAQItem[];
   affiliateLinks?: {
     label: string,
-    url: string
+    url: string,
+    note?: string // Optional: "Best for beginners" etc.
   }[];
 }
 
@@ -98,7 +99,7 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "Do I need to sign in Black Ink?", a: "Yes, UPSC prefers Black Ink on white paper for the clearest scanning visibility." }
     ],
     affiliateLinks: [
-      { label: "Best UPSC Books", url: "https://amzn.to/464oqjW" },
+      { label: "Best UPSC Books", url: "https://amzn.to/464oqjW", note: "Highly recommended for comprehensive preparation." },
       { label: "UPSC Previous Papers", url: "https://amzn.to/4kzt5jC" }
     ]
   },

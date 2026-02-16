@@ -10,6 +10,7 @@ import { FAQSection } from "@/components/FAQSection";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdPlaceholder } from "@/components/AdPlaceholder";
+import { AffiliateSection } from "@/components/AffiliateSection";
 
 interface Props {
     params: {
@@ -97,33 +98,7 @@ export default async function ResizePage({ params }: Props) {
                     </section>
 
                     {/* Recommended Resources (Affiliate) */}
-                    {config.affiliateLinks && config.affiliateLinks.length > 0 && (
-                        <section className="mb-12">
-                            <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30 border border-amber-200 dark:border-amber-900 rounded-2xl p-6 md:p-8">
-                                <h3 className="text-xl md:text-2xl font-bold text-amber-900 dark:text-amber-500 mb-4 flex items-center gap-2">
-                                    <span>📚</span> Recommended Books & Resources
-                                </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {config.affiliateLinks.map((link, i) => (
-                                        <a
-                                            key={i}
-                                            href={link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center justify-between p-4 bg-white dark:bg-black/40 border border-amber-100 dark:border-amber-900/50 rounded-xl hover:shadow-md hover:border-amber-300 transition-all group"
-                                        >
-                                            <span className="font-medium text-slate-800 dark:text-slate-200 group-hover:text-amber-700 dark:group-hover:text-amber-400">
-                                                {link.label}
-                                            </span>
-                                            <span className="text-amber-500 group-hover:translate-x-1 transition-transform">
-                                                →
-                                            </span>
-                                        </a>
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-                    )}
+                    <AffiliateSection links={config.affiliateLinks || []} />
 
                     {/* Tools Section */}
                     <section className="space-y-24">
