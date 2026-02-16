@@ -7,15 +7,17 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Upload, FileDown, Trash2, FileText } from "lucide-react";
 import { compressToTargetSize, loadImage } from "@/lib/image-processing";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AffiliateLinks } from "@/components/AffiliateLinks";
 
 interface ImageToPDFProps {
     config?: {
         minKB?: number;
         maxKB?: number;
     };
+    affiliateLinks?: { label: string; url: string; note?: string }[];
 }
 
-export function ImageToPDF({ config }: ImageToPDFProps) {
+export function ImageToPDF({ config, affiliateLinks }: ImageToPDFProps) {
     const [images, setImages] = useState<{ src: string; file: File; id: string }[]>([]);
     const [processing, setProcessing] = useState(false);
     const [pdfUrl, setPdfUrl] = useState<string | null>(null);
@@ -203,6 +205,7 @@ export function ImageToPDF({ config }: ImageToPDFProps) {
                             <Button variant="ghost" onClick={() => setPdfUrl(null)} className="w-full text-sm">
                                 Generate Another
                             </Button>
+                            <AffiliateLinks links={affiliateLinks} title="Image to PDF" />
                         </div>
                     )}
                 </div>

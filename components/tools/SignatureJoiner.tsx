@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -8,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload, Download, Loader2 } from "lucide-react";
 import { joinSignatures } from "@/lib/image-processing";
+import { AffiliateLinks } from "@/components/AffiliateLinks";
 
 interface SignatureJoinerProps {
     config?: {
@@ -27,9 +27,10 @@ interface SignatureJoinerProps {
             enhanceLegibility?: boolean;
         };
     };
+    affiliateLinks?: { label: string; url: string; note?: string }[];
 }
 
-export function SignatureJoiner({ config }: SignatureJoinerProps) {
+export function SignatureJoiner({ config, affiliateLinks }: SignatureJoinerProps) {
     const [files, setFiles] = useState<(string | null)[]>([null, null, null]);
     const [processing, setProcessing] = useState(false);
     const [result, setResult] = useState<string | null>(null);
@@ -147,6 +148,8 @@ export function SignatureJoiner({ config }: SignatureJoinerProps) {
                                 <Download className="w-4 h-4 mr-2" /> Download Merged JPG
                             </Button>
                         </div>
+
+                        <AffiliateLinks links={affiliateLinks} title="Signature Merger" />
                     </div>
                 )}
             </CardContent>

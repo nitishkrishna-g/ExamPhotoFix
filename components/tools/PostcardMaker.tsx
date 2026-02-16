@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Upload, Download, Loader2 } from "lucide-react";
 import { createPostcard } from "@/lib/image-processing";
 
+import { AffiliateLinks } from "@/components/AffiliateLinks";
+
 interface PostcardMakerProps {
     config?: {
         width?: number;
@@ -26,9 +28,10 @@ interface PostcardMakerProps {
             enhanceLegibility?: boolean;
         };
     };
+    affiliateLinks?: { label: string; url: string; note?: string }[];
 }
 
-export function PostcardMaker({ config }: PostcardMakerProps) {
+export function PostcardMaker({ config, affiliateLinks }: PostcardMakerProps) {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const [result, setResult] = useState<string | null>(null);
     const [processing, setProcessing] = useState(false);
@@ -120,6 +123,7 @@ export function PostcardMaker({ config }: PostcardMakerProps) {
                                 <Download className="mr-2" /> Download 4x6 inch JPG
                             </Button>
                         </div>
+                        <AffiliateLinks links={affiliateLinks} title="Postcard Generator" />
                     </div>
                 )}
             </CardContent>

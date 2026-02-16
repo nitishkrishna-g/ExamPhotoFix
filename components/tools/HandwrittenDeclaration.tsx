@@ -7,15 +7,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Download, RefreshCw } from "lucide-react";
 import { compressToTargetSize } from "@/lib/image-processing";
+import { AffiliateLinks } from "@/components/AffiliateLinks";
 
 interface DeclarationProps {
     config: {
         minKB?: number;
         maxKB?: number;
     };
+    affiliateLinks?: { label: string; url: string; note?: string }[];
 }
 
-export function HandwrittenDeclaration({ config }: DeclarationProps) {
+export function HandwrittenDeclaration({ config, affiliateLinks }: DeclarationProps) {
     const [name, setName] = useState("");
     const [finalImage, setFinalImage] = useState<string | null>(null);
     const [fileSize, setFileSize] = useState<string | null>(null);
@@ -151,6 +153,7 @@ export function HandwrittenDeclaration({ config }: DeclarationProps) {
                                     <Download className="mr-2 h-4 w-4" /> Download JPG
                                 </Button>
                             </div>
+                            <AffiliateLinks links={affiliateLinks} title="Declaration Generator" />
                         </div>
                     </div>
                 )}

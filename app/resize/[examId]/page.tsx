@@ -131,23 +131,27 @@ export default async function ResizePage({ params }: Props) {
                                     {/* Tool Component */}
                                     <div className="md:ml-16 rounded-3xl overflow-hidden glass">
                                         {tool.type === "PHOTO_WIZARD" && (
-                                            <ExamPhotoWizard config={tool.config || {}} title={tool.title} />
+                                            <ExamPhotoWizard
+                                                config={tool.config || {}}
+                                                title={tool.title}
+                                                affiliateLinks={config.affiliateLinks}
+                                            />
                                         )}
 
                                         {tool.type === "SIGNATURE_JOINER" && (
-                                            <SignatureJoiner config={tool.config} />
+                                            <SignatureJoiner config={tool.config} affiliateLinks={config.affiliateLinks} />
                                         )}
 
                                         {tool.type === "POSTCARD_MAKER" && (
-                                            <PostcardMaker config={tool.config} />
+                                            <PostcardMaker config={tool.config} affiliateLinks={config.affiliateLinks} />
                                         )}
 
                                         {tool.type === "DECLARATION_GENERATOR" && (
-                                            <HandwrittenDeclaration config={tool.config || {}} />
+                                            <HandwrittenDeclaration config={tool.config || {}} affiliateLinks={config.affiliateLinks} />
                                         )}
 
                                         {tool.type === "IMAGE_TO_PDF" && (
-                                            <ImageToPDF config={tool.config} />
+                                            <ImageToPDF config={tool.config} affiliateLinks={config.affiliateLinks} />
                                         )}
                                     </div>
 
@@ -183,12 +187,37 @@ export default async function ResizePage({ params }: Props) {
 
                 {/* Right Column: Ad Slot (Sticky) */}
                 <aside className="hidden xl:block h-[calc(100vh-6rem)] sticky top-24">
-                    <div className="h-full flex flex-col space-y-4">
-                        <div className="bg-muted/50 border border-border rounded-xl w-full max-w-[300px] flex-1 flex items-center justify-center text-muted-foreground text-sm font-medium shadow-sm overflow-hidden">
-                            <AdPlaceholder slot="sidebar-right-skyscraper" width="100%" height="100%" label="Ad Space (Fluid Skyscraper)" />
-                        </div>
-                        <div className="text-center text-xs text-muted-foreground p-2 bg-muted/20 rounded-lg">
-                            <p>Advertisement</p>
+                    <div className="h-full flex flex-col space-y-4 overflow-y-auto no-scrollbar pb-10">
+                        <div className="bg-gradient-to-b from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border border-amber-100 dark:border-amber-900/50 rounded-xl p-4 shadow-sm">
+                            <h3 className="text-sm font-bold text-amber-900 dark:text-amber-500 mb-3 flex items-center gap-2">
+                                <span>📚</span> Recommended
+                            </h3>
+                            <div className="space-y-3">
+                                {config.affiliateLinks?.map((link, i) => (
+                                    <a
+                                        key={i}
+                                        href={link.url}
+                                        target="_blank"
+                                        rel="sponsored noopener noreferrer"
+                                        className="block p-3 bg-white dark:bg-black/40 border border-amber-100 dark:border-amber-900/50 rounded-lg hover:shadow-md hover:border-amber-300 transition-all text-xs"
+                                    >
+                                        <p className="font-semibold text-slate-800 dark:text-slate-200 mb-1 line-clamp-2">
+                                            {link.label}
+                                        </p>
+                                        {link.note && (
+                                            <p className="text-[10px] text-slate-500 mb-2 line-clamp-2">
+                                                {link.note}
+                                            </p>
+                                        )}
+                                        <span className="text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
+                                            View on Amazon ↗
+                                        </span>
+                                    </a>
+                                ))}
+                                <div className="text-[10px] text-slate-400 text-center mt-2">
+                                    Ads by Amazon
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </aside>

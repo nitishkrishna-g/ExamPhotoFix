@@ -15,6 +15,7 @@ import { getCroppedCanvas, resizeCanvas, addDateToPhoto, compressToTargetSize, a
 import { Upload, Download, RefreshCw, Wand2, Droplets } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PrivacyBadge } from "@/components/PrivacyBadge";
+import { AffiliateLinks } from "@/components/AffiliateLinks";
 
 // config from lib/exam-config
 interface WizardProps {
@@ -35,9 +36,14 @@ interface WizardProps {
             enhanceLegibility?: boolean;
         };
     };
+    affiliateLinks?: {
+        label: string;
+        url: string;
+        note?: string;
+    }[];
 }
 
-export function ExamPhotoWizard({ title, config }: WizardProps) {
+export function ExamPhotoWizard({ title, config, affiliateLinks }: WizardProps) {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const [crop, setCrop] = useState({ x: 0, y: 0 });
     const [zoom, setZoom] = useState(1);
@@ -197,7 +203,9 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
         <Card className="w-full border-2 border-primary/10 shadow-lg bg-card text-card-foreground">
             <CardHeader className="bg-muted/50 border-b">
                 <CardTitle className="text-xl flex items-center justify-between">
-                    {title}
+                    <div>
+                        {title}
+                    </div>
                     {imageSrc && (
                         <div className="flex gap-2">
                             <Button variant="ghost" size="sm" onClick={() => {
@@ -451,6 +459,9 @@ export function ExamPhotoWizard({ title, config }: WizardProps) {
                                 <Download className="w-4 h-4 mr-2" /> Download JPG
                             </Button>
                         </div>
+
+                        {/* Affiliate Links in Success State */}
+                        <AffiliateLinks links={affiliateLinks} title={title} />
                     </div>
                 )}
             </CardContent>
