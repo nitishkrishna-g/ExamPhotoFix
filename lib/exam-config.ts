@@ -40,6 +40,10 @@ export interface ExamPageConfig {
   };
   tools: ToolConfig[];
   faqs?: FAQItem[];
+  affiliateLinks?: {
+    label: string,
+    url: string
+  }[];
 }
 
 export const EXAMS: Record<string, ExamPageConfig> = {
@@ -92,6 +96,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "What background color is required?", a: "The background must be plain white. Photos with shadows, designs, or dark colors are often rejected." },
       { q: "How old can the photograph be?", a: "The photo should not be older than 10 days from the start of the application process." },
       { q: "Do I need to sign in Black Ink?", a: "Yes, UPSC prefers Black Ink on white paper for the clearest scanning visibility." }
+    ],
+    affiliateLinks: [
+      { label: "Best UPSC Books", url: "https://amzn.to/464oqjW" },
+      { label: "UPSC Previous Papers", url: "https://amzn.to/4kzt5jC" }
     ]
   },
   "ssc": {
@@ -138,6 +146,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "What is the file size for SSC photos?", a: "The uploaded photo must be between 20 KB and 50 KB. Our tool compresses it to exactly this range." },
       { q: "Is the 'Side Profile' allowed?", a: "No. You must look straight at the camera. Both ears must be visible." },
       { q: "Can I correct my photo after submission?", a: "SSC usually opens a 'Correction Window' for a fee (approx ₹200-500). It is better to get it right the first time using this tool." }
+    ],
+    affiliateLinks: [
+      { label: "SSC CGL/CHSL Books", url: "https://amzn.to/4bWsW7R" },
+      { label: "SSC Previous Year Papers", url: "https://amzn.to/4tFcOOq" }
     ]
   },
   "ibps": {
@@ -187,6 +199,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "Is the declaration text fixed?", a: "Yes. You must write the specific text mentioned in the official notification, filling in your name where required." },
       { q: "Can I use a Blue Ink pad for the thumb impression?", a: "Yes, Blue or Black ink pads are accepted for the thumb impression." },
       { q: "Does the photo need a date?", a: "IBPS usually does not mandate a printed date on the photo, but the photo must be recent." }
+    ],
+    affiliateLinks: [
+      { label: "IBPS/SBI Books", url: "https://amzn.to/4kBHJHn" },
+      { label: "Bank PO Solved Papers", url: "https://amzn.to/3ZEF7Pb" }
     ]
   },
   "rrb": {
@@ -229,6 +245,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "What file size is allowed?", a: "RRB is strict about the 20KB - 50KB range (sometimes up to 70KB depending on the year)." },
       { q: "How many copies should I keep?", a: "Keep at least 12 copies of the same photograph for the admission process and document verification." },
       { q: "Can I change my photo later?", a: "Modification is very difficult and costly (₹100-250) in RRB. Upload the correct one first." }
+    ],
+    affiliateLinks: [
+      { label: "RRB NTPC Books", url: "https://amzn.to/3MNjWYl" },
+      { label: "Railway Group D Guide", url: "https://amzn.to/40d1R9a" }
     ]
   },
   "neet": {
@@ -271,6 +291,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "What is the file size for the Postcard photo?", a: "10 KB to 200 KB. Despite the large dimension (4x6 inch), the file size must remain small." },
       { q: "Do I need fingers or just thumb impression?", a: "NEET requires impressions of all fingers and thumbs of both hands." },
       { q: "Can I retouch facial blemishes?", a: "No. Any digital retouching to hide scars or birthmarks can lead to rejection at the exam center." }
+    ],
+    affiliateLinks: [
+      { label: "NEET Preparation Books", url: "https://amzn.to/46akluw" },
+      { label: "NEET Solved Papers", url: "https://amzn.to/4rTG2HF" }
     ]
   },
   "gate": {
@@ -307,6 +331,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "Is a border required for the signature?", a: "No, do not draw a box around your signature. Just sign on plain paper." },
       { q: "Can I use my mobile phone selfie?", a: "No. Selfies are rejected. Use the rear camera with a friend's help or a webcam." },
       { q: "What file format is accepted?", a: "Only JPEG / JPG. PNG and PDF are not accepted for photos/signatures." }
+    ],
+    affiliateLinks: [
+      { label: "GATE Preparation Books", url: "https://amzn.to/4reqUEI" },
+      { label: "GATE Previous Papers", url: "https://amzn.to/4rf0mmR" }
     ]
   },
   "tnpsc": {
@@ -343,6 +371,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "Can I edit the photo after submission?", a: "TNPSC provides a correction window, but it is risky to rely on it. Upload the correct photo first." },
       { q: "Do I need to sign in Blue or Black ink?", a: "Black ink is preferred for better scanning, but Blue is accepted if dark enough." },
       { q: "Are the rules same for Group 4?", a: "Yes, the photo and signature requirements are standard across Group 1, 2, and 4." }
+    ],
+    affiliateLinks: [
+      { label: "TNPSC Group 1/2/4 Books", url: "https://amzn.to/4kDJyDz" },
+      { label: "Tamil Nadu General Studies", url: "https://amzn.to/3OiICbO" }
     ]
   },
   "uppsc": {
@@ -379,6 +411,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "What format is accepted?", a: "Only JPEG/JPG format is accepted." },
       { q: "Why was my photo rejected?", a: "Common reasons include blurry faces, too small dimensions, or wearing sunglasses." },
       { q: "Does UPPSC require a live photo?", a: "Some recent exams may integrate live capture, but you still need a valid uploaded file." }
+    ],
+    affiliateLinks: [
+      { label: "UPPSC/UPPCS Books", url: "https://amzn.to/4aBGL9e" },
+      { label: "Uttar Pradesh GK", url: "https://amzn.to/4qFj06f" }
     ]
   },
   "mpsc": {
@@ -415,6 +451,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "Is a side profile photo allowed?", a: "No, both ears must be visible." },
       { q: "Can I use a mask?", a: "No, the face must be fully uncovered." },
       { q: "Can I wear thick frames?", a: "If they cover your eyes, remove them. Eyes must be clearly visible." }
+    ],
+    affiliateLinks: [
+      { label: "MPSC Books & Notes", url: "https://amzn.to/3OLiw0Y" },
+      { label: "Maharashtra General Knowledge", url: "https://amzn.to/4qKuMwd" }
     ]
   },
   "kpsc": {
@@ -451,6 +491,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "Is a selfie valid?", a: "No. Selfies are rejected." },
       { q: "How clear should the photo be?", a: "The photo must be studio-quality clear. Pixelated photos are rejected." },
       { q: "Can I change the photo later?", a: "It is difficult to change verification details after final submission." }
+    ],
+    affiliateLinks: [
+      { label: "KPSC Books", url: "https://amzn.to/3Msglio" },
+      { label: "Karnataka General Knowledge", url: "https://amzn.to/4qHgfkZ" }
     ]
   },
   "afcat": {
@@ -493,6 +537,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "How recent should the photo be?", a: "Taken within the last 3 months." },
       { q: "What is the signature file size?", a: "10 KB to 50 KB. Use black ink." },
       { q: "Can I align the thumb impression vertically?", a: "Yes, but ensure the whorls and ridges are clearly visible." }
+    ],
+    affiliateLinks: [
+      { label: "AFCAT Preparation Guide", url: "https://amzn.to/4apVPGQ" },
+      { label: "Air Force Solved Papers", url: "https://amzn.to/4rR8YzV" }
     ]
   },
   "icg": {
@@ -529,6 +577,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "Can I sign in capital letters?", a: "No. Signatures in ALL CAPS are rejected." },
       { q: "Can I wear glasses?", a: "No. Glasses are not allowed." },
       { q: "Should ears be visible?", a: "Yes, both ears must be clearly visible." }
+    ],
+    affiliateLinks: [
+      { label: "Indian Coast Guard Books", url: "https://amzn.to/46Id4Ch" },
+      { label: "Navik GD/DB Guide", url: "https://amzn.to/3OkibST" }
     ]
   },
   "ctet": {
@@ -565,6 +617,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "Can I correct images later?", a: "CTET usually opens an image correction window." },
       { q: "How recent should it be?", a: "Taken within the last 6 months." },
       { q: "Why is my signature rejected?", a: "Usually because it is too small (under 3 KB) or blurry." }
+    ],
+    affiliateLinks: [
+      { label: "CTET Paper 1 & 2 Books", url: "https://amzn.to/3OlGyQ8" },
+      { label: "CTET Previous Year Papers", url: "https://amzn.to/4rqkDWE" }
     ]
   },
   "ugcnet": {
@@ -601,6 +657,10 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       { q: "Is a polaroid photo allowed?", a: "No. Computer-generated or polaroid photos are rejected." },
       { q: "Can I retouch the photo?", a: "No, avoid digital makeup or filters." },
       { q: "Is Name and Date required?", a: "NTA has varied this rule. Check the latest bulletin. Adding it is usually safe." }
+    ],
+    affiliateLinks: [
+      { label: "UGC NET Paper 1 Books", url: "https://amzn.to/4tBwEKe" },
+      { label: "UGC NET Subject Papers", url: "https://amzn.to/4aT1S8k" }
     ]
   }
 };
