@@ -3,7 +3,7 @@ import { TripleSignature } from "@/components/tools/TripleSignature";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "UPSC Triple Signature Merger - SarkariPhoto.in",
+    title: "UPSC Triple Signature Merger - ExamResizer.in",
     description: "Merge 3 signatures vertically for UPSC Civil Services Mains/DAF form.",
 };
 

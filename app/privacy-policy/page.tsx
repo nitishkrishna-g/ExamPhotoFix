@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
                         Privacy Policy
                     </h1>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-4">
-                        Your privacy is our #1 priority. We built SarkariPhoto.in with a <span className="text-foreground font-semibold">"No Uploads"</span> architecture to guarantee your security.
+                        Your privacy is our #1 priority. We built ExamResizer.in with a <span className="text-foreground font-semibold">"No Uploads"</span> architecture to guarantee your security.
                     </p>
                     <p className="text-sm text-muted-foreground">
                         Last Updated: February 2026
@@ -33,7 +33,7 @@ export default function PrivacyPolicy() {
                         <div className="space-y-6">
                             <h2 className="text-3xl font-bold tracking-tight">No Server Uploads</h2>
                             <p className="text-lg text-muted-foreground leading-relaxed">
-                                Unlike most online tools, <strong>SarkariPhoto.in operates entirely in your browser</strong>. When you select a photo, it is processed locally on your device using WebAssembly & Canvas API.
+                                Unlike most online tools, <strong>ExamResizer.in operates entirely in your browser</strong>. When you select a photo, it is processed locally on your device using WebAssembly & Canvas API.
                             </p>
                             <p className="text-lg text-muted-foreground leading-relaxed">
                                 Your files never leave your computer or phone. Even if you disconnect from the internet after loading the page, the tool will still work.
@@ -84,18 +84,22 @@ export default function PrivacyPolicy() {
                         <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-900/20 text-orange-600 flex items-center justify-center mb-6">
                             <Lock className="w-6 h-6" />
                         </div>
-                        <h2 className="text-2xl font-bold mb-4">Advertising</h2>
+                        <h2 className="text-2xl font-bold mb-4">Google AdSense & Cookies</h2>
                         <p className="text-muted-foreground text-base leading-relaxed mb-6">
-                            To keep this tool free, we display ads via Google AdSense.
+                            To keep this tool free, we display ads via Google AdSense. Third-party vendors, including Google, use cookies to serve ads based on your prior visits to this and other websites.
                         </p>
                         <ul className="space-y-3 text-muted-foreground">
                             <li className="flex gap-3">
                                 <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 shrink-0"></span>
-                                <div>Google may use cookies to serve ads based on prior visits.</div>
+                                <div><strong>Advertising Cookies:</strong> Google uses advertising cookies (such as the DoubleClick cookie) to display personalized ads to you based on your browsing history across the web.</div>
                             </li>
                             <li className="flex gap-3">
                                 <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 shrink-0"></span>
-                                <div>You can opt out via Google's Ad Settings.</div>
+                                <div><strong>Third-party Cookies:</strong> Third-party ad networks may also use cookies to measure ad effectiveness and serve targeted content.</div>
+                            </li>
+                            <li className="flex gap-3">
+                                <span className="w-1.5 h-1.5 rounded-full bg-orange-500 mt-2 shrink-0"></span>
+                                <div><strong>Opt Out:</strong> You can opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium">Google Ads Settings</a>.</div>
                             </li>
                         </ul>
                     </div>
@@ -112,7 +116,7 @@ export default function PrivacyPolicy() {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button asChild size="lg" className="rounded-full px-8">
-                            <a href="mailto:privacy@sarkariphoto.in">Email Privacy Team</a>
+                            <a href="mailto:privacy@examresizer.in">Email Privacy Team</a>
                         </Button>
                         <Button asChild variant="outline" size="lg" className="rounded-full px-8">
                             <Link href="/contact">Contact Support</Link>

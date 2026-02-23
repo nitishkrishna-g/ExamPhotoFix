@@ -16,7 +16,7 @@ export default function AboutPage() {
                         Simplifying Exam Applications for <span className="text-primary">Every Indian Student</span>
                     </h1>
                     <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-10 px-2">
-                        SarkariPhoto.in is a free, privacy-first tool designed to ensure your government exam applications are never rejected due to incorrect photo formatting.
+                        ExamResizer.in is a free, privacy-first tool designed to ensure your government exam applications are never rejected due to incorrect photo formatting.
                     </p>
                 </div>
             </section>

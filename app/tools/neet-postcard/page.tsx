@@ -3,7 +3,7 @@ import { PostcardMaker } from "@/components/tools/PostcardMaker";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "NEET Postcard Photo Maker - SarkariPhoto.in",
+    title: "NEET Postcard Photo Maker - ExamResizer.in",
     description: "Create 4x6 inch postcard size photo for NEET UG exam from your passport photo.",
 };
 

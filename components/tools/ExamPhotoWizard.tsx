@@ -177,10 +177,10 @@ export function ExamPhotoWizard({ title, config, affiliateLinks }: WizardProps) 
             const link = document.createElement("a");
             link.href = finalImage;
 
-            // Smart filename: SarkariPhoto_Exam_Title_Date.jpg
+            // Smart filename: ExamResizer_Exam_Title_Date.jpg
             const safeTitle = title.replace(/[^a-z0-9]/gi, '_').replace(/_+/g, '_').toLowerCase();
             const dateStr = new Date().toISOString().split('T')[0];
-            link.download = `SarkariPhoto_${safeTitle}_${dateStr}.jpg`;
+            link.download = `ExamResizer_${safeTitle}_${dateStr}.jpg`;
 
             document.body.appendChild(link);
             link.click();

@@ -7,7 +7,7 @@ export function SiteFooter() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8 text-center">
                     <div className="col-span-2 md:col-span-1 flex flex-col items-center">
                         <Link href="/" className="font-bold text-lg flex items-center justify-center gap-2 mb-4">
-                            <span>SarkariPhoto.in</span>
+                            <span>ExamResizer.in</span>
                         </Link>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                             Free secure tool to resize photos and signatures for government exams like UPSC, SSC, IBPS, and RRB. No uploads, 100% privacy.
@@ -45,7 +45,7 @@ export function SiteFooter() {
 
                 <div className="border-t pt-8 flex justify-center items-center text-center">
                     <p className="text-xs text-muted-foreground">
-                        © 2026 SarkariPhoto.in. All rights reserved. Not affiliated with any government organization.
+                        © 2026 ExamResizer.in. All rights reserved. Not affiliated with any government organization.
                     </p>
                 </div>
             </div>

@@ -24,7 +24,7 @@ export function SiteHeader() {
                     <Link href="/" className="mr-6 flex items-center space-x-2">
                         <Camera className="h-6 w-6" />
                         <span className="hidden font-bold sm:inline-block">
-                            SarkariPhoto.in
+                            ExamResizer.in
                         </span>
                     </Link>
                 </div>
@@ -62,7 +62,7 @@ export function SiteHeader() {
                                 <SheetTitle>
                                     <Link href="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
                                         <Camera className="h-6 w-6" />
-                                        <span className="font-bold">SarkariPhoto.in</span>
+                                        <span className="font-bold">ExamResizer.in</span>
                                     </Link>
                                 </SheetTitle>
                             </SheetHeader>
@@ -82,7 +82,7 @@ export function SiteHeader() {
                     <Link href="/" className="flex items-center space-x-2">
                         <Camera className="h-6 w-6" />
                         <span className="font-bold">
-                            SarkariPhoto.in
+                            ExamResizer.in
                         </span>
                     </Link>
                 </div>

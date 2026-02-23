@@ -6,12 +6,13 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.sarkariphoto.in'),
-  title: "SarkariPhoto.in - Resize Photo & Signature for UPSC, SSC & Govt Exams",
+  metadataBase: new URL('https://www.examresizer.in'),
+  title: "ExamResizer.in - Resize Photo & Signature for UPSC, SSC & Govt Exams",
   description: "Free tool to resize photos, join signatures, and calculate age for Indian government exams. Privacy first, no uploads.",
   manifest: '/manifest.json',
   verification: {
@@ -39,6 +40,12 @@ export default function RootLayout({
             <SiteFooter />
           </div>
         </ThemeProvider>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9381303427467084"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </body>
       <GoogleAnalytics gaId="G-XYZ" />
     </html>

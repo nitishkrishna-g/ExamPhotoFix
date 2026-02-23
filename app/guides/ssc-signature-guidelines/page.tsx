@@ -41,7 +41,7 @@ export default function SscGuide() {
                 <h2>Why 10-20 KB is Tricky</h2>
                 <p>
                     Compressing an image to below 20 KB often results in a blurry, unreadable signature.
-                    <strong>SarkariPhoto.in</strong> uses a special compression algorithm to keep the edges sharp while reducing the file size, ensuring your signature remains legible.
+                    <strong>ExamResizer.in</strong> uses a special compression algorithm to keep the edges sharp while reducing the file size, ensuring your signature remains legible.
                 </p>
 
                 <h2>The "Date on Photo" (DOP) Rule</h2>

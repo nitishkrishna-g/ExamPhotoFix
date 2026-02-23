@@ -8,7 +8,7 @@ export function Header() {
             <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2">
                     <div className="bg-blue-600 text-white font-bold p-1 rounded">SP</div>
-                    <span className="font-bold text-xl text-blue-900 tracking-tight">SarkariPhoto.in</span>
+                    <span className="font-bold text-xl text-blue-900 tracking-tight">ExamResizer.in</span>
                 </Link>
 
                 <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">

@@ -51,7 +51,7 @@ export default function UpscGuide() {
                     <li><strong>Wearing Glasses:</strong> Avoid wearing dark glasses or sunglasses. Spectacles are allowed if eyes are clearly visible.</li>
                 </ul>
 
-                <h2>How to Resize Using SarkariPhoto.in</h2>
+                <h2>How to Resize Using ExamResizer.in</h2>
                 <ol>
                     <li>Go to the <Link href="/resize/upsc">UPSC Resizer Tool</Link>.</li>
                     <li>Upload your raw photo or signature.</li>

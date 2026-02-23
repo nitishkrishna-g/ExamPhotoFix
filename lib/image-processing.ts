@@ -1,6 +1,6 @@
 
 /**
- * Image Processing Library for SarkariPhoto.in
+ * Image Processing Library for ExamResizer.in
  * Handles compression, date stamping, and signature merging.
  */
 

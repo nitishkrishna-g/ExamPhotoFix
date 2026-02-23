@@ -31,7 +31,7 @@ export default function ContactPage() {
 
                     <div className="mt-8 text-center text-sm text-muted-foreground">
                         <p>Or email us directly at:</p>
-                        <a href="mailto:support@sarkariphoto.in" className="text-blue-600 hover:underline font-medium">support@sarkariphoto.in</a>
+                        <a href="mailto:support@examresizer.in" className="text-blue-600 hover:underline font-medium">support@examresizer.in</a>
                     </div>
                 </CardContent>
             </Card>

@@ -7,7 +7,7 @@ export default function TermsPage() {
                 <section className="bg-muted/30 p-6 rounded-xl border border-border">
                     <h2 className="text-xl font-bold text-red-600 dark:text-red-400 mb-2">⚠️ Important Disclaimer</h2>
                     <p className="font-medium">
-                        SarkariPhoto.in is a free utility tool. We are NOT associated with any government organization (UPSC, SSC, IBPS, etc.).
+                        ExamResizer.in is a free utility tool. We are NOT associated with any government organization (UPSC, SSC, IBPS, etc.).
                     </p>
                     <p className="mt-2 text-sm text-muted-foreground">
                         While we strive for accuracy, exam rules change frequently. Use this tool at your own risk.
@@ -34,7 +34,7 @@ export default function TermsPage() {
                 <section>
                     <h2 className="text-2xl font-bold mb-4">3. Limitation of Liability</h2>
                     <p>
-                        In no event shall SarkariPhoto.in or its owners be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on SarkariPhoto.in.
+                        In no event shall ExamResizer.in or its owners be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on ExamResizer.in.
                     </p>
                 </section>
 

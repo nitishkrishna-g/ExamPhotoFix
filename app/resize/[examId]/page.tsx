@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const config = EXAMS[examId.toLowerCase()];
     if (!config) {
         return {
-            title: "Exam Not Found - SarkariPhoto.in",
+            title: "Exam Not Found - ExamResizer.in",
             description: "The requested exam photo tool could not be found.",
         };
     }
@@ -157,7 +157,7 @@ export default async function ResizePage({ params }: Props) {
 
                                     {/* Ad between tools */}
                                     {index < config.tools.length - 1 && (
-                                        <div className="py-12 flex justify-center">
+                                        <div className="my-16 py-12 flex justify-center">
                                             <div className="w-full max-w-[728px] h-[90px] bg-muted/30 rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
                                                 <AdPlaceholder slot="inter-tool" width="100%" height={90} label="Ad Space (Between Tools)" />
                                             </div>
@@ -218,6 +218,11 @@ export default async function ResizePage({ params }: Props) {
                                     Ads by Amazon
                                 </div>
                             </div>
+                        </div>
+
+                        {/* Sidebar AdSense Unit */}
+                        <div className="bg-muted/20 border border-border/50 rounded-xl p-2 min-h-[250px] flex items-center justify-center">
+                            <AdPlaceholder slot="sidebar-right" width={300} height={250} responsive={false} label="Ad Space (Sidebar)" />
                         </div>
                     </div>
                 </aside>
