@@ -117,7 +117,7 @@ export function TripleSignature() {
                             />
                         </div>
 
-                        <AdPlaceholder width="100%" height="80px" label="Ad Space" />
+                        <AdPlaceholder slot="3830647642" width="100%" height="80px" label="Ad Space" />
 
                         <div className="flex gap-4 w-full justify-center">
                             <Button variant="outline" onClick={() => setResult(null)}>Edit</Button>

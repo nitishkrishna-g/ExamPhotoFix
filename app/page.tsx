@@ -15,7 +15,7 @@ export default function Home() {
 
           {/* Ad Space (Top) in empty header space */}
           <div className="w-full flex justify-center pb-4">
-            <AdPlaceholder className="w-full max-w-[728px] h-[90px]" label="Ad Space (Top Banner)" />
+            <AdPlaceholder slot="5052229973" className="w-full max-w-[728px] h-[90px]" label="Ad Space (Top Banner)" />
           </div>
 
           <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary/10 text-primary hover:bg-primary/20 backdrop-blur-sm">
@@ -263,7 +263,7 @@ export default function Home() {
 
       {/* Ad Space (Bottom) */}
       <div className="container px-4 py-8 flex justify-center">
-        <AdPlaceholder className="w-full max-w-[728px] h-[90px]" label="Ad Space (Bottom Banner)" />
+        <AdPlaceholder slot="4860658287" format="autorelaxed" className="w-full max-w-[728px] h-[90px]" label="Ad Space (Bottom Banner)" />
       </div>
 
     </div>

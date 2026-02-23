@@ -15,7 +15,7 @@ export default function ToolsPage() {
 
             {/* Ad Space (Top) */}
             <div className="mb-8 flex justify-center">
-                <AdPlaceholder className="w-full max-w-[728px] h-[90px]" label="Ad Space (Tools Top)" />
+                <AdPlaceholder slot="5052229973" className="w-full max-w-[728px] h-[90px]" label="Ad Space (Tools Top)" />
             </div>
 
             {/* Hero Section */}
@@ -35,7 +35,7 @@ export default function ToolsPage() {
 
             {/* Ad Space (Bottom) */}
             <div className="mt-12 mb-8 flex justify-center">
-                <AdPlaceholder className="w-full max-w-[728px] h-[90px]" label="Ad Space (Tools Bottom)" />
+                <AdPlaceholder slot="4860658287" format="autorelaxed" className="w-full max-w-[728px] h-[90px]" label="Ad Space (Tools Bottom)" />
             </div>
         </div>
     );

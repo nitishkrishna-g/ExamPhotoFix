@@ -6,12 +6,13 @@ interface AdPlaceholderProps {
     className?: string;
     slot?: string;
     responsive?: boolean;
+    format?: string;
     width?: number | string;
     height?: number | string;
     label?: string;
 }
 
-export function AdPlaceholder({ className, slot, responsive = true, width, height, label }: AdPlaceholderProps) {
+export function AdPlaceholder({ className, slot, responsive = true, format, width, height, label }: AdPlaceholderProps) {
     useEffect(() => {
         try {
             ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
@@ -30,7 +31,7 @@ export function AdPlaceholder({ className, slot, responsive = true, width, heigh
             }}
             data-ad-client="ca-pub-9381303427467084"
             data-ad-slot={slot}
-            data-ad-format={responsive ? "auto" : undefined}
+            data-ad-format={format || (responsive ? "auto" : undefined)}
             data-full-width-responsive={responsive ? "true" : undefined}
             aria-label={label}
         />

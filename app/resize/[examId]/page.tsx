@@ -77,7 +77,7 @@ export default async function ResizePage({ params }: Props) {
 
                     {/* Top Horizontal Ad */}
                     <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2 min-h-[100px]">
-                        <AdPlaceholder slot="top-horizontal" width="100%" height={90} className="max-w-[728px]" label="Ad Space (Top Leaderboard)" />
+                        <AdPlaceholder slot="5052229973" width="100%" height={90} className="max-w-[728px]" label="Ad Space (Top Leaderboard)" />
                     </div>
 
                     {/* Header Section */}
@@ -159,7 +159,7 @@ export default async function ResizePage({ params }: Props) {
                                     {index < config.tools.length - 1 && (
                                         <div className="my-16 py-12 flex justify-center">
                                             <div className="w-full max-w-[728px] h-[90px] bg-muted/30 rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                                <AdPlaceholder slot="inter-tool" width="100%" height={90} label="Ad Space (Between Tools)" />
+                                                <AdPlaceholder slot="3830647642" width="100%" height={90} label="Ad Space (Between Tools)" />
                                             </div>
                                         </div>
                                     )}
@@ -170,7 +170,7 @@ export default async function ResizePage({ params }: Props) {
 
                     {/* Bottom Horizontal Ad (Before FAQ) */}
                     <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2 my-12 min-h-[100px]">
-                        <AdPlaceholder slot="bottom-horizontal" width="100%" height={90} className="max-w-[728px]" label="Ad Space (Bottom Leaderboard)" />
+                        <AdPlaceholder slot="4860658287" format="autorelaxed" width="100%" height={90} className="max-w-[728px]" label="Ad Space (Bottom Leaderboard)" />
                     </div>
 
                     {/* FAQ Section */}
@@ -186,7 +186,7 @@ export default async function ResizePage({ params }: Props) {
                 </div>
 
                 {/* Right Column: Ad Slot (Sticky) */}
-                <aside className="hidden xl:block h-[calc(100vh-6rem)] sticky top-24">
+                <aside className="hidden xl:block h-[calc(100vh-6rem)] sticky top-24 self-start">
                     <div className="h-full flex flex-col space-y-4 overflow-y-auto no-scrollbar pb-10">
                         <div className="bg-gradient-to-b from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border border-amber-100 dark:border-amber-900/50 rounded-xl p-4 shadow-sm">
                             <h3 className="text-sm font-bold text-amber-900 dark:text-amber-500 mb-3 flex items-center gap-2">
@@ -221,8 +221,8 @@ export default async function ResizePage({ params }: Props) {
                         </div>
 
                         {/* Sidebar AdSense Unit */}
-                        <div className="bg-muted/20 border border-border/50 rounded-xl p-2 min-h-[250px] flex items-center justify-center">
-                            <AdPlaceholder slot="sidebar-right" width={300} height={250} responsive={false} label="Ad Space (Sidebar)" />
+                        <div className="bg-muted/20 border border-border/50 rounded-xl p-2 max-h-[250px] overflow-hidden flex items-center justify-center">
+                            <AdPlaceholder slot="4492992627" responsive={true} label="Ad Space (Sidebar)" />
                         </div>
                     </div>
                 </aside>

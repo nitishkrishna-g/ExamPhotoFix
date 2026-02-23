@@ -155,14 +155,14 @@ export function ToolsGrid() {
                                 {/* Mobile Ad: Between every card */}
                                 {index < filteredExams.length - 1 && (
                                     <div className="md:hidden col-span-1 py-4">
-                                        <AdPlaceholder className="w-full h-[90px]" label={`Ad Space (Mobile ${index + 1})`} />
+                                        <AdPlaceholder slot="3830647642" className="w-full h-[90px]" label={`Ad Space (Mobile ${index + 1})`} />
                                     </div>
                                 )}
 
                                 {/* Ad Logic (Simplified for client component) */}
                                 {(index + 1) % 3 === 0 && (
                                     <div className="hidden lg:block col-span-3 py-4">
-                                        <AdPlaceholder className="w-full h-[90px]" label={`Ad Space (Row ${(index + 1) / 3})`} />
+                                        <AdPlaceholder slot="3830647642" className="w-full h-[90px]" label={`Ad Space (Row ${(index + 1) / 3})`} />
                                     </div>
                                 )}
                             </div>

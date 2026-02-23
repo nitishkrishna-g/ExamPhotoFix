@@ -27,6 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9381303427467084"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
@@ -40,12 +48,7 @@ export default function RootLayout({
             <SiteFooter />
           </div>
         </ThemeProvider>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9381303427467084"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+
       </body>
       <GoogleAnalytics gaId="G-XYZ" />
     </html>
