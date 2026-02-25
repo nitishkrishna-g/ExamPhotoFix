@@ -10,50 +10,51 @@ import { Button } from "@/components/ui/button";
 
 import { EXAMS } from "@/lib/exam-config";
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> { }
+export type ExamSidebarProps = React.HTMLAttributes<HTMLDivElement>;
 
-export function ExamSidebar({ className, ...props }: SidebarProps) {
+const SidebarContent = ({ pathname }: { pathname: string }) => (
+    <div className="space-y-4 py-4 h-full">
+        <div className="px-3 py-2">
+            <div className="flex items-center justify-between mb-4 px-4">
+                <h2 className="text-lg font-semibold tracking-tight">
+                    Exam Tools
+                </h2>
+            </div>
+            <p className="mb-4 px-4 text-sm text-muted-foreground">
+                Select an exam to resize
+            </p>
+            <div className="space-y-1">
+                {Object.values(EXAMS).map((exam) => {
+                    const href = `/resize/${exam.id}`;
+                    const isActive = pathname === href;
+                    return (
+                        <Link
+                            key={exam.id}
+                            href={href}
+                            className={cn(
+                                buttonVariants({ variant: isActive ? "secondary" : "ghost" }),
+                                "w-full justify-start whitespace-normal h-auto py-3 text-sm leading-tight hover:bg-muted/50",
+                                isActive && "bg-secondary hover:bg-secondary font-medium"
+                            )}
+                        >
+                            {exam.title}
+                        </Link>
+                    );
+                })}
+            </div>
+        </div>
+    </div>
+);
+
+export function ExamSidebar({ className, ...props }: ExamSidebarProps) {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
 
     // Close sidebar on route change (mobile)
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsOpen(false);
     }, [pathname]);
-
-    const SidebarContent = () => (
-        <div className="space-y-4 py-4 h-full">
-            <div className="px-3 py-2">
-                <div className="flex items-center justify-between mb-4 px-4">
-                    <h2 className="text-lg font-semibold tracking-tight">
-                        Exam Tools
-                    </h2>
-                </div>
-                <p className="mb-4 px-4 text-sm text-muted-foreground">
-                    Select an exam to resize
-                </p>
-                <div className="space-y-1">
-                    {Object.values(EXAMS).map((exam) => {
-                        const href = `/resize/${exam.id}`;
-                        const isActive = pathname === href;
-                        return (
-                            <Link
-                                key={exam.id}
-                                href={href}
-                                className={cn(
-                                    buttonVariants({ variant: isActive ? "secondary" : "ghost" }),
-                                    "w-full justify-start whitespace-normal h-auto py-3 text-sm leading-tight hover:bg-muted/50",
-                                    isActive && "bg-secondary hover:bg-secondary font-medium"
-                                )}
-                            >
-                                {exam.title}
-                            </Link>
-                        );
-                    })}
-                </div>
-            </div>
-        </div>
-    );
 
     return (
         <>
@@ -88,12 +89,12 @@ export function ExamSidebar({ className, ...props }: SidebarProps) {
                         <X className="h-4 w-4" />
                     </Button>
                 </div>
-                <SidebarContent />
+                <SidebarContent pathname={pathname} />
             </div>
 
             {/* Desktop Sidebar */}
             <div className={cn("hidden lg:block pb-12 border-r bg-background/50 backdrop-blur-sm no-scrollbar overflow-y-auto", className)} {...props}>
-                <SidebarContent />
+                <SidebarContent pathname={pathname} />
             </div>
         </>
     );

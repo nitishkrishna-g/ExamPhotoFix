@@ -31,7 +31,7 @@ interface PostcardMakerProps {
     affiliateLinks?: { label: string; url: string; note?: string }[];
 }
 
-export function PostcardMaker({ config, affiliateLinks }: PostcardMakerProps) {
+export function PostcardMaker({ affiliateLinks }: PostcardMakerProps) {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const [result, setResult] = useState<string | null>(null);
     const [processing, setProcessing] = useState(false);

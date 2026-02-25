@@ -30,7 +30,7 @@ interface SignatureJoinerProps {
     affiliateLinks?: { label: string; url: string; note?: string }[];
 }
 
-export function SignatureJoiner({ config, affiliateLinks }: SignatureJoinerProps) {
+export function SignatureJoiner({ affiliateLinks }: SignatureJoinerProps) {
     const [files, setFiles] = useState<(string | null)[]>([null, null, null]);
     const [processing, setProcessing] = useState(false);
     const [result, setResult] = useState<string | null>(null);

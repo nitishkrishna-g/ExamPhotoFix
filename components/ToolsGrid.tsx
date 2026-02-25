@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, Search, X } from "lucide-react";
-import { EXAMS, ExamPageConfig, ToolType } from "@/lib/exam-config";
+import { EXAMS } from "@/lib/exam-config";
 import { AdPlaceholder } from "@/components/AdPlaceholder";
 import { GraduationCap, Scissors, FileCheck, TrainFront, Camera } from "lucide-react";
 
@@ -170,7 +170,7 @@ export function ToolsGrid() {
                     })
                 ) : (
                     <div className="col-span-full text-center py-12">
-                        <p className="text-muted-foreground text-lg">No exams found matching "{searchQuery}"</p>
+                        <p className="text-muted-foreground text-lg">No exams found matching &quot;{searchQuery}&quot;</p>
                         <Button variant="link" onClick={() => setSearchQuery("")}>Clear Search</Button>
                     </div>
                 )}

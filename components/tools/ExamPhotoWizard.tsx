@@ -5,7 +5,7 @@ import Image from "next/image";
 import Cropper from "react-easy-crop";
 // heic2any imported dynamically
 import { Area } from "react-easy-crop";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -144,7 +144,7 @@ export function ExamPhotoWizard({ title, config, affiliateLinks }: WizardProps) 
                 const [yyyy, mm, dd] = dateValue.split('-');
                 const formattedDate = `${dd}-${mm}-${yyyy}`;
 
-                let dateText = `DOP: ${formattedDate}`;
+                const dateText = `DOP: ${formattedDate}`;
                 const nameText = config.features?.nameAndDateOnPhoto ? nameValue : undefined;
 
                 addDateToPhoto(canvas, dateText, nameText);

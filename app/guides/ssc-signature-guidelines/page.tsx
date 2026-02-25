@@ -14,12 +14,12 @@ export default function SscGuide() {
             <article className="prose dark:prose-invert lg:prose-xl">
                 <h1>New SSC CGL/CHSL Signature & Photo Guidelines 2026</h1>
                 <p className="lead">
-                    Understanding the new "Live Photo" requirement and strict signature dimensions for Staff Selection Commission exams.
+                    Understanding the new &quot;Live Photo&quot; requirement and strict signature dimensions for Staff Selection Commission exams.
                 </p>
 
-                <h2>The "Live Photo" Capture</h2>
+                <h2>The &quot;Live Photo&quot; Capture</h2>
                 <p>
-                    Starting recently, SSC has introduced a mechanism to capture a "Live Photo" via webcam during the application process. However, you still need to upload a **Signature** and often a **scanned backup photo**.
+                    Starting recently, SSC has introduced a mechanism to capture a &quot;Live Photo&quot; via webcam during the application process. However, you still need to upload a **Signature** and often a **scanned backup photo**.
                 </p>
 
                 <h2>SSC Signature Rules (Strict)</h2>
@@ -44,13 +44,13 @@ export default function SscGuide() {
                     <strong>ExamResizer.in</strong> uses a special compression algorithm to keep the edges sharp while reducing the file size, ensuring your signature remains legible.
                 </p>
 
-                <h2>The "Date on Photo" (DOP) Rule</h2>
+                <h2>The &quot;Date on Photo&quot; (DOP) Rule</h2>
                 <p>
                     For uploaded backup photos, SSC strictly mandates that the **Date of Photograph (DOP)** be printed clearly on the photo.
                     The date should not be older than 3 months from the notification date.
                 </p>
                 <p>
-                    <strong>Solution:</strong> Use our <Link href="/resize/ssc">SSC Tool</Link> and simply toggle the "Add Date" switch. We automatically add the current date in the correct format.
+                    <strong>Solution:</strong> Use our <Link href="/resize/ssc">SSC Tool</Link> and simply toggle the &quot;Add Date&quot; switch. We automatically add the current date in the correct format.
                 </p>
 
                 <div className="mt-12 text-center not-prose">

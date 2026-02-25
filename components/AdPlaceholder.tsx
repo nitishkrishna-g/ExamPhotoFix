@@ -15,8 +15,8 @@ interface AdPlaceholderProps {
 export function AdPlaceholder({ className, slot, responsive = true, format, width, height, label }: AdPlaceholderProps) {
     useEffect(() => {
         try {
-            ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
-        } catch (e) {
+            ((window as unknown as { adsbygoogle: unknown[] }).adsbygoogle = (window as unknown as { adsbygoogle: unknown[] }).adsbygoogle || []).push({});
+        } catch {
             // AdSense not loaded yet or ad blocker active
         }
     }, []);

@@ -1,6 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,7 +22,6 @@ export function HandwrittenDeclaration({ config, affiliateLinks }: DeclarationPr
     const [name, setName] = useState("");
     const [finalImage, setFinalImage] = useState<string | null>(null);
     const [fileSize, setFileSize] = useState<string | null>(null);
-    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     // Load custom font
     useEffect(() => {

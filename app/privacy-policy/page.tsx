@@ -1,4 +1,4 @@
-import { Shield, Lock, ServerOff, Eye, FileText, Mail } from "lucide-react";
+import { Shield, Lock, ServerOff, Eye, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
                         Privacy Policy
                     </h1>
                     <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-4">
-                        Your privacy is our #1 priority. We built ExamResizer.in with a <span className="text-foreground font-semibold">"No Uploads"</span> architecture to guarantee your security.
+                        Your privacy is our #1 priority. We built ExamResizer.in with a <span className="text-foreground font-semibold">&quot;No Uploads&quot;</span> architecture to guarantee your security.
                     </p>
                     <p className="text-sm text-muted-foreground">
                         Last Updated: February 2026
@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
                                 <h3 className="font-bold text-xl">Technical Guarantee</h3>
                             </div>
                             <p className="text-muted-foreground mb-4">
-                                We do not have a server database to store your images. It's technically impossible for us to leak your photos.
+                                We do not have a server database to store your images. It&apos;s technically impossible for us to leak your photos.
                             </p>
                             <div className="flex items-center gap-2 text-sm font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/10 p-3 rounded-lg border border-green-100 dark:border-green-900/50">
                                 <Shield className="w-4 h-4" /> Verified by Design
