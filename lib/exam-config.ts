@@ -23,6 +23,7 @@ export interface ToolConfig {
       forceSquare?: boolean; // RRB/UPSC requirement
       isSignature?: boolean; // Changes UI hints
       isDeclaration?: boolean; // IBPS requirement
+      isThumb?: boolean; // Thumb impression - hides face guide oval
       blackInkOnly?: boolean; // UI hint for banking, triggers filter
       enhanceLegibility?: boolean; // Triggers "enhanceLegibility" filter
     };
@@ -180,7 +181,7 @@ export const EXAMS: Record<string, ExamPageConfig> = {
         type: "PHOTO_WIZARD",
         title: "3. Left Thumb Impression",
         instructions: `<p class="text-sm">3cm x 3cm. Size: 20-50 KB. Use blue or black ink pad.</p>`,
-        config: { width: 240, height: 240, aspect: 1, minKB: 20, maxKB: 50, label: "Thumb Impression" }
+        config: { width: 240, height: 240, aspect: 1, minKB: 20, maxKB: 50, label: "Thumb Impression", features: { isThumb: true } }
       },
       {
         type: "PHOTO_WIZARD",
@@ -524,7 +525,7 @@ export const EXAMS: Record<string, ExamPageConfig> = {
         type: "PHOTO_WIZARD",
         title: "Thumb Impression",
         instructions: `<p class="text-sm">Male: Left Thumb / Female: Right Thumb. Size: 10-50 KB.</p>`,
-        config: { width: 200, height: 200, aspect: 1, minKB: 10, maxKB: 50 }
+        config: { width: 200, height: 200, aspect: 1, minKB: 10, maxKB: 50, features: { isThumb: true } }
       }
     ],
     faqs: [

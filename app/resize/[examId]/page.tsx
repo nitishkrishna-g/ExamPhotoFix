@@ -157,9 +157,9 @@ export default async function ResizePage({ params }: Props) {
 
                                     {/* Ad between tools */}
                                     {index < config.tools.length - 1 && (
-                                        <div className="my-16 py-12 flex justify-center">
-                                            <div className="w-full max-w-[728px] h-[90px] bg-muted/30 rounded-lg overflow-hidden border border-border/50 flex items-center justify-center">
-                                                <AdPlaceholder slot="3830647642" width="100%" height={90} label="Ad Space (Between Tools)" />
+                                        <div className="my-16 flex justify-center">
+                                            <div className="w-full flex justify-center bg-muted/20 border border-border/50 rounded-lg p-2 min-h-[100px]">
+                                                <AdPlaceholder slot="3830647642" width="100%" height={90} className="max-w-[728px]" label="Ad Space (Between Tools)" />
                                             </div>
                                         </div>
                                     )}

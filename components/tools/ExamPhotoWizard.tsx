@@ -32,6 +32,7 @@ interface WizardProps {
             forceSquare?: boolean;
             isSignature?: boolean;
             isDeclaration?: boolean;
+            isThumb?: boolean;
             blackInkOnly?: boolean;
             enhanceLegibility?: boolean;
         };
@@ -260,7 +261,7 @@ export function ExamPhotoWizard({ title, config, affiliateLinks }: WizardProps) 
                                         restrictPosition={false}
                                     />
                                     {/* Face Guide Overlay - Only for Photos */}
-                                    {!config.features?.isSignature && !config.features?.isDeclaration && (
+                                    {!config.features?.isSignature && !config.features?.isDeclaration && !config.features?.isThumb && (
                                         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                                             <div className="w-[180px] h-[240px] border-2 border-white/50 rounded-[50%] shadow-[0_0_0_9999px_rgba(0,0,0,0.5)] -translate-y-12"></div>
                                             <p className="absolute top-4 text-white/70 text-xs font-medium bg-black/50 px-3 py-1 rounded-full backdrop-blur-sm">
