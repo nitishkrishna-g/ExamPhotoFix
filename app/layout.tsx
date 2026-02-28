@@ -11,7 +11,7 @@ import Script from 'next/script';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.examresizer.in'),
+  metadataBase: new URL('https://examresizer.vercel.app'),
   title: "ExamResizer.in - Resize Photo & Signature for UPSC, SSC & Govt Exams",
   description: "Free tool to resize photos, join signatures, and calculate age for Indian government exams. Privacy first, no uploads.",
   manifest: '/manifest.json',

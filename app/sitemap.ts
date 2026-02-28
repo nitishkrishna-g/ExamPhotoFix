@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { EXAMS } from '@/lib/exam-config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://www.examresizer.in';
+    const baseUrl = 'https://examresizer.vercel.app';
 
     // 1. Static Routes
     const routes = [
