@@ -1,6 +1,15 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "SSC CGL/CHSL Signature & Photo Guidelines 2026 - Size & Format Rules",
+    description: "Complete guide to SSC signature and photo requirements for CGL, CHSL 2026. Date on Photo rules, 10-20KB signature compression, and live photo guidelines.",
+    alternates: {
+        canonical: '/guides/ssc-signature-guidelines',
+    },
+};
 
 export default function SscGuide() {
     return (

@@ -26,5 +26,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.9,
     }));
 
-    return [...routes, ...examRoutes];
+    // 3. Guide Routes
+    const guideRoutes = [
+        '/guides/upsc-photo-resize',
+        '/guides/ssc-signature-guidelines',
+        '/guides/ibps-photo-resize',
+        '/guides/rrb-photo-resize',
+    ].map((route) => ({
+        url: `${baseUrl}${route}`,
+        lastModified: new Date(),
+        changeFrequency: 'monthly' as const,
+        priority: 0.85,
+    }));
+
+    return [...routes, ...examRoutes, ...guideRoutes];
 }

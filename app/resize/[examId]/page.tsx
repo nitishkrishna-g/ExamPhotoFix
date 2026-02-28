@@ -30,6 +30,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: config.metaTitle,
         description: config.metaDescription,
+        alternates: {
+            canonical: `/resize/${examId.toLowerCase()}`,
+        },
         openGraph: {
             title: config.metaTitle,
             description: config.metaDescription,

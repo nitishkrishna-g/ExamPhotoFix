@@ -1,6 +1,15 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "UPSC Photo Resize Guide 2026 - Exact Dimensions for IAS, IPS & NDA",
+    description: "Complete guide to resizing photos and signatures for UPSC Civil Services 2026. Official dimensions (350x350px), file size limits (20-300KB), and formatting tips.",
+    alternates: {
+        canonical: '/guides/upsc-photo-resize',
+    },
+};
 
 export default function UpscGuide() {
     return (

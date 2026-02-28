@@ -261,6 +261,77 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-24" id="faq">
+        <div className="container px-4 md:px-6 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-4">Frequently Asked Questions</h2>
+          <p className="text-muted-foreground text-center mb-12 text-lg">
+            Everything you need to know about photo and signature resizing for government exams.
+          </p>
+          <div className="space-y-4">
+            <details className="group bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+              <summary className="cursor-pointer p-6 font-semibold text-lg flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
+                What are the photo dimensions for UPSC 2026?
+                <span className="text-primary ml-4 transition-transform group-open:rotate-45 text-2xl leading-none">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                <p>
+                  For UPSC Civil Services (IAS/IPS) and NDA 2026, the official photograph requirements are: <strong>350 x 350 pixels</strong> (square, 1:1 aspect ratio), file size between <strong>20 KB and 300 KB</strong>, in <strong>JPG/JPEG format only</strong>. The background should be plain white and your face should occupy about 3/4th of the frame. Use our <Link href="/resize/upsc" className="text-primary hover:underline">UPSC Resizer Tool</Link> to get the exact dimensions instantly.
+                </p>
+              </div>
+            </details>
+
+            <details className="group bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+              <summary className="cursor-pointer p-6 font-semibold text-lg flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
+                How do I add a date and name to my SSC photo?
+                <span className="text-primary ml-4 transition-transform group-open:rotate-45 text-2xl leading-none">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                <p>
+                  SSC (Staff Selection Commission) requires a &quot;Date on Photo&quot; (DOP) for CGL, CHSL, and other exams. The date must be clearly printed on the photo and should not be older than 3 months from the notification date. With <Link href="/resize/ssc" className="text-primary hover:underline">our SSC tool</Link>, simply toggle the &quot;Add Name &amp; Date&quot; switch, and we automatically overlay the current date in the correct format — no Photoshop needed.
+                </p>
+              </div>
+            </details>
+
+            <details className="group bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+              <summary className="cursor-pointer p-6 font-semibold text-lg flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
+                How do I compress my signature below 20KB without losing quality?
+                <span className="text-primary ml-4 transition-transform group-open:rotate-45 text-2xl leading-none">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                <p>
+                  Many exams like SSC and IBPS require signatures between <strong>10 KB and 20 KB</strong>, which is extremely small. Standard compression tools often make signatures blurry and unreadable. ExamResizer uses a smart compression algorithm that preserves edge sharpness while reducing file size. Simply upload your scanned signature, select your target exam, and download — the tool automatically compresses to the exact KB range required.
+                </p>
+              </div>
+            </details>
+
+            <details className="group bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+              <summary className="cursor-pointer p-6 font-semibold text-lg flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
+                Is it safe to upload my photo to online resizers?
+                <span className="text-primary ml-4 transition-transform group-open:rotate-45 text-2xl leading-none">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                <p>
+                  Most online photo resizers upload your images to their servers, which poses a privacy risk — especially with identity documents. <strong>ExamResizer is different.</strong> All processing happens entirely in your browser using secure client-side technology. Your photos and signatures <strong>never leave your device</strong>. No data is uploaded to any server, making it 100% safe for sensitive government exam documents.
+                </p>
+              </div>
+            </details>
+
+            <details className="group bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+              <summary className="cursor-pointer p-6 font-semibold text-lg flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
+                What is the difference between passport size and exam photo size?
+                <span className="text-primary ml-4 transition-transform group-open:rotate-45 text-2xl leading-none">+</span>
+              </summary>
+              <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                <p>
+                  A standard passport-size photo is <strong>35mm x 45mm</strong> (3.5cm x 4.5cm), but each government exam has its own digital requirements. For example, UPSC requires <strong>350x350px</strong> (square), SSC requires <strong>3.5cm x 4.5cm</strong> with Date on Photo, and IBPS requires <strong>200x230px</strong> at 20-50 KB. Using a generic passport photo without resizing to the exact exam specifications will likely get rejected during form submission.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
       {/* Ad Space (Bottom) */}
       <div className="container px-4 py-8 flex justify-center">
         <AdPlaceholder slot="4860658287" format="autorelaxed" className="w-full max-w-[728px] h-[90px]" label="Ad Space (Bottom Banner)" />

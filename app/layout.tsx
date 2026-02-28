@@ -15,8 +15,11 @@ export const metadata: Metadata = {
   title: "ExamResizer.in - Resize Photo & Signature for UPSC, SSC & Govt Exams",
   description: "Free tool to resize photos, join signatures, and calculate age for Indian government exams. Privacy first, no uploads.",
   manifest: '/manifest.json',
+  alternates: {
+    canonical: '/',
+  },
   verification: {
-    google: 'YOUR_GOOGLE_VERIFICATION_CODE', // Placeholder
+    google: 'google7a0b740b9cb15a92',
   },
 };
 
@@ -27,7 +30,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <Script id="schema-software" type="application/ld+json" strategy="beforeInteractive">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "ExamResizer",
+            "url": "https://examresizer.vercel.app",
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "Any",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "INR"
+            },
+            "description": "Free tool to resize photos, join signatures, and calculate age for Indian government exams. Privacy first, no uploads."
+          })}
+        </Script>
+      </head>
       <body className={inter.className}>
         <Script
           async
