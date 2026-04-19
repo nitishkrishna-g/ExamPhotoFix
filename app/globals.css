@@ -8,8 +8,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter, ui-sans-serif, system-ui, sans-serif);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -180,12 +180,12 @@
    @tailwindcss/typography specificity in Tailwind v4
    ============================================================ */
 
-/* Solid headings */
+/* Solid headings — use design-system primary throughout */
 .prose h1,
 .prose h2,
 .prose h3,
 .prose h4 {
-  color: #2563eb !important; /* blue-600 */
+  color: var(--primary) !important;
   font-weight: 800 !important;
   padding-bottom: 0.25rem;
 }
@@ -206,54 +206,53 @@
   color: #cbd5e1 !important; /* slate-300 */
 }
 
-/* Bold text — blue accent */
+/* Bold text — primary color */
 .prose strong {
-  color: #1d4ed8 !important; /* blue-700 */
+  color: var(--primary) !important;
   font-weight: 700;
 }
 .dark .prose strong {
-  color: #c4b5fd !important; /* violet-300 */
+  color: var(--primary) !important;
 }
 
-/* Links — bright blue with underline */
+/* Links — violet with underline */
 .prose a:not(.not-prose a):not(.not-prose *) {
-  color: #2563eb !important; /* blue-600 */
+  color: var(--primary) !important;
   text-decoration: underline !important;
-  text-decoration-color: rgba(37, 99, 235, 0.3) !important;
+  text-decoration-color: color-mix(in oklch, var(--primary) 30%, transparent) !important;
   text-underline-offset: 4px;
   font-weight: 500;
   transition: all 0.2s ease;
 }
 .prose a:not(.not-prose a):not(.not-prose *):hover {
-  color: #1d4ed8 !important;
-  text-decoration-color: #1d4ed8 !important;
+  text-decoration-color: var(--primary) !important;
+  opacity: 0.85;
 }
 .dark .prose a:not(.not-prose a):not(.not-prose *) {
-  color: #60a5fa !important; /* blue-400 */
-  text-decoration-color: rgba(96, 165, 250, 0.3) !important;
+  color: var(--primary) !important;
+  text-decoration-color: color-mix(in oklch, var(--primary) 30%, transparent) !important;
 }
 .dark .prose a:not(.not-prose a):not(.not-prose *):hover {
-  color: #a78bfa !important;
-  text-decoration-color: #a78bfa !important;
+  text-decoration-color: var(--primary) !important;
 }
 
-/* List markers — blue */
+/* List markers — primary color */
 .prose ul > li::marker {
-  color: #2563eb !important; /* blue-600 */
+  color: var(--primary) !important;
 }
 .prose ol > li::marker {
-  color: #2563eb !important;
+  color: var(--primary) !important;
   font-weight: 700;
 }
 .dark .prose ul > li::marker,
 .dark .prose ol > li::marker {
-  color: #a78bfa !important; /* violet-400 */
+  color: var(--primary) !important;
 }
 
-/* Blockquotes — vibrant callout cards */
+/* Blockquotes — primary-tinted callout cards */
 .prose blockquote {
-  background: rgba(37, 99, 235, 0.06) !important;
-  border-left: 4px solid #2563eb !important;
+  background: color-mix(in oklch, var(--primary) 6%, transparent) !important;
+  border-left: 4px solid var(--primary) !important;
   border-radius: 0 1rem 1rem 0 !important;
   padding: 1rem 1.5rem !important;
   margin: 1.5rem 0 !important;
@@ -261,35 +260,35 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 .dark .prose blockquote {
-  background: rgba(167, 139, 250, 0.1) !important;
-  border-left-color: #a78bfa !important;
+  background: color-mix(in oklch, var(--primary) 10%, transparent) !important;
+  border-left-color: var(--primary) !important;
 }
 .prose blockquote p {
-  color: #1e40af !important; /* blue-800 */
+  color: oklch(0.35 0.22 264) !important;
   font-weight: 500 !important;
 }
 .dark .prose blockquote p {
   color: #ddd6fe !important; /* violet-200 */
 }
 
-/* Tables — vibrant purple headers */
+/* Tables — primary-color headers */
 .prose table {
   width: 100% !important;
   border-collapse: collapse !important;
   border-radius: 0.75rem !important;
   overflow: hidden !important;
   box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1) !important;
-  border: 1px solid #e2e8f0 !important;
+  border: 1px solid var(--border) !important;
   margin: 2rem 0 !important;
 }
 .dark .prose table {
-  border-color: rgba(88, 28, 135, 0.3) !important;
+  border-color: color-mix(in oklch, var(--primary) 25%, transparent) !important;
 }
 .prose thead {
-  background: #2563eb !important;
+  background: var(--primary) !important;
 }
 .dark .prose thead {
-  background: rgba(88, 28, 135, 0.6) !important;
+  background: color-mix(in oklch, var(--primary) 50%, #0f0f1a) !important;
 }
 .prose thead th {
   color: #ffffff !important;
@@ -303,20 +302,20 @@
   color: #ede9fe !important;
 }
 .prose tbody tr {
-  border-bottom: 1px solid #e2e8f0 !important;
+  border-bottom: 1px solid var(--border) !important;
   transition: background-color 0.15s ease;
 }
 .dark .prose tbody tr {
-  border-bottom-color: rgba(88, 28, 135, 0.2) !important;
+  border-bottom-color: color-mix(in oklch, var(--primary) 15%, transparent) !important;
 }
 .prose tbody tr:last-child {
   border-bottom: none !important;
 }
 .prose tbody tr:hover {
-  background: rgba(219, 234, 254, 0.6) !important; /* blue-50 */
+  background: color-mix(in oklch, var(--primary) 5%, transparent) !important;
 }
 .dark .prose tbody tr:hover {
-  background: rgba(88, 28, 135, 0.15) !important;
+  background: color-mix(in oklch, var(--primary) 10%, transparent) !important;
 }
 .prose tbody td {
   padding: 0.875rem 1rem !important;
@@ -325,8 +324,8 @@
 
 /* Inline code */
 .prose code {
-  color: #1d4ed8 !important;
-  background: #dbeafe !important;
+  color: var(--primary) !important;
+  background: color-mix(in oklch, var(--primary) 10%, transparent) !important;
   padding: 0.125rem 0.375rem !important;
   border-radius: 0.375rem !important;
   font-weight: 600;
@@ -334,16 +333,16 @@
 }
 .dark .prose code {
   color: #c4b5fd !important;
-  background: rgba(88, 28, 135, 0.3) !important;
+  background: color-mix(in oklch, var(--primary) 20%, transparent) !important;
 }
 
 /* Horizontal rules */
 .prose hr {
-  border-color: #bfdbfe !important;
+  border-color: color-mix(in oklch, var(--primary) 20%, transparent) !important;
   margin: 2rem 0 !important;
 }
 .dark .prose hr {
-  border-color: rgba(88, 28, 135, 0.3) !important;
+  border-color: color-mix(in oklch, var(--primary) 25%, transparent) !important;
 }
 
 /* not-prose callout boxes (used in guide pages) — vibrant version */

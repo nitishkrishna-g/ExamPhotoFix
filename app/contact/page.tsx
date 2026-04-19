@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -28,7 +29,7 @@ export default function ContactPage() {
             {/* Info Cards */}
             <FadeInStagger staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
                 <FadeInStaggerItem direction="up" className="bg-slate-50 dark:bg-slate-900/50 p-6 rounded-xl border border-slate-200 dark:border-slate-800 text-center hover:shadow-md transition-shadow">
-                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 mb-4">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-4">
                         <Clock className="w-6 h-6" />
                     </div>
                     <h3 className="font-semibold mb-2">Response Time</h3>
@@ -47,7 +48,7 @@ export default function ContactPage() {
                     </div>
                     <h3 className="font-semibold mb-2">Direct Email</h3>
                     <p className="text-sm text-muted-foreground">
-                        Prefer email? Write to us at <a href="mailto:support@examresizer.in" className="text-blue-600 hover:underline font-medium">support@examresizer.in</a>
+                        Prefer email? Write to us at <a href="mailto:support@examresizer.in" className="text-primary hover:underline font-medium">support@examresizer.in</a>
                     </p>
                 </FadeInStaggerItem>
             </FadeInStagger>
@@ -87,9 +88,9 @@ export default function ContactPage() {
 
                 {/* Quick Help Sidebar */}
                 <FadeInStaggerItem direction="right" className="md:col-span-2 space-y-6">
-                    <div className="bg-blue-50 dark:bg-blue-950/30 p-6 rounded-xl border border-blue-100 dark:border-blue-900/50 hover:shadow-md transition-shadow">
+                    <div className="bg-primary/5 p-6 rounded-xl border border-primary/10 hover:shadow-md transition-shadow">
                         <div className="flex items-center gap-3 mb-4">
-                            <HelpCircle className="w-5 h-5 text-blue-600" />
+                            <HelpCircle className="w-5 h-5 text-primary" />
                             <h3 className="font-semibold">Before You Write</h3>
                         </div>
                         <p className="text-sm text-muted-foreground mb-4">
@@ -97,16 +98,16 @@ export default function ContactPage() {
                         </p>
                         <ul className="space-y-2 text-sm">
                             <li>
-                                <a href="/guides/photo-rejection-reasons" className="text-blue-600 hover:underline">→ Why is my photo getting rejected?</a>
+                                <Link href="/guides/photo-rejection-reasons" className="text-primary hover:underline">→ Why is my photo getting rejected?</Link>
                             </li>
                             <li>
-                                <a href="/guides/how-to-scan-signature" className="text-blue-600 hover:underline">→ How to scan my signature properly?</a>
+                                <Link href="/guides/how-to-scan-signature" className="text-primary hover:underline">→ How to scan my signature properly?</Link>
                             </li>
                             <li>
-                                <a href="/guides/passport-vs-exam-photo" className="text-blue-600 hover:underline">→ Passport photo vs exam photo differences</a>
+                                <Link href="/guides/passport-vs-exam-photo" className="text-primary hover:underline">→ Passport photo vs exam photo differences</Link>
                             </li>
                             <li>
-                                <a href="/#faq" className="text-blue-600 hover:underline">→ Frequently Asked Questions</a>
+                                <Link href="/#faq" className="text-primary hover:underline">→ Frequently Asked Questions</Link>
                             </li>
                         </ul>
                     </div>
@@ -120,7 +121,7 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <h4 className="text-sm font-medium mb-1">I need help urgently — my exam deadline is tomorrow!</h4>
-                                <p className="text-xs text-muted-foreground">Try our <a href="/tools" className="text-blue-600 hover:underline">automated tools</a> first — they handle 99% of cases instantly. If you&apos;re still stuck, email us with &quot;URGENT&quot; in the subject line.</p>
+                                <p className="text-xs text-muted-foreground">Try our <Link href="/tools" className="text-primary hover:underline">automated tools</Link> first — they handle 99% of cases instantly. If you&apos;re still stuck, email us with &quot;URGENT&quot; in the subject line.</p>
                             </div>
                             <div>
                                 <h4 className="text-sm font-medium mb-1">Can you add support for a new exam?</h4>
@@ -128,7 +129,7 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <h4 className="text-sm font-medium mb-1">Is my data safe?</h4>
-                                <p className="text-xs text-muted-foreground">Absolutely. All image processing happens in your browser. We never see, store, or transmit your photos. Read our <a href="/privacy-policy" className="text-blue-600 hover:underline">Privacy Policy</a>.</p>
+                                <p className="text-xs text-muted-foreground">Absolutely. All image processing happens in your browser. We never see, store, or transmit your photos. Read our <Link href="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link>.</p>
                             </div>
                         </div>
                     </div>

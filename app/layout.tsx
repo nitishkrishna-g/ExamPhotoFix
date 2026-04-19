@@ -8,7 +8,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { GoogleAnalytics } from '@next/third-parties/google';
 import Script from 'next/script';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://examresizer.vercel.app'),
@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
-        <Script id="schema-software" type="application/ld+json" strategy="beforeInteractive">
+        <Script id="schema-software" type="application/ld+json" strategy="afterInteractive">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebApplication",
@@ -67,7 +67,7 @@ export default function RootLayout({
           })}
         </Script>
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.variable} font-sans antialiased`}>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9381303427467084"
