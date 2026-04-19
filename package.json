@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@next/third-parties": "^16.1.6",
+    "@tailwindcss/typography": "^0.5.19",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
     "heic2any": "^0.0.4",
     "jspdf": "^4.1.0",
     "lucide-react": "^0.563.0",

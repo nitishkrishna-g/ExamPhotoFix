@@ -29,8 +29,12 @@ export function SiteFooter() {
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li><Link href="/guides/upsc-photo-resize" className="hover:text-foreground">UPSC Photo Size</Link></li>
                             <li><Link href="/guides/ssc-signature-guidelines" className="hover:text-foreground">SSC Signature Rules</Link></li>
-                            <li><Link href="/resize/upsc" className="hover:text-foreground">Resize for UPSC</Link></li>
-                            <li><Link href="/resize/ssc" className="hover:text-foreground">Resize for SSC</Link></li>
+                            <li><Link href="/guides/ibps-photo-resize" className="hover:text-foreground">IBPS Photo Guide</Link></li>
+                            <li><Link href="/guides/rrb-photo-resize" className="hover:text-foreground">RRB Photo Guide</Link></li>
+                            <li><Link href="/guides/neet-jee-photo-guidelines" className="hover:text-foreground">NEET/JEE Guidelines</Link></li>
+                            <li><Link href="/guides/passport-vs-exam-photo" className="hover:text-foreground">Passport vs Exam Photo</Link></li>
+                            <li><Link href="/guides/how-to-scan-signature" className="hover:text-foreground">How to Scan Signature</Link></li>
+                            <li><Link href="/guides/photo-rejection-reasons" className="hover:text-foreground">Photo Rejection Reasons</Link></li>
                         </ul>
                     </div>
 
@@ -38,14 +42,22 @@ export function SiteFooter() {
                         <h3 className="font-semibold mb-4">Legal</h3>
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li><Link href="/privacy-policy" className="hover:text-foreground">Privacy Policy</Link></li>
-                            <li><Link href="/disclaimer" className="hover:text-foreground">Disclaimer</Link></li>
+                            <li><Link href="/terms" className="hover:text-foreground">Terms of Service</Link></li>
+                        </ul>
+
+                        <h3 className="font-semibold mb-4 mt-6">Tools</h3>
+                        <ul className="space-y-2 text-sm text-muted-foreground">
+                            <li><Link href="/resize/upsc" className="hover:text-foreground">Resize for UPSC</Link></li>
+                            <li><Link href="/resize/ssc" className="hover:text-foreground">Resize for SSC</Link></li>
+                            <li><Link href="/resize/ibps" className="hover:text-foreground">Resize for IBPS</Link></li>
+                            <li><Link href="/resize/rrb" className="hover:text-foreground">Resize for RRB</Link></li>
                         </ul>
                     </div>
                 </div>
 
                 <div className="border-t pt-8 flex justify-center items-center text-center">
                     <p className="text-xs text-muted-foreground">
-                        © 2026 ExamResizer.in. All rights reserved. Not affiliated with any government organization.
+                        © 2026 ExamResizer.in. All rights reserved. Not affiliated with any government organization (UPSC, SSC, IBPS, RRB, NTA, or SBI).
                     </p>
                 </div>
             </div>

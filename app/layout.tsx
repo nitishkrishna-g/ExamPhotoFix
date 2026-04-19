@@ -12,14 +12,33 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://examresizer.vercel.app'),
-  title: "ExamResizer.in - Resize Photo & Signature for UPSC, SSC & Govt Exams",
-  description: "Free tool to resize photos, join signatures, and calculate age for Indian government exams. Privacy first, no uploads.",
+  title: {
+    default: "ExamResizer.in — Free Photo & Signature Resizer for UPSC, SSC, IBPS & Govt Exams",
+    template: "%s | ExamResizer.in",
+  },
+  description: "Free, privacy-first tool to resize photos, signatures, and thumb impressions for Indian government exams (UPSC, SSC, IBPS, RRB, NEET, JEE). All processing happens in your browser — no server uploads. Updated for 2026 guidelines.",
+  keywords: ["photo resizer", "signature resizer", "UPSC photo size", "SSC photo resize", "IBPS photo resize", "RRB photo resize", "NEET photo size", "JEE photo size", "government exam photo", "exam photo resize", "passport size photo", "date on photo SSC", "signature compress 20KB"],
+  authors: [{ name: "ExamResizer.in Team" }],
+  creator: "ExamResizer.in",
   manifest: '/manifest.json',
   alternates: {
     canonical: '/',
   },
   verification: {
     google: 'google7a0b740b9cb15a92',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://examresizer.vercel.app',
+    siteName: 'ExamResizer.in',
+    title: "ExamResizer.in — Free Photo & Signature Resizer for Government Exams",
+    description: "Free, privacy-first tool to resize photos and signatures for UPSC, SSC, IBPS, RRB, NEET, and JEE. No uploads. Updated for 2026.",
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "ExamResizer.in — Free Photo Resizer for Govt Exams",
+    description: "Resize photos & signatures for UPSC, SSC, IBPS, RRB, NEET & JEE. 100% free, 100% private.",
   },
 };
 
@@ -29,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <head>
         <Script id="schema-software" type="application/ld+json" strategy="beforeInteractive">
           {JSON.stringify({

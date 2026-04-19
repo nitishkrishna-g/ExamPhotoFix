@@ -10,7 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/about',
         '/contact',
         '/privacy-policy',
-        '/terms', // Added terms
+        '/terms',
+        '/tools',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
@@ -32,6 +33,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/guides/ssc-signature-guidelines',
         '/guides/ibps-photo-resize',
         '/guides/rrb-photo-resize',
+        '/guides/passport-vs-exam-photo',
+        '/guides/how-to-scan-signature',
+        '/guides/photo-rejection-reasons',
+        '/guides/neet-jee-photo-guidelines',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),
