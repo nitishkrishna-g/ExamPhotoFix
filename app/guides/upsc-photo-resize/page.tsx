@@ -158,6 +158,37 @@ export default function UpscGuide() {
                     </ul>
                 </div>
 
+                <h2>2026 New Requirements — Read Before You Apply</h2>
+                <p>
+                    UPSC has introduced two significant new requirements for the 2026 cycle that were not present in previous years. Failing to comply with either will result in your application being rejected at the scrutiny stage.
+                </p>
+
+                <div className="not-prose bg-slate-100 dark:bg-slate-800 p-6 rounded-lg my-6 border-l-4 border-red-600">
+                    <h3 className="text-lg font-bold mb-3">⚠️ 2026 Update 1: Mandatory Live Photo Capture</h3>
+                    <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">
+                        UPSC now requires candidates to capture a &quot;Live Photo&quot; via webcam during the online application process. This is a real-time anti-impersonation measure — the live photo cannot be uploaded from a file; it must be captured in-browser.
+                    </p>
+                    <ul className="space-y-2 text-sm">
+                        <li><strong>This does NOT replace the traditional scanned photo upload.</strong> You still must upload a 350×350px JPEG within 20–300 KB.</li>
+                        <li>The live photo is matched against your scanned upload — if they look significantly different, your form may be flagged.</li>
+                        <li>Prepare for the live capture: sit in a well-lit room, face directly toward the webcam, neutral expression, white or plain background.</li>
+                        <li>Use Chrome or Firefox for best webcam compatibility on the UPSC portal.</li>
+                    </ul>
+                </div>
+
+                <div className="not-prose bg-slate-100 dark:bg-slate-800 p-6 rounded-lg my-6 border-l-4 border-orange-600">
+                    <h3 className="text-lg font-bold mb-3">⚠️ 2026 Update 2: Triple Signature Rule</h3>
+                    <p className="text-sm text-slate-700 dark:text-slate-300 mb-3">
+                        UPSC&apos;s 2026 notification requires candidates to sign their name <strong>three times vertically</strong> on a single white sheet, and upload all three signatures as one combined image. This change was introduced for enhanced identity verification during exam day.
+                    </p>
+                    <ul className="space-y-2 text-sm">
+                        <li>Sign three times on the same sheet, one below the other, with a small gap between each.</li>
+                        <li>The combined image must still be exactly 350×350 pixels and between 20–100 KB.</li>
+                        <li>All three signatures must look consistent — do not mix cursive and block styles.</li>
+                        <li>Use our <strong>UPSC Triple Signature Joiner</strong> tool to automatically combine and resize three signature scans into one compliant file.</li>
+                    </ul>
+                </div>
+
                 <h2>Step-by-Step Photo Preparation</h2>
                 <p>
                     Follow this process to ensure your UPSC photo is accepted on the first attempt:

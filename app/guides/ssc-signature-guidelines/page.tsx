@@ -139,7 +139,7 @@ export default function SscGuide() {
                 <h2>SSC Photo Specifications</h2>
 
                 <div className="not-prose bg-slate-100 dark:bg-slate-800 p-6 rounded-lg my-6 border-l-4 border-blue-600">
-                    <h3 className="text-lg font-bold mb-2">Photograph Requirements</h3>
+                    <h3 className="text-lg font-bold mb-2">Photograph Requirements (2026)</h3>
                     <ul className="space-y-2 text-sm">
                         <li><strong>Dimensions:</strong> 3.5 cm (Width) × 4.5 cm (Height) — approximately 413×531 pixels at 300 DPI.</li>
                         <li><strong>File Size:</strong> 20 KB to 50 KB.</li>
@@ -147,6 +147,7 @@ export default function SscGuide() {
                         <li><strong>Background:</strong> Plain White Background.</li>
                         <li><strong>Face Coverage:</strong> 70–80% of the frame should show your face.</li>
                         <li><strong>Special Requirement:</strong> Date on Photo (DOP) — see below.</li>
+                        <li><strong>⚠️ 2026 Glasses Policy — ZERO TOLERANCE:</strong> SSC has tightened its spectacles rule for 2026. No glasses of any kind are permitted in the photo — this includes prescription spectacles, anti-glare glasses, and contact lenses that alter eye colour. This is a stricter interpretation than previous years where clear prescription glasses were sometimes permitted.</li>
                     </ul>
                 </div>
 

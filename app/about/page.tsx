@@ -30,7 +30,7 @@ export default function AboutPage() {
                             Our Mission
                         </FadeInStaggerItem>
                         <FadeInStaggerItem direction="up">
-                            <h1 className="text-3xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-blue-800 to-slate-900 dark:from-white dark:via-blue-200 dark:to-white max-w-4xl mx-auto mb-6 leading-tight">
+                            <h1 className="text-3xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-violet-700 to-slate-900 dark:from-white dark:via-violet-300 dark:to-white max-w-4xl mx-auto mb-6 leading-tight">
                                 Simplifying Exam Applications for <span className="text-primary">Every Indian Student</span>
                             </h1>
                         </FadeInStaggerItem>

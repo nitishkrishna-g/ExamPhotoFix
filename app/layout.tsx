@@ -5,7 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { CookieBanner } from "@/components/CookieBanner";
 import Script from 'next/script';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -84,11 +84,11 @@ export default function RootLayout({
             <SiteHeader />
             <div className="flex-1">{children}</div>
             <SiteFooter />
+            <CookieBanner />
           </div>
         </ThemeProvider>
 
       </body>
-      <GoogleAnalytics gaId="G-XYZ" />
     </html>
   );
 }

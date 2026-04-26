@@ -38,6 +38,7 @@ export function SiteFooter() {
                         <Link href="/guides/passport-vs-exam-photo" className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">Passport vs Exam Photo</Link>
                         <Link href="/guides/how-to-scan-signature" className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">How to Scan Signature</Link>
                         <Link href="/guides/photo-rejection-reasons" className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">Photo Rejection Reasons</Link>
+                        <Link href="/guides/live-photo-capture-guide" className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">Live Photo Capture Guide</Link>
                     </div>
 
                     <div className="flex flex-col items-center gap-2">

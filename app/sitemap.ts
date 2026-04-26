@@ -37,6 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/guides/how-to-scan-signature',
         '/guides/photo-rejection-reasons',
         '/guides/neet-jee-photo-guidelines',
+        '/guides/live-photo-capture-guide',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),

@@ -226,8 +226,8 @@ export const EXAMS: Record<string, ExamPageConfig> = {
       {
         type: "PHOTO_WIZARD",
         title: "Signature Resizer",
-        instructions: `<p class="text-sm">Size: 30-70 KB. 500x200 px.</p>`,
-        config: { width: 500, height: 200, aspect: 2.5, minKB: 30, maxKB: 70, features: { isSignature: true } }
+        instructions: `<p class="text-sm">Size: 30-49 KB. 500x200 px. <strong>Black ink only</strong> — blue ink rejected in 2026.</p>`,
+        config: { width: 500, height: 200, aspect: 2.5, minKB: 30, maxKB: 49, features: { isSignature: true, blackInkOnly: true } }
       },
       {
         type: "IMAGE_TO_PDF",

@@ -64,7 +64,7 @@ const faqSchema = {
             "name": "What type of signature does RRB accept?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "RRB requires signatures in running hand (cursive) style using black or blue ink on white paper. The signature file must be between 10-40 KB in JPG/JPEG format. Block letter signatures are not accepted."
+                "text": "RRB requires signatures in running hand (cursive) style using black ink on white paper. From the 2026 recruitment cycle, blue ink is explicitly rejected. The signature file must be between 30-49 KB in JPG/JPEG format. Block letter signatures are not accepted."
             }
         }
     ]
@@ -150,11 +150,11 @@ export default function RrbGuide() {
                 </div>
 
                 <div className="not-prose bg-slate-100 dark:bg-slate-800 p-6 rounded-lg my-6 border-l-4 border-green-600">
-                    <h3 className="text-lg font-bold mb-2">Signature Requirements</h3>
+                    <h3 className="text-lg font-bold mb-2">Signature Requirements (Updated 2026)</h3>
                     <ul className="space-y-2 text-sm">
-                        <li><strong>File Size:</strong> 10 KB to 40 KB.</li>
+                        <li><strong>File Size:</strong> 30 KB to 49 KB. <em>(Increased minimum from previous cycles — RRB now requires a higher-quality signature file.)</em></li>
                         <li><strong>Format:</strong> JPG / JPEG only.</li>
-                        <li><strong>Ink:</strong> Black or Blue ink on plain white paper.</li>
+                        <li><strong>Ink:</strong> Black ink pen ONLY — blue ink is now explicitly rejected by many RRB zones for 2026.</li>
                         <li><strong>Style:</strong> Running hand (cursive) only — block letters are not accepted.</li>
                         <li><strong>Consistency:</strong> The signature must match what you sign on the answer sheet and attendance register at the exam centre.</li>
                     </ul>
@@ -183,9 +183,9 @@ export default function RrbGuide() {
                             </tr>
                             <tr className="border-b border-slate-100 dark:border-slate-800">
                                 <td className="p-3">Signature Specs</td>
-                                <td className="p-3">10-40KB</td>
-                                <td className="p-3">10-40KB</td>
-                                <td className="p-3">10-40KB</td>
+                                <td className="p-3 font-bold text-green-600">30-49KB</td>
+                                <td className="p-3 font-bold text-green-600">30-49KB</td>
+                                <td className="p-3 font-bold text-green-600">30-49KB</td>
                             </tr>
                             <tr className="border-b border-slate-100 dark:border-slate-800">
                                 <td className="p-3">Correction Window</td>
@@ -250,6 +250,20 @@ export default function RrbGuide() {
                     <li>Bring 4–6 passport-size colour photos (same as uploaded) for verification forms.</li>
                     <li>Carry all original documents along with photocopies.</li>
                 </ul>
+
+                <h2>2026 Key Changes for RRB Exams</h2>
+                <p>
+                    The 2026 RRB recruitment cycle has introduced several important updates. Candidates who prepared their documents based on older guidelines need to review these changes carefully:
+                </p>
+
+                <div className="not-prose bg-slate-100 dark:bg-slate-800 p-6 rounded-lg my-6 border-l-4 border-red-600">
+                    <ul className="space-y-3 text-sm">
+                        <li><strong>Signature file size increased:</strong> The minimum signature file size has been raised to 30 KB (from the earlier 10–15 KB range). This means RRB now expects a more detailed, higher-resolution signature scan. If your previously prepared signature was below 30 KB, you need to rescan it at higher resolution.</li>
+                        <li><strong>Black ink strictly enforced:</strong> While previous notifications said &quot;black or blue ink,&quot; the 2026 CEN specifically states black ink pen only. Blue ink signatures are now being explicitly rejected by the automated portal validation in multiple RRB zones.</li>
+                        <li><strong>Photo taken after notification date:</strong> Your photo must be taken on or after the date of the official CEN (Centralized Employment Notice). Pre-notification photos are being flagged during physical document verification. Check the notification date and ensure your photo is newer.</li>
+                        <li><strong>No digital enhancement:</strong> RRB has added explicit language in the 2026 CEN prohibiting AI-based photo enhancement tools and beauty filters. The uploaded photo must represent your natural, unedited appearance as you will appear on exam day.</li>
+                    </ul>
+                </div>
 
                 <h2>Common Mistakes to Avoid</h2>
                 <ul>

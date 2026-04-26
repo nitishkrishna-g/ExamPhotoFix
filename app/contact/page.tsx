@@ -1,10 +1,6 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Clock, MessageSquare, HelpCircle, Mail } from "lucide-react";
+import { ContactForm } from "@/components/ContactForm";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations/fade-in";
 import { Metadata } from "next";
 
@@ -56,34 +52,7 @@ export default function ContactPage() {
             {/* Contact Form */}
             <FadeInStagger staggerDelay={0.2} className="grid grid-cols-1 md:grid-cols-5 gap-8">
                 <FadeInStaggerItem direction="left" className="md:col-span-3">
-                    <Card className="hover:shadow-md transition-shadow">
-                        <CardHeader>
-                            <CardTitle>Send Us a Message</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <form className="space-y-6">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="name">Name</Label>
-                                        <Input id="name" placeholder="Your name" />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="email">Email</Label>
-                                        <Input id="email" type="email" placeholder="your@email.com" />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="subject">Subject</Label>
-                                    <Input id="subject" placeholder="e.g., UPSC photo not uploading" />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label htmlFor="message">Message</Label>
-                                    <Textarea id="message" placeholder="Describe your issue or question in detail. Include which exam and which document type (photo/signature) you need help with." rows={5} />
-                                </div>
-                                <Button type="submit" className="w-full">Send Message</Button>
-                            </form>
-                        </CardContent>
-                    </Card>
+                    <ContactForm />
                 </FadeInStaggerItem>
 
                 {/* Quick Help Sidebar */}

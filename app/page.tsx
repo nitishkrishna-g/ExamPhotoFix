@@ -6,6 +6,19 @@ import { ArrowRight, CheckCircle2, ShieldCheck, Zap, Scissors, GraduationCap, Fi
 import { AdPlaceholder } from "@/components/AdPlaceholder";
 import Script from "next/script";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/animations/fade-in";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Exam Photo & Signature Size Resizer — UPSC, SSC, IBPS, RRB | ExamResizer.in",
+  description: "Get the exact photo & signature size for UPSC (350×350px), SSC, IBPS, RRB, NEET & JEE — instantly. Free browser-only resizer. No uploads ever. Updated for 2026 specs.",
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: "Exam Photo & Signature Size Resizer — UPSC, SSC, IBPS, RRB",
+    description: "Free tool to resize photos and signatures to exact exam specifications. UPSC 350×350px, SSC Date on Photo, IBPS 200×230px. All processing in your browser.",
+  },
+};
 
 const homeFaqSchema = {
   "@context": "https://schema.org",

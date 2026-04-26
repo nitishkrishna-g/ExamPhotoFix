@@ -1,6 +1,15 @@
 import { Shield, Lock, ServerOff, Eye, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Privacy Policy | ExamResizer.in",
+    description: "ExamResizer.in Privacy Policy — all image processing happens in your browser. No server uploads, no data stored. Learn how we use Google Analytics and AdSense cookies.",
+    alternates: {
+        canonical: '/privacy-policy',
+    },
+};
 
 export default function PrivacyPolicy() {
     return (

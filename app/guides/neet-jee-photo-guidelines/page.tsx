@@ -156,9 +156,9 @@ export default function NeetJeeGuide() {
                 <h2>Signature Specifications for NTA Exams</h2>
 
                 <div className="not-prose bg-slate-100 dark:bg-slate-800 p-6 rounded-lg my-6 border-l-4 border-amber-600">
-                    <h3 className="text-lg font-bold mb-2">Signature Requirements</h3>
+                    <h3 className="text-lg font-bold mb-2">Signature Requirements (Updated 2026)</h3>
                     <ul className="space-y-2 text-sm">
-                        <li><strong>File Size:</strong> 4 KB to 30 KB.</li>
+                        <li><strong>File Size:</strong> 10 KB to 100 KB. <em>(Increased from the previous 30 KB limit — NTA updated this for 2026.)</em></li>
                         <li><strong>Format:</strong> JPG / JPEG only.</li>
                         <li><strong>Ink:</strong> Black ink on white paper.</li>
                         <li><strong>Style:</strong> Running hand (cursive) only.</li>
@@ -171,8 +171,8 @@ export default function NeetJeeGuide() {
                     JEE Main, also conducted by NTA, has specifications similar to NEET with some differences:
                 </p>
                 <ul>
-                    <li><strong>Photo:</strong> Passport-size (3.5×4.5cm), 10–200 KB, JPEG, white background. Same as NEET.</li>
-                    <li><strong>Signature:</strong> 4–30 KB, JPEG, black ink on white paper. Same as NEET.</li>
+                    <li><strong>Photo:</strong> Passport-size (3.5×4.5cm), 10–200 KB, JPEG, white background. <em>(Maximum reduced from 300 KB to 200 KB in 2026.)</em></li>
+                    <li><strong>Signature:</strong> 10–100 KB, JPEG, black ink on white paper. <em>(Maximum increased from 50 KB to 100 KB in 2026 — use our updated tool.)</em></li>
                     <li><strong>Postcard photo:</strong> May or may not be required — check the specific JEE Main notification for your session.</li>
                     <li><strong>Category certificate:</strong> SC/ST/OBC candidates may also need to upload a scanned copy of their category certificate.</li>
                 </ul>
@@ -210,7 +210,7 @@ export default function NeetJeeGuide() {
                             </tr>
                             <tr className="border-b border-slate-100 dark:border-slate-800">
                                 <td className="p-3">Signature Size</td>
-                                <td className="p-3">4–30 KB</td>
+                                <td className="p-3 font-bold text-blue-600">10–100 KB</td>
                                 <td className="p-3">20–300 KB</td>
                                 <td className="p-3">10–20 KB</td>
                                 <td className="p-3">10–20 KB</td>
@@ -238,6 +238,39 @@ export default function NeetJeeGuide() {
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <h2>2026 Key Changes — What&apos;s New This Year</h2>
+                <p>
+                    NTA has made several significant updates for the 2026 exam cycle that every candidate must be aware of:
+                </p>
+
+                <div className="not-prose bg-slate-100 dark:bg-slate-800 p-6 rounded-lg my-6 border-l-4 border-purple-600">
+                    <h3 className="text-lg font-bold mb-3">NEET UG 2026 New Requirements</h3>
+                    <ul className="space-y-2 text-sm">
+                        <li><strong>Live Photo Capture:</strong> NTA now requires a mandatory live photo captured via webcam or mobile camera during the application process. This is used for AI-based identity verification at the application scrutiny and exam day stages.</li>
+                        <li><strong>Aadhaar-based eKYC:</strong> Candidates can authenticate identity via Aadhaar eKYC. If the live photo does not match your uploaded photo, you will be asked to complete identity verification.</li>
+                        <li><strong>Photo recency tightened:</strong> For NEET 2026, the photograph must have been taken on or after 1 January 2026. Photos from previous years — even if they look recent — will not be accepted.</li>
+                        <li><strong>No corrections after deadline:</strong> NTA confirmed that corrections to photo, signature, and thumb impression are not allowed after the correction window closes. Upload carefully the first time.</li>
+                    </ul>
+                </div>
+
+                <div className="not-prose bg-slate-100 dark:bg-slate-800 p-6 rounded-lg my-6 border-l-4 border-blue-600">
+                    <h3 className="text-lg font-bold mb-3">JEE Main 2026 Specification Changes</h3>
+                    <ul className="space-y-2 text-sm">
+                        <li><strong>Photo maximum reduced:</strong> JEE Main photo maximum file size has been reduced from 300 KB to 200 KB. If you have photos prepared for previous years, check the file size before uploading.</li>
+                        <li><strong>Signature maximum increased:</strong> JEE Main signature maximum has been increased from 50 KB to 100 KB, giving you more flexibility to upload a high-quality signature without aggressive compression.</li>
+                        <li><strong>File naming convention:</strong> NTA now requires the photo file to be named &apos;Photograph&apos; and the signature file named &apos;Signature&apos; before uploading. Rename your files accordingly.</li>
+                    </ul>
+                </div>
+
+                <div className="not-prose bg-slate-100 dark:bg-slate-800 p-6 rounded-lg my-6 border-l-4 border-green-600">
+                    <h3 className="text-lg font-bold mb-3">CUET 2026 — AI-Based Live Photo Verification</h3>
+                    <ul className="space-y-2 text-sm">
+                        <li><strong>Mandatory live photo capture:</strong> CUET 2026 has introduced AI-based identity verification using a live photo captured during registration. This photo is cross-verified at admit card generation and on exam day.</li>
+                        <li><strong>Mismatch resolution:</strong> If your live photo does not match the uploaded photo, NTA has extended the photo verification deadline to allow candidates to resolve discrepancies before the exam.</li>
+                        <li><strong>Maximum subjects reduced:</strong> The maximum number of subjects you can apply for in CUET has been reduced from 6 to 5, though this does not affect photo specifications.</li>
+                    </ul>
                 </div>
 
                 <h2>Common Mistakes for NEET/JEE Applicants</h2>
